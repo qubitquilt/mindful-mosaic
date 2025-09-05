@@ -296,15 +296,32 @@ so that I don't forget to begin my planned tasks.
 4. When an upcoming routine is found, a basic browser notification is successfully sent to the user.
 5. The job server is resilient and handles errors gracefully (e.g., database connection issues).
 
-### **Checklist Results Report**
+Story 3.4: Project Documentation
 
-**Executive Summary**
+As a developer or a new contributor,
 
-* **Overall PRD Completeness:** 95%
-* **MVP Scope Appropriateness:** Just Right
-* **Readiness for Architecture Phase:** Ready
-* **Most Critical Gaps:** None are critical blockers, but the distinction between the Web Service and Job Server will need careful architectural planning.
+I want clear and concise documentation for the project,
 
-Category Analysis
+so that I can understand how to set up, run, and contribute to the application.
 
-All categories passed with a high degree of completeness. The requirements are clear, the epic structure is logical, and the technical guidance is sufficient for the next phase.
+**Acceptance Criteria:**
+
+1. A `README.md` file is created at the root of the monorepo.
+2. The README includes a project overview, setup instructions, and scripts for running the application and tests.
+3. API documentation is generated or written for all public-facing API endpoints.
+4. The documentation is sufficient to satisfy functional requirement FR8.
+
+Story 3.5: Basic Logging and Monitoring
+
+As a developer,
+
+I want a basic logging and monitoring solution in place,
+
+so that I can troubleshoot issues and observe the application's health.
+
+**Acceptance Criteria:**
+
+1. A logging library is integrated into both the web service and the job server.
+2. Key events, errors, and application startup are logged to the console.
+3. The system is configured to output structured logs (e.g., JSON) to support future monitoring solutions.
+4. Basic health check endpoints are created for both the web and job services.
