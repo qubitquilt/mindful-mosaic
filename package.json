@@ -7,7 +7,9 @@
     "doc": "docs"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prisma:generate": "dotenv -f ./packages/db/.env -- npx prisma generate --schema=./packages/db/prisma/schema.prisma",
+    "prisma:migrate": "dotenv -f ./packages/db/.env -- npx prisma migrate dev --schema=./packages/db/prisma/schema.prisma"
   },
   "repository": {
     "type": "git",
@@ -19,5 +21,13 @@
   "workspaces": [
     "apps/*",
     "packages/*"
-  ]
+  ],
+  "dependencies": {
+    "@auth/prisma-adapter": "^2.10.0",
+    "@prisma/client": "^5.15.1",
+    "next-auth": "^4.24.11"
+  },
+  "devDependencies": {
+    "dotenv-cli": "^10.0.0"
+  }
 }
