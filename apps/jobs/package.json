@@ -1,5 +1,13 @@
 {
   "name": "@mindful-mosaic/jobs",
   "version": "1.0.0",
-  "main": "index.js"
+  "main": "index.js",
+  "scripts": {
+    "lint": "eslint . --ext .ts --fix",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "typescript": "^5",
+    "eslint": "^8"
+  }
 }

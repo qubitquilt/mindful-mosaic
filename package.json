@@ -6,8 +6,11 @@
   "directories": {
     "doc": "docs"
   },
+  "packageManager": "npm@10.9.3",
   "scripts": {
-    "dev": "npm run dev --workspace=web",
+    "dev": "turbo run dev --filter=web",
+    "lint": "turbo run lint",
+    "format": "prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prisma:generate": "dotenv -f ./packages/db/.env -- npx prisma generate --schema=./packages/db/prisma/schema.prisma",
     "prisma:migrate": "dotenv -f ./packages/db/.env -- npx prisma migrate dev --schema=./packages/db/prisma/schema.prisma"
@@ -29,6 +32,21 @@
     "next-auth": "^4.24.11"
   },
   "devDependencies": {
-    "dotenv-cli": "^10.0.0"
+    "@playwright/test": "^1.55.0",
+    "@testing-library/jest-dom": "^6.8.0",
+    "@testing-library/react": "^16.3.0",
+    "@testing-library/user-event": "^14.6.1",
+    "@types/jest": "^30.0.0",
+    "@types/testing-library__jest-dom": "^5.14.9",
+    "@typescript-eslint/eslint-plugin": "^7.18.0",
+    "@typescript-eslint/parser": "^7.18.0",
+    "dotenv-cli": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.4",
+    "jest": "^30.1.3",
+    "jest-environment-jsdom": "^30.1.2",
+    "prettier": "^3.6.2",
+    "ts-jest": "^29.4.1",
+    "turbo": "^2.5.6"
   }
 }

@@ -6,7 +6,10 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint --fix",
+    "format": "prettier --write .",
+    "test": "jest --passWithNoTests",
+    "e2e": "playwright test"
   },
   "dependencies": {
     "react": "^18",
