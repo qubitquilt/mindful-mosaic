@@ -7,6 +7,7 @@
     "doc": "docs"
   },
   "scripts": {
+    "dev": "npm run dev --workspace=web",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prisma:generate": "dotenv -f ./packages/db/.env -- npx prisma generate --schema=./packages/db/prisma/schema.prisma",
     "prisma:migrate": "dotenv -f ./packages/db/.env -- npx prisma migrate dev --schema=./packages/db/prisma/schema.prisma"
