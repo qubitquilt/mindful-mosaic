@@ -58,6 +58,9 @@ describe('Auth API Route', () => {
           clientSecret: process.env.GOOGLE_CLIENT_SECRET,
         }),
       ],
+      callbacks: {
+        session: expect.any(Function),
+      },
     });
 
     expect(mockPrismaAdapter).toHaveBeenCalledWith(expect.any(Object));

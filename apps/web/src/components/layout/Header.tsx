@@ -10,12 +10,6 @@ export default function Header() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { data: session } = useSession();
 
-  const handleSaveRoutine = (routine: { name: string; tasks: { name: string; duration: number }[] }) => {
-    console.log('Save routine:', routine);
-    // Placeholder for API call in Story 2.2
-    setIsModalOpen(false);
-  };
-
   return (
     <header className="bg-gray-800 text-white p-4">
       <div className="container mx-auto flex justify-between items-center">
@@ -40,7 +34,6 @@ export default function Header() {
       <RoutineForm
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onSave={handleSaveRoutine}
       />
     </header>
   );

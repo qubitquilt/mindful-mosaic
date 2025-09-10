@@ -1,6 +1,7 @@
 'use client';
 
 import { useState } from 'react';
+import { useSession } from 'next-auth/react';
 
 interface Task {
   name: string;
@@ -10,13 +11,13 @@ interface Task {
 interface RoutineFormProps {
   isOpen: boolean;
   onClose: () => void;
-  onSave: (routine: { name: string; tasks: Task[] }) => void;
 }
 
-export default function RoutineForm({ isOpen, onClose, onSave }: RoutineFormProps) {
+export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
   const [routineName, setRoutineName] = useState('');
   const [tasks, setTasks] = useState<Task[]>([{ name: '', duration: 0 }]);
   const [error, setError] = useState('');
+  const { data: session, status } = useSession();
 
   const addTask = () => {
     setTasks([...tasks, { name: '', duration: 0 }]);
@@ -34,9 +35,20 @@ export default function RoutineForm({ isOpen, onClose, onSave }: RoutineFormProp
     setTasks(newTasks);
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError('');
+
+    if (status === 'loading') {
+      setError('Loading session...');
+      return;
+    }
+
+    if (!session) {
+      setError('Please sign in to save a routine.');
+      return;
+    }
+
     if (!routineName.trim()) {
       setError('Routine name is required.');
       return;
@@ -45,10 +57,31 @@ export default function RoutineForm({ isOpen, onClose, onSave }: RoutineFormProp
       setError('All tasks must have a name and duration > 0.');
       return;
     }
-    onSave({ name: routineName, tasks });
-    setRoutineName('');
-    setTasks([{ name: '', duration: 0 }]);
-    onClose();
+
+    try {
+      const response = await fetch('/api/routines', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ name: routineName.trim(), tasks }),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        setError(errorData.error || 'Failed to save routine.');
+        return;
+      }
+
+      // Success
+      setRoutineName('');
+      setTasks([{ name: '', duration: 0 }]);
+      onClose();
+      alert('Routine saved successfully!');
+      // TODO: Refresh timeline (implement in parent component or use state management)
+    } catch (err) {
+      setError('Network error. Please try again.');
+    }
   };
 
   if (!isOpen) return null;

@@ -1,16 +1,24 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RoutineForm from '../RoutineForm';
+
+jest.mock('next-auth/react', () => ({
+  useSession: jest.fn(),
+}));
+
+global.alert = jest.fn();
 
 describe('RoutineForm', () => {
   const mockOnClose = jest.fn();
-  const mockOnSave = jest.fn();
 
   beforeEach(() => {
     jest.clearAllMocks();
   });
 
   it('renders form with initial task', () => {
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} onSave={mockOnSave} />);
+    const useSessionMock = require('next-auth/react').useSession;
+    useSessionMock.mockReturnValue({ data: { user: { id: '1' } }, status: 'authenticated' });
+
+    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
 
     expect(screen.getByLabelText(/routine name/i)).toBeInTheDocument();
     expect(screen.getAllByPlaceholderText(/task name/i)).toHaveLength(1);
@@ -19,7 +27,10 @@ describe('RoutineForm', () => {
   });
 
   it('adds a new task on click', () => {
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} onSave={mockOnSave} />);
+    const useSessionMock = require('next-auth/react').useSession;
+    useSessionMock.mockReturnValue({ data: { user: { id: '1' } }, status: 'authenticated' });
+
+    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
 
     const addButton = screen.getByText(/add task/i);
     fireEvent.click(addButton);
@@ -28,7 +39,10 @@ describe('RoutineForm', () => {
   });
 
   it('removes a task when more than one', () => {
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} onSave={mockOnSave} />);
+    const useSessionMock = require('next-auth/react').useSession;
+    useSessionMock.mockReturnValue({ data: { user: { id: '1' } }, status: 'authenticated' });
+
+    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
 
     const addButton = screen.getByText(/add task/i);
     fireEvent.click(addButton);
@@ -40,14 +54,20 @@ describe('RoutineForm', () => {
   });
 
   it('does not remove last task', () => {
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} onSave={mockOnSave} />);
+    const useSessionMock = require('next-auth/react').useSession;
+    useSessionMock.mockReturnValue({ data: { user: { id: '1' } }, status: 'authenticated' });
+
+    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
 
     const removeButton = screen.getByRole('button', { name: /remove/i });
     expect(removeButton).toBeDisabled();
   });
 
   it('shows error for empty routine name', async () => {
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} onSave={mockOnSave} />);
+    const useSessionMock = require('next-auth/react').useSession;
+    useSessionMock.mockReturnValue({ data: { user: { id: '1' } }, status: 'authenticated' });
+
+    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
 
     const form = screen.getByRole('form');
     fireEvent.submit(form);
@@ -56,7 +76,10 @@ describe('RoutineForm', () => {
   });
 
   it('shows error for invalid task', async () => {
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} onSave={mockOnSave} />);
+    const useSessionMock = require('next-auth/react').useSession;
+    useSessionMock.mockReturnValue({ data: { user: { id: '1' } }, status: 'authenticated' });
+
+    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
 
     fireEvent.change(screen.getByLabelText(/routine name/i), { target: { value: 'Test Routine' } });
     const form = screen.getByRole('form');
@@ -65,8 +88,11 @@ describe('RoutineForm', () => {
     expect(await screen.findByText('All tasks must have a name and duration > 0.')).toBeInTheDocument();
   });
 
-  it('calls onSave with valid data and closes modal', async () => {
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} onSave={mockOnSave} />);
+  it('shows error for no session', async () => {
+    const useSessionMock = require('next-auth/react').useSession;
+    useSessionMock.mockReturnValue({ data: null, status: 'unauthenticated' });
+
+    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
 
     fireEvent.change(screen.getByLabelText(/routine name/i), { target: { value: 'Test Routine' } });
     fireEvent.change(screen.getAllByPlaceholderText(/task name/i)[0], { target: { value: 'Task 1' } });
@@ -75,10 +101,42 @@ describe('RoutineForm', () => {
     const form = screen.getByRole('form');
     fireEvent.submit(form);
 
-    expect(mockOnSave).toHaveBeenCalledWith({
-      name: 'Test Routine',
-      tasks: [{ name: 'Task 1', duration: 30 }]
+    await waitFor(() => {
+      expect(screen.getByText('Please sign in to save a routine.')).toBeInTheDocument();
     });
-    expect(mockOnClose).toHaveBeenCalled();
+  });
+
+  it('saves routine with valid data when signed in', async () => {
+    const useSessionMock = require('next-auth/react').useSession;
+    useSessionMock.mockReturnValue({ data: { user: { id: '1', name: 'Test User' } }, status: 'authenticated' });
+
+    const mockFetch = jest.fn().mockResolvedValue({
+      ok: true,
+      json: () => Promise.resolve({ routine: { id: '1' } }),
+    } as Response);
+    jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
+
+    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
+
+    fireEvent.change(screen.getByLabelText(/routine name/i), { target: { value: 'Test Routine' } });
+    fireEvent.change(screen.getAllByPlaceholderText(/task name/i)[0], { target: { value: 'Task 1' } });
+    fireEvent.change(screen.getAllByPlaceholderText(/duration/i)[0], { target: { value: '30' } });
+
+    const form = screen.getByRole('form');
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(mockOnClose).toHaveBeenCalled();
+    });
+
+    expect(mockFetch).toHaveBeenCalledWith('/api/routines', expect.objectContaining({
+      method: 'POST',
+      body: JSON.stringify({
+        name: 'Test Routine',
+        tasks: [{ name: 'Task 1', duration: 30 }]
+      })
+    }));
+
+    jest.restoreAllMocks();
   });
 });
