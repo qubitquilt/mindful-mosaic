@@ -9,10 +9,27 @@
       "outputs": []
     },
     "test": {
-      "outputs": []
+      "outputs": ["coverage/**"],
+      "cache": true,
+      "dependsOn": []
     },
     "test:e2e": {
-      "outputs": []
+      "outputs": [],
+      "cache": false
+    },
+    "build": {
+      "outputs": [".next/**", "!.next/cache/**"],
+      "dependsOn": ["^build"]
+    },
+    "start": {
+      "cache": false,
+      "persistent": true
+    }
+  },
+  "tasks": {
+    "test": {
+      "cache": true,
+      "outputs": ["coverage/**"]
     }
   }
 }

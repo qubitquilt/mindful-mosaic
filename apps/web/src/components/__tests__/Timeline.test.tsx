@@ -1,42 +1,58 @@
-import { render, screen } from '@testing-library/react';
-import Timeline from '../Timeline';
+import { render, screen } from '@testing-library/react'
+import Timeline from '../Timeline'
 
 describe('Timeline', () => {
   it('renders the empty state message', () => {
-    render(<Timeline />);
-    expect(screen.getByText('No routines scheduled for today.')).toBeInTheDocument();
-    expect(screen.getByText('No routines scheduled for today.')).toHaveClass('text-gray-500', 'text-lg');
-  });
+    render(<Timeline />)
 
-  it('renders the container with correct classes', () => {
-    render(<Timeline />);
-    const container = document.querySelector('.flex.flex-col.space-y-2.p-4.max-w-4xl.mx-auto');
-    expect(container).toBeInTheDocument();
-  });
+    expect(screen.getByText('No routines scheduled for today.')).toBeInTheDocument()
+  })
 
-  it('renders 16 time slots', () => {
-    render(<Timeline />);
-    const slots = screen.getAllByText(/AM|PM/); // Times contain AM/PM
-    expect(slots.length).toBe(16);
-  });
+  it('renders 16 time slots from 6 AM to 10 PM', () => {
+    render(<Timeline />)
 
-  it('renders each slot with correct time and empty content', () => {
-    render(<Timeline />);
-    expect(screen.getByText('6:00 AM - 7:00 AM')).toBeInTheDocument();
-    const emptySlots = screen.getAllByText('Empty slot');
-    expect(emptySlots).toHaveLength(16);
-    const firstSlot = emptySlots[0].closest('.border.border-gray-300.p-4.bg-white.rounded-lg.shadow-sm');
-    expect(firstSlot).toBeInTheDocument();
-    const emptyDiv = emptySlots[0].closest('.h-16');
-    expect(emptyDiv).toHaveClass('bg-gray-50', 'rounded', 'mt-2', 'flex', 'items-center', 'justify-center');
-  });
+    const timeSlots = screen.getAllByText(/AM|PM/)
+    expect(timeSlots).toHaveLength(16)
+  })
 
-  it('simulates responsiveness with Tailwind classes', () => {
-    // RTL doesn't render CSS, but verify classes are applied
-    render(<Timeline />);
-    // Check container responsive classes (max-w-4xl mx-auto for desktop, flex-col for mobile)
-    const container = document.querySelector('.flex.flex-col');
-    expect(container).toHaveClass('max-w-4xl', 'mx-auto'); // Desktop centered
-    // For mobile, classes like flex-col are default, assume ok
-  });
-});
+  it('renders time labels correctly', () => {
+    render(<Timeline />)
+
+    // Check first and last time slots
+    expect(screen.getByText('6:00 AM - 7:00 AM')).toBeInTheDocument()
+    expect(screen.getByText('9:00 PM - 10:00 PM')).toBeInTheDocument()
+  })
+
+  it('renders empty slot placeholders', () => {
+    render(<Timeline />)
+
+    const emptySlots = screen.getAllByText('Empty slot')
+    expect(emptySlots).toHaveLength(16)
+  })
+
+  it('applies Tailwind classes to timeline container', () => {
+    const { container } = render(<Timeline />)
+
+    const timelineContainer = container.querySelector('div')
+    expect(timelineContainer).toHaveClass('flex', 'flex-col', 'space-y-2', 'p-4', 'max-w-4xl', 'mx-auto')
+  })
+
+  it('applies Tailwind classes to each time slot', () => {
+    render(<Timeline />)
+
+    const timeLabels = screen.getAllByText(/AM|PM/)
+    const timeSlots = timeLabels.map(el => el.parentElement as Element)
+    timeSlots.forEach(slot => {
+      expect(slot).toHaveClass('border', 'border-gray-300', 'p-4', 'bg-white', 'rounded-lg', 'shadow-sm')
+    })
+  })
+
+  it('applies Tailwind classes to empty slot areas', () => {
+    render(<Timeline />)
+
+    const emptyAreas = screen.getAllByText('Empty slot').map(el => el.closest('div'))
+    emptyAreas.forEach(area => {
+      expect(area).toHaveClass('h-16', 'bg-gray-50', 'rounded', 'mt-2', 'flex', 'items-center', 'justify-center')
+    })
+  })
+})

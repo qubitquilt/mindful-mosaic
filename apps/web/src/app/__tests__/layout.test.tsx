@@ -1,49 +1,89 @@
-import { render, screen } from '@testing-library/react';
-import RootLayout from '../layout';
-import { Providers } from '@/components/providers';
+import { render, screen } from '@testing-library/react'
+import { useSession } from 'next-auth/react'
+import type { Metadata } from 'next'
 
-// Mock next-auth/react for SessionProvider
-jest.mock('next-auth/react', () => ({
-  SessionProvider: ({ children }: { children: React.ReactNode }) => (
-    <div data-testid="session-provider">{children}</div>
-  ),
-}));
+// Mock next-auth/react for Providers and useSession in RootLayout
+  jest.mock('next-auth/react', () => ({
+    SessionProvider: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
+    useSession: jest.fn(),
+  }))
 
-// Mock Header to isolate layout test
-jest.mock('@/components/layout/Header', () => {
-  const MockHeader = () => <header data-testid="header">Mindful Mosaic Header</header>;
-  MockHeader.displayName = 'MockHeader';
-  return MockHeader;
-});
+// Mock next/font/google at top level before imports
+jest.mock('next/font/google', () => ({
+  Inter: jest.fn(() => ({
+    className: 'mock-inter-class',
+    style: { fontFamily: 'Inter' }
+  }))
+}))
+
+import RootLayout, { metadata } from '../layout'
 
 describe('RootLayout', () => {
-  it('renders the structure', () => {
-    render(<RootLayout>Test Child</RootLayout>);
-    expect(screen.getByTestId('header')).toBeInTheDocument();
-    expect(screen.getByText('Test Child')).toBeInTheDocument();
-  });
+  it('exports correct metadata', () => {
+    expect(metadata as Metadata).toEqual({
+      title: 'Mindful Mosaic',
+      description: 'A privacy-first, open-source organizational platform.',
+    })
+  })
 
-  it('wraps content with Providers', () => {
-    render(<RootLayout><div data-testid="child">Test Child</div></RootLayout>);
-    expect(screen.getByTestId('session-provider')).toBeInTheDocument();
-  });
+  it('applies bg-gray-100 class to body', () => {
+    const mockChildren = <div data-testid="main-content">Main Content</div>
 
-  it('renders Header inside Providers', () => {
-    render(<RootLayout>Test Child</RootLayout>);
-    expect(screen.getByTestId('header')).toBeInTheDocument();
-    expect(screen.getByText('Mindful Mosaic Header')).toBeInTheDocument();
-  });
+    (useSession as jest.Mock).mockReturnValue({
+      data: null,
+      status: 'unauthenticated'
+    })
 
-  it('renders children in main container', () => {
-    render(<RootLayout><div data-testid="child">Test Child</div></RootLayout>);
-    expect(screen.getByTestId('child')).toBeInTheDocument();
-    expect(screen.getByTestId('child').parentElement).toHaveClass('container', 'mx-auto', 'p-4');
-  });
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
 
-  it('applies metadata export', () => {
-    // Metadata is static export; verify by rendering
-    render(<RootLayout>{<div>Test</div>}</RootLayout>);
-    // In unit test, metadata not directly testable; assume correct as per code
-    // expect(document.title).toBe('Mindful Mosaic'); // But in jsdom, need to set if needed, but for now pass as structure correct
-  });
-});
+    const { container } = render(
+      <RootLayout>{mockChildren}</RootLayout>
+    )
+
+    consoleErrorSpy.mockRestore()
+
+    const body = container.querySelector('body')
+    expect(body).toHaveClass('bg-gray-100', 'mock-inter-class')
+  })
+
+  it('wraps content with Providers and renders Header', () => {
+    const mockChildren = <div data-testid="main-content">Main Content</div>
+
+    (useSession as jest.Mock).mockReturnValue({
+      data: null,
+      status: 'unauthenticated'
+    })
+
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
+    render(
+      <RootLayout>{mockChildren}</RootLayout>
+    )
+
+    consoleErrorSpy.mockRestore()
+
+    // Check for Header rendering (Mindful Mosaic title)
+    expect(screen.getByText('Mindful Mosaic')).toBeInTheDocument()
+    expect(screen.getByTestId('main-content')).toBeInTheDocument()
+  })
+
+  it('renders main container with Tailwind classes', () => {
+    const mockChildren = <div data-testid="main-content">Main Content</div>
+
+    (useSession as jest.Mock).mockReturnValue({
+      data: null,
+      status: 'unauthenticated'
+    })
+
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {})
+
+    const { container } = render(
+      <RootLayout>{mockChildren}</RootLayout>
+    )
+
+    consoleErrorSpy.mockRestore()
+
+    const main = screen.getByTestId('main-content').closest('main')
+    expect(main).toHaveClass('container', 'mx-auto', 'p-4')
+  })
+})

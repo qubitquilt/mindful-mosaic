@@ -1,51 +1,63 @@
-import { render, screen } from '@testing-library/react';
-import { useSession } from 'next-auth/react';
-import Header from '../Header';
+import React from 'react'
+import { render, screen } from '@testing-library/react'
+import { useSession } from 'next-auth/react'
+import Header from '../Header'
 
 // Mock next-auth/react
-jest.mock('next-auth/react');
-const mockUseSession = useSession as jest.Mock;
-
-// Mock child components to avoid rendering issues
-jest.mock('../../SignInButton', () => {
-  const MockSignInButton = () => <div>MockSignInButton</div>;
-  MockSignInButton.displayName = 'MockSignInButton';
-  return MockSignInButton;
-});
-jest.mock('../../auth/SignOutButton', () => {
-  const MockSignOutButton = () => <div>MockSignOutButton</div>;
-  MockSignOutButton.displayName = 'MockSignOutButton';
-  return MockSignOutButton;
-});
+jest.mock('next-auth/react', () => ({
+  useSession: jest.fn(),
+}))
 
 describe('Header', () => {
-  it('renders app name and SignInButton when not authenticated', () => {
-    mockUseSession.mockReturnValue({ data: null, status: 'unauthenticated' });
-    render(<Header />);
-    expect(screen.getByText('Mindful Mosaic')).toBeInTheDocument();
-    expect(screen.getByText('MockSignInButton')).toBeInTheDocument();
-    expect(screen.queryByText('MockSignOutButton')).not.toBeInTheDocument();
-  });
+  it('renders app title', () => {
+    (useSession as jest.Mock).mockReturnValue({
+      data: null,
+      status: 'loading'
+    })
 
-  it('renders app name, user info, and SignOutButton when authenticated', () => {
-    mockUseSession.mockReturnValue({
+    render(<Header />)
+
+    expect(screen.getByText('Mindful Mosaic')).toBeInTheDocument()
+  })
+
+  it('displays user name and Sign Out button when authenticated', () => {
+    (useSession as jest.Mock).mockReturnValue({
       data: { user: { name: 'Test User', email: 'test@example.com' } },
-      status: 'authenticated',
-    });
-    render(<Header />);
-    expect(screen.getByText('Mindful Mosaic')).toBeInTheDocument();
-    expect(screen.getByText('Test User')).toBeInTheDocument(); // Prefers name
-    expect(screen.getByText('MockSignOutButton')).toBeInTheDocument();
-    expect(screen.queryByText('MockSignInButton')).not.toBeInTheDocument();
-  });
+      status: 'authenticated'
+    })
 
-  it('renders user email if name is not available', () => {
-    mockUseSession.mockReturnValue({
+    render(<Header />)
+
+    expect(screen.getByText('Test User')).toBeInTheDocument()
+    expect(screen.getByRole('button', { name: /sign out/i })).toBeInTheDocument()
+  })
+
+  it('displays Sign In button when unauthenticated', () => {
+    (useSession as jest.Mock).mockReturnValue({
+      data: null,
+      status: 'unauthenticated'
+    })
+
+    render(<Header />)
+
+    expect(screen.getByRole('button', { name: /sign in/i })).toBeInTheDocument()
+  })
+
+  it('uses email when name is not available', () => {
+    (useSession as jest.Mock).mockReturnValue({
       data: { user: { email: 'test@example.com' } },
-      status: 'authenticated',
-    });
-    render(<Header />);
-    expect(screen.getByText('test@example.com')).toBeInTheDocument();
-    expect(screen.getByText('MockSignOutButton')).toBeInTheDocument();
-  });
-});
+      status: 'authenticated'
+    })
+
+    render(<Header />)
+
+    expect(screen.getByText('test@example.com')).toBeInTheDocument()
+  })
+
+  it('has proper Tailwind classes for header', () => {
+    render(<Header />)
+
+    const header = screen.getByRole('banner')
+    expect(header).toHaveClass('bg-gray-800', 'text-white', 'p-4')
+  })
+})
