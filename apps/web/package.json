@@ -8,8 +8,8 @@
     "start": "next start",
     "lint": "next lint --fix",
     "format": "prettier --write .",
-    "test": "jest --passWithNoTests",
-    "e2e": "playwright test"
+    "test": "jest",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "react": "^18",

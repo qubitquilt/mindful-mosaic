@@ -67,6 +67,44 @@ describe('Auth API Route', () => {
     });
   });
 
+  it('handles GET request for auth route', async () => {
+    jest.resetModules();
+
+    const mockGET = jest.fn().mockResolvedValue(undefined);
+    const mockPOST = jest.fn().mockResolvedValue(undefined);
+
+    jest.doMock('../[...nextauth]/route', () => ({
+      GET: mockGET,
+      POST: mockPOST,
+    }));
+
+    const { GET } = await import('../[...nextauth]/route');
+    const request = { method: 'GET' } as any;
+
+    await GET(request as Request);
+
+    expect(mockGET).toHaveBeenCalledWith(request as Request);
+  });
+
+  it('handles POST request for auth route', async () => {
+    jest.resetModules();
+
+    const mockGET = jest.fn().mockResolvedValue(undefined);
+    const mockPOST = jest.fn().mockResolvedValue(undefined);
+
+    jest.doMock('../[...nextauth]/route', () => ({
+      GET: mockGET,
+      POST: mockPOST,
+    }));
+
+    const { POST } = await import('../[...nextauth]/route');
+    const request = { method: 'POST' } as any;
+
+    await POST(request as Request);
+
+    expect(mockPOST).toHaveBeenCalledWith(request as Request);
+  });
+
   it('configures adapter with createUser method', () => {
     const mockAdapter = {
       createUser: jest.fn().mockResolvedValue({ id: 'new-user' }),
@@ -78,4 +116,5 @@ describe('Auth API Route', () => {
     expect(mockAdapter.createUser).toBeDefined();
     expect(typeof mockAdapter.createUser).toBe('function');
   });
+
 });

@@ -6,12 +6,15 @@
   "directories": {
     "doc": "docs"
   },
-  "packageManager": "npm@10.9.3",
+  "packageManager": "pnpm@9.1.0",
   "scripts": {
     "dev": "turbo run dev --filter=web",
     "lint": "turbo run lint",
     "format": "prettier --write .",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "turbo run test --filter=web",
+    "test:e2e": "turbo run test:e2e --filter=web",
+    "build": "turbo run build --filter=web",
+    "start": "turbo run start --filter=web",
     "prisma:generate": "dotenv -f ./packages/db/.env -- npx prisma generate --schema=./packages/db/prisma/schema.prisma",
     "prisma:migrate": "dotenv -f ./packages/db/.env -- npx prisma migrate dev --schema=./packages/db/prisma/schema.prisma"
   },

@@ -2,10 +2,16 @@
   "$schema": "https://turbo.build/schema.json",
   "tasks": {
     "dev": {
-      "cache": false,
+      "cache": true,
       "persistent": true
     },
     "lint": {
+      "outputs": []
+    },
+    "test": {
+      "outputs": []
+    },
+    "test:e2e": {
       "outputs": []
     }
   }

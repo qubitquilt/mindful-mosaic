@@ -3,10 +3,17 @@ import GoogleProvider from 'next-auth/providers/google';
 import { PrismaAdapter } from '@auth/prisma-adapter';
 import { PrismaClient } from '@prisma/client';
 
-const prisma = new PrismaClient();
+let prisma: PrismaClient;
+
+const getPrisma = () => {
+  if (!prisma) {
+    prisma = new PrismaClient();
+  }
+  return prisma;
+};
 
 const handler = NextAuth({
-  adapter: PrismaAdapter(prisma),
+  adapter: PrismaAdapter(getPrisma()),
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
