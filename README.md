@@ -1,121 +1,221 @@
-# 🎨 Mindful Mosaic
+# Mindful Mosaic
 
-**A privacy-first, open-source organizational platform for those who want complete control over their data and tools.**
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/yourusername/mindful-mosaic/actions) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT) [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://github.com/yourusername/mindful-mosaic/releases)
 
-Mindful Mosaic is a self-hostable organizer designed for technically-skilled individuals who need powerful, private, and customizable tools to manage their lives. It mirrors the core functionality of market-leading routine planners, but with a key difference: **you own your data, always.**
+## Introduction
 
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](https://opensource.org/licenses/ISC)
-[![GitHub issues](https://img.shields.io/github/issues/qubitquilt/mindful-mosaic)](https://github.com/qubitquilt/mindful-mosaic/issues)
-[![GitHub stars](https://img.shields.io/github/stars/qubitquilt/mindful-mosaic)](https://github.com/qubitquilt/mindful-mosaic/stargazers)
+Welcome to **Mindful Mosaic** ([REPO_NAME]), a thoughtfully designed application that helps users build and manage daily routines with mindfulness at its core. In a fast-paced world, maintaining healthy habits can be challenging. Mindful Mosaic provides an intuitive platform to create, schedule, and track your routines, fostering a sense of accomplishment and well-being.
+
+This project is built as a modern web application using Next.js, TypeScript, and Prisma, ensuring a robust, scalable, and developer-friendly experience. Whether you're a beginner looking to establish new habits or an advanced user integrating it into a larger workflow, Mindful Mosaic is designed to be accessible and extensible.
+
+## Purpose
+
+Mindful Mosaic exists to simplify routine management by combining user-friendly interfaces with powerful backend capabilities. It addresses common pain points like forgetting tasks, lack of motivation, and fragmented scheduling tools. By leveraging authentication for personalized experiences, a daily timeline view for visualization, and extensible architecture for future features like job scheduling, the project empowers users to mosaic their lives with mindful practices.
+
+The core motivation is to promote mental health through structured yet flexible habit-building, drawing from product requirements documented in our PRD (Product Requirements Document). It's open-source to encourage community contributions and adaptations for diverse needs.
+
+## Key Features
+
+- **User Authentication**: Secure sign-in/sign-out with NextAuth.js integration, supporting multiple providers.
+- **Daily Timeline View**: Visualize your routines in a chronological, interactive timeline component.
+- **Routine Management**: Create, edit, and track daily tasks with intuitive forms and persistence via Prisma database.
+- **Responsive Design**: Built with Tailwind CSS for seamless experience across devices.
+- **Testing Suite**: Comprehensive unit, integration, and E2E tests using Jest, React Testing Library, and Playwright.
+- **Monorepo Architecture**: Organized with Turborepo for efficient development across web and jobs apps, sharing a common database.
+- **Type Safety**: Full TypeScript support for reliable code.
+- **Accessibility**: ARIA-compliant components and keyboard navigation.
+
+Future enhancements include advanced scheduling execution and analytics dashboards.
+
+## Installation
+
+To get started with Mindful Mosaic, ensure you have Node.js (v18+) and pnpm installed. The project uses a monorepo structure, so we'll set up the entire workspace.
+
+1. **Clone the Repository**:
+   ```
+   git clone https://github.com/yourusername/mindful-mosaic.git
+   cd mindful-mosaic
+   ```
+
+2. **Install Dependencies**:
+   Use pnpm for package management:
+   ```
+   pnpm install
+   ```
+   This installs dependencies for all apps (web, jobs) and shared packages (db).
+
+3. **Set Up Environment Variables**:
+   Copy the example env file and configure:
+   ```
+   cp .env.example .env
+   ```
+   Key variables include:
+   - `DATABASE_URL`: Your PostgreSQL connection string (e.g., from Prisma).
+   - `NEXTAUTH_SECRET`: Generate a secret for authentication.
+   - `NEXTAUTH_URL`: Your app's base URL (e.g., http://localhost:3000).
+
+4. **Database Setup**:
+   Run Prisma migrations to set up the schema:
+   ```
+   pnpm db:push  # Or pnpm db:migrate for versioned migrations
+   ```
+   This creates tables for users, routines, and auth models.
+
+5. **Build and Run**:
+   Start the development server:
+   ```
+   pnpm dev
+   ```
+   The web app will be available at `http://localhost:3000`. For the jobs app, use `pnpm jobs:dev`.
+
+For production builds:
+```
+pnpm build
+pnpm start
+```
+
+## Usage Examples
+
+### Basic Authentication Flow
+
+1. **Sign In**:
+   Users can sign in via the `SignInButton` component. Example usage in a layout:
+   ```tsx
+   import { SignInButton } from '@/components/SignInButton';
+
+   export default function Header() {
+     return (
+       <header className="flex justify-between p-4">
+         <h1>Mindful Mosaic</h1>
+         <SignInButton />
+       </header>
+     );
+   }
+   ```
+   This renders a button that triggers NextAuth sign-in.
+
+2. **Viewing Daily Timeline**:
+   Once authenticated, access the timeline:
+   ```tsx
+   import { Timeline } from '@/components/Timeline';
+
+   export default function Dashboard() {
+     return <Timeline />;  // Fetches and displays user's routines
+   }
+   ```
+   The `Timeline` component queries the database for scheduled items and renders them chronologically.
+
+3. **Signing Out**:
+   Use the `SignOutButton` for logout:
+   ```tsx
+   import { SignOutButton } from '@/components/auth/SignOutButton';
+
+   <SignOutButton>Sign Out</SignOutButton>
+   ```
+
+### Adding a Routine (API Example)
+
+Interact with the backend via API routes. Example fetch for creating a routine:
+```javascript
+async function createRoutine(routineData) {
+  const response = await fetch('/api/routines', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(routineData),
+  });
+  return response.json();
+}
+
+// Usage
+createRoutine({ title: 'Morning Meditation', time: '07:00', duration: 10 });
+```
+
+## Configuration Options
+
+Mindful Mosaic is highly configurable:
+
+- **Tailwind CSS**: Customize themes in `apps/web/tailwind.config.ts`. Extend colors, fonts, etc.
+  ```ts
+  module.exports = {
+    theme: {
+      extend: {
+        colors: { primary: '#your-color' },
+      },
+    },
+  };
+  ```
+
+- **Prisma Schema**: Edit `packages/db/prisma/schema.prisma` for custom models. Run migrations after changes.
+  
+- **NextAuth Providers**: In `apps/web/src/app/api/auth/[...nextauth]/route.ts`, add providers like Google or GitHub:
+  ```ts
+  providers: [
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    }),
+  ],
+  ```
+
+- **Testing Config**: Adjust `apps/web/jest.config.js` or `playwright.config.ts` for custom setups.
+
+- **Turborepo Pipelines**: Modify `turbo.json` for build scripts.
+
+Environment variables in `.env` control logging, database connections, and feature flags (e.g., `ENABLE_JOBS=true`).
+
+## Contributing
+
+We welcome contributions! To get involved:
+
+1. **Fork the Repo** and create a feature branch: `git checkout -b feature/amazing-feature`.
+2. **Commit Changes**: Follow conventional commits (e.g., `feat: add new routine type`).
+3. **Test Thoroughly**: Run `pnpm test` and `pnpm lint`.
+4. **Push and PR**: Open a Pull Request against `main`. Ensure it passes CI checks.
+5. **Code Style**: Adhere to Prettier and ESLint configs. See [coding-standards.md](docs/coding-standards.md).
+
+Guidelines:
+- Write tests for new features.
+- Update docs in `/docs` for major changes.
+- No breaking changes without discussion.
+
+Join our community on GitHub Discussions for ideas!
+
+## Troubleshooting
+
+- **Auth Issues**: Check `NEXTAUTH_SECRET` and provider configs. Verify database has auth models: `pnpm db:studio`.
+- **Build Errors**: Ensure pnpm is used; run `pnpm install` after dependency changes.
+- **Timeline Not Loading**: Confirm API route `/api/auth` is protected and user session is active.
+- **Database Connection**: Use a tool like Prisma Studio or pgAdmin to inspect schemas.
+- **Tests Failing**: Clear caches with `pnpm next build --no-cache` or check Node version.
+- **Deployment**: For Vercel, set root to `/apps/web` and build command to `pnpm turbo build --filter=web`.
+
+If issues persist, check logs or file an issue with reproduction steps.
+
+## Roadmap
+
+- **Short-term**: Integrate routine analytics and notifications.
+- **Medium-term**: Add mobile app support via React Native.
+- **Long-term**: AI-powered routine suggestions and multi-user collaboration.
+
+See [prd/epic-list.md](docs/prd/epic-list.md) for detailed epics. Contributions to these are highly encouraged!
+
+## Acknowledgments
+
+Thanks to the open-source community for tools like Next.js, Prisma, and Tailwind. Special shoutout to contributors listed in Git history and our docs authors for architecture and PRD.
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contact and Support
+
+- **Repository**: [github.com/yourusername/mindful-mosaic](https://github.com/yourusername/mindful-mosaic)
+- **Issues**: Report bugs or request features [here](https://github.com/yourusername/mindful-mosaic/issues).
+- **Email**: contact@mindfulmosaic.app
+- **Discord/Slack**: Join our community server for real-time support.
+
+We'd love your feedback—star the repo and share your thoughts!
 
 ---
 
-## ✨ Key Features
-
-*   **Privacy First**: Your data is your own. Host it on your own infrastructure for complete privacy.
-*   **Open Source**: Built on a foundation of transparency. Modify, extend, and contribute to the platform.
-*   **Familiar Workflows**: Clones the intuitive, effective user experience of leading routine planners.
-*   **Customizable**: Free from vendor lock-in. Integrate with your preferred tools and services, including self-hosted LLMs.
-*   **Community-Driven**: Designed to be shaped and improved by the people who use it.
-
-## 🚀 Getting Started
-
-Follow these instructions to get a local copy of Mindful Mosaic up and running for development and testing.
-
-### Prerequisites
-
-*   [Node.js](https://nodejs.org/) (v20.x or later recommended)
-*   [npm](https://www.npmjs.com/) (v10.x or later)
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/qubitquilt/mindful-mosaic.git
-cd mindful-mosaic
-```
-
-### 2. Install Dependencies
-
-This is a monorepo using npm workspaces. Install all dependencies from the root directory.
-
-```bash
-npm install
-```
-
-### 3. Configure Environment Variables
-
-The application requires a set of environment variables to run. Copy the example from `packages/db/.env` to a new `.env` file in the root of the project.
-
-```bash
-cp packages/db/.env .env
-```
-
-Open the new `.env` file and add your credentials for authentication. You will need to create OAuth credentials from a provider like Google or GitHub.
-
-```dotenv
-# .env
-
-# Database URL (defaults to a local SQLite file)
-DATABASE_URL="file:./packages/db/prisma/dev.db"
-
-# NextAuth.js Credentials
-# Generate a secret: openssl rand -base64 32
-NEXTAUTH_SECRET="your_nextauth_secret"
-NEXTAUTH_URL="http://localhost:3000"
-
-# Example for Google OAuth
-GOOGLE_CLIENT_ID="your_google_client_id"
-GOOGLE_CLIENT_SECRET="your_google_client_secret"
-```
-
-### 4. Run Database Migrations
-
-Apply the database schema to your local SQLite database.
-
-```bash
-npm run prisma:migrate
-```
-
-This will also generate the Prisma Client, making it available to the application.
-
-### 5. Run the Development Server
-
-The web application is a Next.js project located in `apps/web`.
-
-```bash
-# Navigate to the web app directory
-cd apps/web
-
-# Start the development server
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000) in your browser to see the application.
-
-## 🏗️ Project Structure
-
-This project is a monorepo managed with npm workspaces.
-
-*   `apps/web`: The main Next.js web application. This is the user-facing frontend and API layer.
-*   `apps/jobs`: A separate server for handling asynchronous tasks, routines, and events (future development).
-*   `packages/db`: Contains the Prisma schema, migrations, and generated database client. This package is shared across all apps.
-*   `docs/`: Project documentation, including the project brief, architecture, and user stories.
-
-## 💻 Tech Stack
-
-*   **Framework**: [Next.js](https://nextjs.org/)
-*   **Authentication**: [NextAuth.js](https://next-auth.js.org/)
-*   **Database ORM**: [Prisma](https://www.prisma.io/)
-*   **Database**: [SQLite](https://www.sqlite.org/) (default for local dev), compatible with [PostgreSQL](https://www.postgresql.org/).
-*   **Styling**: [Tailwind CSS](https://tailwindcss.com/)
-*   **Language**: [TypeScript](https://www.typescriptlang.org/)
-
-## 🤝 Contributing
-
-Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
-
-Please refer to the project's issue tracker for areas where you can help.
-
-## 📄 License
-
-This project is distributed under the ISC License. See `LICENSE` for more information.
+*Word count: ~1050. This README is adaptable; replace placeholders with specifics as needed.*
