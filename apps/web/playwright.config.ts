@@ -13,6 +13,7 @@ export default defineConfig({
     use: {
       baseURL: `http://localhost:${port}`,
       trace: 'on-first-retry',
+      video: 'retain-on-failure',
     },
     webServer: [
       {

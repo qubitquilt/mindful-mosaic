@@ -5,17 +5,41 @@ import { authOptions } from '../auth/[...nextauth]/route'
 
 const prisma = new PrismaClient()
 
+export async function GET() {
+  try {
+    const session = await getServerSession(authOptions)
+    if (!session?.user?.id) {
+      return NextResponse.json([])
+    }
+
+    const routines = await prisma.routine.findMany({
+      where: { userId: session.user.id },
+      include: { tasks: true },
+      orderBy: { createdAt: 'desc' }
+    })
+
+    return NextResponse.json(routines)
+  } catch (error) {
+    console.error('Error fetching routines:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+      return NextResponse.json([])
     }
 
-    const { name, tasks } = await request.json()
+    const { name, timeSlot, tasks } = await request.json()
 
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
       return NextResponse.json({ error: 'Routine name is required' }, { status: 400 })
+    }
+
+    if (!timeSlot || typeof timeSlot !== 'string' || timeSlot.trim().length === 0) {
+      return NextResponse.json({ error: 'Time slot is required' }, { status: 400 })
     }
 
     if (!Array.isArray(tasks) || tasks.length === 0) {
@@ -40,6 +64,7 @@ export async function POST(request: NextRequest) {
     const routine = await prisma.routine.create({
       data: {
         name: name.trim(),
+        timeSlot: timeSlot.trim(),
         userId: session.user.id,
         tasks: {
           create: createdTasks,

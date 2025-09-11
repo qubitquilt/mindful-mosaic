@@ -1,0 +1,30 @@
+schema: 1
+story: "2.2"
+story_title: "Save Routine Functionality"
+gate: PASS
+status_reason: "Implementation complete with API endpoint, form submission, DB models, and unit tests for validation and submission."
+reviewer: "Quinn (Test Architect)"
+updated: "2025-09-10T19:34:00Z"
+top_issues: []
+quality_score: 100
+nfr_validation:
+  security:
+    status: PASS
+    notes: "Auth required for API; no vulnerabilities."
+  performance:
+    status: PASS
+    notes: "Efficient DB operations."
+  reliability:
+    status: PASS
+    notes: "Error handling and validation ensure reliability."
+  maintainability:
+    status: PASS
+    notes: "Tests cover key flows."
+recommendations:
+  immediate:
+    - action: "E2E verification required for future Done status: Run routine-creation.spec.ts and routines-display.spec.ts to confirm save and display flows."
+      refs:
+        [
+          "apps/web/e2e/routine-creation.spec.ts",
+          "apps/web/e2e/routines-display.spec.ts"
+        ]

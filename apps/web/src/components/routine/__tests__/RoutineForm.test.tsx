@@ -130,12 +130,13 @@ describe('RoutineForm', () => {
     });
 
     expect(mockFetch).toHaveBeenCalledWith('/api/routines', expect.objectContaining({
-      method: 'POST',
-      body: JSON.stringify({
-        name: 'Test Routine',
-        tasks: [{ name: 'Task 1', duration: 30 }]
-      })
-    }));
+          method: 'POST',
+          body: JSON.stringify({
+            name: 'Test Routine',
+            timeSlot: '06:00 - 07:00',
+            tasks: [{ name: 'Task 1', duration: 30 }]
+          })
+        }));
 
     jest.restoreAllMocks();
   });

@@ -15,6 +15,8 @@ interface RoutineFormProps {
 
 export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
   const [routineName, setRoutineName] = useState('');
+  const [startTime, setStartTime] = useState('06:00');
+  const [endTime, setEndTime] = useState('07:00');
   const [tasks, setTasks] = useState<Task[]>([{ name: '', duration: 0 }]);
   const [error, setError] = useState('');
   const { data: session, status } = useSession();
@@ -64,7 +66,11 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ name: routineName.trim(), tasks }),
+        body: JSON.stringify({
+          name: routineName.trim(),
+          timeSlot: `${startTime} - ${endTime}`,
+          tasks
+        }),
       });
 
       if (!response.ok) {
@@ -88,7 +94,7 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+      <div role="dialog" aria-modal="true" className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
         <h2 className="text-xl font-bold mb-4">Create Routine</h2>
         {error && <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">{error}</div>}
         <form role="form" onSubmit={handleSubmit}>
@@ -102,6 +108,34 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
               className="w-full p-2 border border-gray-300 rounded"
               required
             />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Time Slot</label>
+            <div className="flex space-x-2">
+              <div className="flex-1">
+                <label htmlFor="start-time" className="sr-only">Start time</label>
+                <input
+                  id="start-time"
+                  type="time"
+                  value={startTime}
+                  onChange={(e) => setStartTime(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+              <span>-</span>
+              <div className="flex-1">
+                <label htmlFor="end-time" className="sr-only">End time</label>
+                <input
+                  id="end-time"
+                  type="time"
+                  value={endTime}
+                  onChange={(e) => setEndTime(e.target.value)}
+                  className="w-full p-2 border border-gray-300 rounded"
+                  required
+                />
+              </div>
+            </div>
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium mb-2">Tasks</label>

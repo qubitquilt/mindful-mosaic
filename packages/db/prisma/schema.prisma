@@ -60,6 +60,7 @@ model VerificationToken {
 model Routine {
   id        String   @id @default(cuid())
   name      String
+  timeSlot  String?
   userId    String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

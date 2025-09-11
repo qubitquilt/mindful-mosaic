@@ -1,5 +1,8 @@
 'use client';
 
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+
 const times = [
   '6:00 AM - 7:00 AM',
   '7:00 AM - 8:00 AM',
@@ -19,22 +22,98 @@ const times = [
   '9:00 PM - 10:00 PM',
 ];
 
+interface Task {
+  id: string;
+  name: string;
+  duration: number;
+}
+
+interface Routine {
+  id: string;
+  name: string;
+  timeSlot: string;
+  tasks: Task[];
+}
+
 export default function Timeline() {
+  const [routines, setRoutines] = useState<Routine[]>([]);
+  const [expandedRoutine, setExpandedRoutine] = useState<string | null>(null);
+  const { data: session } = useSession();
+
+  useEffect(() => {
+    if (session) {
+      fetch('/api/routines')
+        .then(res => res.json())
+        .then(setRoutines)
+        .catch(console.error);
+    }
+  }, [session]);
+
+  const toggleRoutine = (routineId: string) => {
+    setExpandedRoutine(expandedRoutine === routineId ? null : routineId);
+  };
+
+  if (routines.length === 0) {
+    return (
+      <div className="flex flex-col space-y-2 p-4 max-w-4xl mx-auto">
+        <div className="text-center py-8">
+          <p className="text-gray-500 text-lg">
+            No routines scheduled for today.
+          </p>
+        </div>
+        {times.map((time) => (
+          <div
+            key={time}
+            className="border border-gray-300 p-4 bg-white rounded-lg shadow-sm"
+          >
+            <div className="text-sm font-medium text-gray-900">{time}</div>
+            <div className="h-16 bg-gray-50 rounded mt-2 flex items-center justify-center">
+              <span className="text-gray-400 text-sm">Empty slot</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    );
+  }
+
+  const routinesByTime = times.map(time => ({
+    time,
+    routines: routines.filter(r => r.timeSlot === time)
+  }));
+
   return (
     <div className="flex flex-col space-y-2 p-4 max-w-4xl mx-auto">
-      <div className="text-center py-8">
-        <p className="text-gray-500 text-lg">
-          No routines scheduled for today.
-        </p>
-      </div>
-      {times.map((time) => (
+      {routinesByTime.map(({ time, routines: timeRoutines }) => (
         <div
           key={time}
           className="border border-gray-300 p-4 bg-white rounded-lg shadow-sm"
         >
           <div className="text-sm font-medium text-gray-900">{time}</div>
-          <div className="h-16 bg-gray-50 rounded mt-2 flex items-center justify-center">
-            <span className="text-gray-400 text-sm">Empty slot</span>
+          <div className="mt-2 space-y-2">
+            {timeRoutines.map((routine) => (
+              <div key={routine.id} className="border rounded p-2">
+                <button
+                  onClick={() => toggleRoutine(routine.id)}
+                  className="w-full text-left"
+                >
+                  {routine.name}
+                </button>
+                {expandedRoutine === routine.id && (
+                  <div className="mt-2 space-y-1">
+                    {routine.tasks.map((task) => (
+                      <div key={task.id} className="text-sm pl-4">
+                        - {task.name} ({task.duration} min)
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
+            ))}
+            {timeRoutines.length === 0 && (
+              <div className="h-16 bg-gray-50 rounded flex items-center justify-center">
+                <span className="text-gray-400 text-sm">Empty slot</span>
+              </div>
+            )}
           </div>
         </div>
       ))}

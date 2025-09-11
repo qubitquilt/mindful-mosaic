@@ -25,11 +25,5 @@
       "cache": false,
       "persistent": true
     }
-  },
-  "tasks": {
-    "test": {
-      "cache": true,
-      "outputs": ["coverage/**"]
-    }
   }
 }
