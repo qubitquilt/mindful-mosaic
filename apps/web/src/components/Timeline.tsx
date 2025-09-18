@@ -71,7 +71,18 @@ export default function Timeline() {
   const toggleRoutine = (routineId: string) => {
     setExpandedRoutine(expandedRoutine === routineId ? null : routineId);
 
-    const handleDelete = async (id: string) => {
+    
+
+
+    const handleEdit = (routine: Routine) => {
+      setEditRoutine(routine);
+    };
+
+    const handleDeleteClick = (id: string) => {
+      setShowDeleteConfirm(id);
+    };
+
+    const handleDeleteConfirm = async (id: string) => {
       if (!session) return;
       try {
         const res = await fetch(`/api/routines/${id}`, { method: 'DELETE' });
@@ -87,6 +98,12 @@ export default function Timeline() {
         alert('Network error. Please try again.');
       }
     };
+
+    const handleDeleteCancel = () => {
+      setShowDeleteConfirm(null);
+    };
+
+
   };
 
   if (routines.length === 0) {
@@ -98,6 +115,38 @@ export default function Timeline() {
           </p>
         </div>
         {times.map((time) => (
+
+
+  const handleEdit = (routine: Routine) => {
+    setEditRoutine(routine);
+  };
+
+  const handleDeleteClick = (id: string) => {
+    setShowDeleteConfirm(id);
+  };
+
+  const handleDeleteConfirm = async (id: string) => {
+    if (!session) return;
+    try {
+      const res = await fetch(`/api/routines/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setShowDeleteConfirm(null);
+        fetchRoutines();
+      } else {
+        const errorData = await res.json();
+        alert(errorData.error || 'Failed to delete routine.');
+      }
+    } catch (error) {
+      console.error('Error deleting routine:', error);
+      alert('Network error. Please try again.');
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteConfirm(null);
+  };
+
+
           <div
             key={time}
             className="border border-gray-300 p-4 bg-white rounded-lg shadow-sm"
