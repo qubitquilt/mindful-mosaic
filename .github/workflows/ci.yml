@@ -11,12 +11,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
         with:
+          cache: true
+          version: 10
+        with:
+          cache: true
           node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: '**/pnpm-lock.yaml'
-      - run: corepack enable
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -25,12 +29,16 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
         with:
+          cache: true
+          version: 10
+        with:
+          cache: true
           node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: '**/pnpm-lock.yaml'
-      - run: corepack enable
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Run lint
@@ -41,12 +49,16 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
         with:
+          cache: true
+          version: 10
+        with:
+          cache: true
           node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: '**/pnpm-lock.yaml'
-      - run: corepack enable
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Run tests
@@ -57,12 +69,16 @@ jobs:
     needs: install
     steps:
       - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      # - uses: actions/setup-node@v4
+      - uses: pnpm/action-setup@v4
         with:
+          cache: true
+          version: 10
+        with:
+          cache: true
           node-version: '20'
           cache: 'pnpm'
           cache-dependency-path: '**/pnpm-lock.yaml'
-      - run: corepack enable
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build
