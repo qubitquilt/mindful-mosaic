@@ -1,14 +1,19 @@
-import '@testing-library/jest-dom'
+import '@testing-library/jest-dom';
 
 // Polyfill for fetch in jsdom to fix NextAuth compatibility in tests (pure JS, no deps)
 if (typeof fetch === 'undefined') {
   class MockResponse {
-    constructor(body: any, init: { status: number; headers?: Record<string, string> } = { status: 200 }) {
+    constructor(
+      body: unknown,
+      init: { status: number; headers?: Record<string, string> } = {
+        status: 200,
+      }
+    ) {
       this.body = body;
       this.status = init.status;
       this.headers = init.headers || {};
     }
-    body: any;
+    body: unknown;
     status: number;
     headers: Record<string, string>;
     json() {
@@ -16,10 +21,15 @@ if (typeof fetch === 'undefined') {
     }
   }
 
-  (globalThis as any).fetch = (input: RequestInfo, init?: RequestInit): Promise<MockResponse> => {
+  globalThis.fetch = (input: RequestInfo): Promise<MockResponse> => {
     const url = typeof input === 'string' ? input : input.toString();
     if (url.includes('/api/auth/session')) {
-      return Promise.resolve(new MockResponse({ session: null }, { status: 200, headers: { 'Content-Type': 'application/json' } }));
+      return Promise.resolve(
+        new MockResponse(
+          { session: null },
+          { status: 200, headers: { 'Content-Type': 'application/json' } }
+        )
+      );
     }
     return Promise.resolve(new MockResponse({}));
   };
@@ -27,7 +37,7 @@ if (typeof fetch === 'undefined') {
 
 // Mock NextAuth to prevent internal fetch calls in useSession for tests
 jest.mock('next-auth/react', () => ({
-  useSession: () => ({ data: null, status: 'unauthenticated' } as any),
+  useSession: () => ({ data: null, status: 'unauthenticated' }),
   signIn: jest.fn(),
   signOut: jest.fn(),
 }));

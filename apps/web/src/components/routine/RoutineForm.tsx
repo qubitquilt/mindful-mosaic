@@ -31,7 +31,11 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
     }
   };
 
-  const updateTask = (index: number, field: keyof Task, value: string | number) => {
+  const updateTask = (
+    index: number,
+    field: keyof Task,
+    value: string | number
+  ) => {
     const newTasks = [...tasks];
     newTasks[index] = { ...newTasks[index], [field]: value };
     setTasks(newTasks);
@@ -55,7 +59,7 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
       setError('Routine name is required.');
       return;
     }
-    if (tasks.some(t => !t.name.trim() || t.duration <= 0)) {
+    if (tasks.some((t) => !t.name.trim() || t.duration <= 0)) {
       setError('All tasks must have a name and duration > 0.');
       return;
     }
@@ -69,7 +73,7 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
         body: JSON.stringify({
           name: routineName.trim(),
           timeSlot: `${startTime} - ${endTime}`,
-          tasks
+          tasks,
         }),
       });
 
@@ -94,12 +98,25 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-      <div role="dialog" aria-modal="true" className="bg-white p-6 rounded-lg max-w-md w-full mx-4">
+      <div
+        role="dialog"
+        aria-modal="true"
+        className="bg-white p-6 rounded-lg max-w-md w-full mx-4"
+      >
         <h2 className="text-xl font-bold mb-4">Create Routine</h2>
-        {error && <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">{error}</div>}
+        {error && (
+          <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
+            {error}
+          </div>
+        )}
         <form role="form" onSubmit={handleSubmit}>
           <div className="mb-4">
-            <label htmlFor="routine-name" className="block text-sm font-medium mb-2">Routine Name</label>
+            <label
+              htmlFor="routine-name"
+              className="block text-sm font-medium mb-2"
+            >
+              Routine Name
+            </label>
             <input
               id="routine-name"
               type="text"
@@ -113,7 +130,9 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
             <label className="block text-sm font-medium mb-2">Time Slot</label>
             <div className="flex space-x-2">
               <div className="flex-1">
-                <label htmlFor="start-time" className="sr-only">Start time</label>
+                <label htmlFor="start-time" className="sr-only">
+                  Start time
+                </label>
                 <input
                   id="start-time"
                   type="time"
@@ -125,7 +144,9 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
               </div>
               <span>-</span>
               <div className="flex-1">
-                <label htmlFor="end-time" className="sr-only">End time</label>
+                <label htmlFor="end-time" className="sr-only">
+                  End time
+                </label>
                 <input
                   id="end-time"
                   type="time"
@@ -141,7 +162,9 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
             <label className="block text-sm font-medium mb-2">Tasks</label>
             {tasks.map((task, index) => (
               <div key={index} className="flex space-x-2 mb-2">
-                <label htmlFor={`task-name-${index}`} className="sr-only">Task name</label>
+                <label htmlFor={`task-name-${index}`} className="sr-only">
+                  Task name
+                </label>
                 <input
                   id={`task-name-${index}`}
                   type="text"
@@ -151,12 +174,16 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
                   className="flex-1 p-2 border border-gray-300 rounded"
                   required
                 />
-                <label htmlFor={`task-duration-${index}`} className="sr-only">Duration</label>
+                <label htmlFor={`task-duration-${index}`} className="sr-only">
+                  Duration
+                </label>
                 <input
                   id={`task-duration-${index}`}
                   type="number"
                   value={task.duration}
-                  onChange={(e) => updateTask(index, 'duration', parseInt(e.target.value) || 0)}
+                  onChange={(e) =>
+                    updateTask(index, 'duration', parseInt(e.target.value) || 0)
+                  }
                   placeholder="Duration (min)"
                   className="w-20 p-2 border border-gray-300 rounded"
                   min="1"

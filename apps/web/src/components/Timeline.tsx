@@ -44,7 +44,7 @@ export default function Timeline() {
     if (session) {
       const today = new Date().toISOString().split('T')[0];
       fetch(`/api/routines?date=${today}`)
-        .then(res => res.json())
+        .then((res) => res.json())
         .then(setRoutines)
         .catch(console.error);
     }
@@ -77,9 +77,9 @@ export default function Timeline() {
     );
   }
 
-  const routinesByTime = times.map(time => ({
+  const routinesByTime = times.map((time) => ({
     time,
-    routines: routines.filter(r => r.timeSlot === time)
+    routines: routines.filter((r) => r.timeSlot === time),
   }));
 
   return (
@@ -97,7 +97,9 @@ export default function Timeline() {
                   onClick={() => toggleRoutine(routine.id)}
                   className="w-full text-left"
                 >
-                  {routine.name} ({routine.tasks.reduce((sum, task) => sum + task.duration, 0)} min)
+                  {routine.name} (
+                  {routine.tasks.reduce((sum, task) => sum + task.duration, 0)}{' '}
+                  min)
                 </button>
                 {expandedRoutine === routine.id && (
                   <div className="mt-2 space-y-1">

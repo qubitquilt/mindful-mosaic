@@ -31,10 +31,7 @@ export default function Header() {
           )}
         </div>
       </div>
-      <RoutineForm
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-      />
+      <RoutineForm isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </header>
   );
 }

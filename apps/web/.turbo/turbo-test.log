@@ -5,286 +5,347 @@
 
 [1m[2mDetermining test suites to run...[22m[22m[999D[K
 
-[1mTest Suites: [22m0 of 10 total
+[1mTest Suites: [22m0 of 11 total
 [1mTests:       [22m0 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        0 s, estimated 7 s
+[1mTime:[22m        0 s, estimated 3 s
 [37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/routines/__tests__/[22m[1mroute.test.ts[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
 
-[1mTest Suites: [22m0 of 10 total
+[1mTest Suites: [22m0 of 11 total
 [1mTests:       [22m0 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        0 s, estimated 7 s
+[1mTime:[22m        0 s, estimated 3 s
 [37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/routines/__tests__/[22m[1mroute.test.ts[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        1 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        2 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        3 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        4 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
-
-[1mTest Suites: [22m0 of 10 total
-[1mTests:       [22m0 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
 
-[1mTest Suites: [22m[1m[32m6 passed[39m[22m, 6 of 10 total
-[1mTests:       [22m[1m[32m20 passed[39m[22m, 20 total
+[1mTest Suites: [22m0 of 11 total
+[1mTests:       [22m0 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
-
+[1mTime:[22m        1 s, estimated 3 s
+[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/routines/__tests__/[22m[1mroute.test.ts[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
 
-[1mTest Suites: [22m[1m[32m6 passed[39m[22m, 6 of 10 total
-[1mTests:       [22m[1m[32m20 passed[39m[22m, 20 total
+[1mTest Suites: [22m0 of 11 total
+[1mTests:       [22m0 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[1mTime:[22m        2 s, estimated 3 s
+[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/routines/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+
+[1mTest Suites: [22m0 of 11 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/app/api/routines/__tests__/[22m[1mroute.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/routines/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+
+[1mTest Suites: [22m0 of 11 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A  [1m● [22mConsole
+
+    [2m[31mconsole.error[39m[22m
+[31m      Error fetching routines: Error: db error[39m
+[31m          at Object.<anonymous> (/workspace/mindful-mosaic/apps/web/src/app/api/routines/__tests__/route.test.ts:152:21)[39m
+[31m          at Promise.then.completed (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/utils.js:298:28)[39m
+[31m          at new Promise (<anonymous>)[39m
+[31m          at callAsyncCircusFn (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/utils.js:231:10)[39m
+[31m          at _callCircusTest (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:316:40)[39m
+[31m          at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+[31m          at _runTest (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:252:3)[39m
+[31m          at _runTestsForDescribeBlock (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:126:9)[39m
+[31m          at _runTestsForDescribeBlock (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:121:9)[39m
+[31m          at _runTestsForDescribeBlock (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:121:9)[39m
+[31m          at run (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:71:3)[39m
+[31m          at runAndTransformResultsToJestFormat (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)[39m
+[31m          at jestAdapter (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)[39m
+[31m          at runTestInternal (/workspace/mindful-mosaic/node_modules/.pnpm/jest-runner@29.7.0/node_modules/jest-runner/build/runTest.js:367:16)[39m
+[31m          at runTest (/workspace/mindful-mosaic/node_modules/.pnpm/jest-runner@29.7.0/node_modules/jest-runner/build/runTest.js:444:34)[39m
+[31m          at Object.worker (/workspace/mindful-mosaic/node_modules/.pnpm/jest-runner@29.7.0/node_modules/jest-runner/build/testWorker.js:106:12)[39m
+[2m[22m
+[2m    [0m [90m 35 |[39m     [36mreturn[39m [33mNextResponse[39m[33m.[39mjson(routines)[33m;[39m[22m
+[2m     [90m 36 |[39m   } [36mcatch[39m (error) {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 37 |[39m     console[33m.[39merror([32m'Error fetching routines:'[39m[33m,[39m error)[33m;[39m[22m
+[2m     [90m    |[39m             [31m[1m^[22m[2m[39m[22m
+[2m     [90m 38 |[39m     [36mreturn[39m [33mNextResponse[39m[33m.[39mjson([22m
+[2m     [90m 39 |[39m       { error[33m:[39m [32m'Internal server error'[39m }[33m,[39m[22m
+[2m     [90m 40 |[39m       { status[33m:[39m [35m500[39m }[0m[22m
+[2m[22m
+[2m      [2mat error ([22m[2msrc/app/api/routines/route.ts[2m:37:13)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2msrc/app/api/routines/__tests__/route.test.ts[2m:156:19)[22m[2m[22m
+
+    [2m[31mconsole.error[39m[22m
+[31m      Error creating routine: Error: db error[39m
+[31m          at Object.<anonymous> (/workspace/mindful-mosaic/apps/web/src/app/api/routines/__tests__/route.test.ts:287:21)[39m
+[31m          at Promise.then.completed (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/utils.js:298:28)[39m
+[31m          at new Promise (<anonymous>)[39m
+[31m          at callAsyncCircusFn (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/utils.js:231:10)[39m
+[31m          at _callCircusTest (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:316:40)[39m
+[31m          at processTicksAndRejections (node:internal/process/task_queues:95:5)[39m
+[31m          at _runTest (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:252:3)[39m
+[31m          at _runTestsForDescribeBlock (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:126:9)[39m
+[31m          at _runTestsForDescribeBlock (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:121:9)[39m
+[31m          at _runTestsForDescribeBlock (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:121:9)[39m
+[31m          at run (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/run.js:71:3)[39m
+[31m          at runAndTransformResultsToJestFormat (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapterInit.js:122:21)[39m
+[31m          at jestAdapter (/workspace/mindful-mosaic/node_modules/.pnpm/jest-circus@29.7.0/node_modules/jest-circus/build/legacy-code-todo-rewrite/jestAdapter.js:79:19)[39m
+[31m          at runTestInternal (/workspace/mindful-mosaic/node_modules/.pnpm/jest-runner@29.7.0/node_modules/jest-runner/build/runTest.js:367:16)[39m
+[31m          at runTest (/workspace/mindful-mosaic/node_modules/.pnpm/jest-runner@29.7.0/node_modules/jest-runner/build/runTest.js:444:34)[39m
+[31m          at Object.worker (/workspace/mindful-mosaic/node_modules/.pnpm/jest-runner@29.7.0/node_modules/jest-runner/build/testWorker.js:106:12)[39m
+[2m[22m
+[2m    [0m [90m 116 |[39m     [36mreturn[39m [33mNextResponse[39m[33m.[39mjson({ routine }[33m,[39m { status[33m:[39m [35m201[39m })[33m;[39m[22m
+[2m     [90m 117 |[39m   } [36mcatch[39m (error) {[22m
+[2m    [31m[1m>[22m[2m[39m[90m 118 |[39m     console[33m.[39merror([32m'Error creating routine:'[39m[33m,[39m error)[33m;[39m[22m
+[2m     [90m     |[39m             [31m[1m^[22m[2m[39m[22m
+[2m     [90m 119 |[39m     [36mreturn[39m [33mNextResponse[39m[33m.[39mjson([22m
+[2m     [90m 120 |[39m       { error[33m:[39m [32m'Internal server error'[39m }[33m,[39m[22m
+[2m     [90m 121 |[39m       { status[33m:[39m [35m500[39m }[0m[22m
+[2m[22m
+[2m      [2mat error ([22m[2msrc/app/api/routines/route.ts[2m:118:13)[22m[2m[22m
+[2m      [2mat Object.<anonymous> ([22m[2msrc/app/api/routines/__tests__/route.test.ts[2m:298:19)[22m[2m[22m
+
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/routines/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+
+[1mTest Suites: [22m0 of 11 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/routines/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+
+[1mTest Suites: [22m0 of 11 total
+[1mTests:       [22m0 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m1 passed[39m[22m, 1 of 11 total
+[1mTests:       [22m[1m[32m11 passed[39m[22m, 11 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m1 passed[39m[22m, 1 of 11 total
+[1mTests:       [22m[1m[32m11 passed[39m[22m, 11 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m2 passed[39m[22m, 2 of 11 total
+[1mTests:       [22m[1m[32m15 passed[39m[22m, 15 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignInButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m2 passed[39m[22m, 2 of 11 total
+[1mTests:       [22m[1m[32m15 passed[39m[22m, 15 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m3 passed[39m[22m, 3 of 11 total
+[1mTests:       [22m[1m[32m19 passed[39m[22m, 19 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/layout/__tests__/[22m[1mHeader.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m3 passed[39m[22m, 3 of 11 total
+[1mTests:       [22m[1m[32m19 passed[39m[22m, 19 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        3 s[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m4 passed[39m[22m, 4 of 11 total
+[1mTests:       [22m[1m[32m25 passed[39m[22m, 25 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m4 passed[39m[22m, 4 of 11 total
+[1mTests:       [22m[1m[32m25 passed[39m[22m, 25 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m4 passed[39m[22m, 4 of 11 total
+[1mTests:       [22m[1m[32m25 passed[39m[22m, 25 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mlayout.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mauth.integration.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/auth/__tests__/[22m[1mSignOutButton.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m4 passed[39m[22m, 4 of 11 total
+[1mTests:       [22m[1m[32m25 passed[39m[22m, 25 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
 
-[1mTest Suites: [22m[1m[32m7 passed[39m[22m, 7 of 10 total
-[1mTests:       [22m[1m[32m31 passed[39m[22m, 31 total
+[1mTest Suites: [22m[1m[32m7 passed[39m[22m, 7 of 11 total
+[1mTests:       [22m[1m[32m43 passed[39m[22m, 43 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
 
-[1mTest Suites: [22m[1m[32m7 passed[39m[22m, 7 of 10 total
-[1mTests:       [22m[1m[32m38 passed[39m[22m, 38 total
+[1mTest Suites: [22m[1m[32m7 passed[39m[22m, 7 of 11 total
+[1mTests:       [22m[1m[32m43 passed[39m[22m, 43 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/routine/__tests__/[22m[1mRoutineForm.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
 
-[1mTest Suites: [22m[1m[32m7 passed[39m[22m, 7 of 10 total
-[1mTests:       [22m[1m[32m38 passed[39m[22m, 38 total
+[1mTest Suites: [22m[1m[32m8 passed[39m[22m, 8 of 11 total
+[1mTests:       [22m[1m[32m52 passed[39m[22m, 52 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
 
-[1mTest Suites: [22m[1m[32m8 passed[39m[22m, 8 of 10 total
-[1mTests:       [22m[1m[32m40 passed[39m[22m, 40 total
+[1mTest Suites: [22m[1m[32m8 passed[39m[22m, 8 of 11 total
+[1mTests:       [22m[1m[32m52 passed[39m[22m, 52 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        5 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
-
-[1mTest Suites: [22m[1m[32m8 passed[39m[22m, 8 of 10 total
-[1mTests:       [22m[1m[32m41 passed[39m[22m, 41 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        6 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
-
-[1mTest Suites: [22m[1m[32m8 passed[39m[22m, 8 of 10 total
-[1mTests:       [22m[1m[32m41 passed[39m[22m, 41 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        6 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A  [1m● [22mConsole
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A  [1m● [22mConsole
 
     [2m[31mconsole.error[39m[22m
 [31m      Warning: An update to Timeline inside a test was not wrapped in act(...).[39m
@@ -420,31 +481,38 @@
 [2m      [2mat dispatchSetState ([22m[2m../../node_modules/.pnpm/react-dom@18.3.1_react@18.3.1/node_modules/react-dom/cjs/react-dom.development.js[2m:16708:7)[22m[2m[22m
 
 
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
 [0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
 
-[1mTest Suites: [22m[1m[32m8 passed[39m[22m, 8 of 10 total
-[1mTests:       [22m[1m[32m41 passed[39m[22m, 41 total
+[1mTest Suites: [22m[1m[32m8 passed[39m[22m, 8 of 11 total
+[1mTests:       [22m[1m[32m52 passed[39m[22m, 52 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        6 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
 
-[1mTest Suites: [22m[1m[32m9 passed[39m[22m, 9 of 10 total
-[1mTests:       [22m[1m[32m42 passed[39m[22m, 42 total
-[1mSnapshots:   [22m0 total
-[1mTime:[22m        6 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mTimeline.test.tsx[22m
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/components/__tests__/[22m[1mproviders.test.tsx[22m
 
-[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/api/auth/__tests__/[22m[1mroute.test.ts[22m
+[1mTest Suites: [22m[1m[32m8 passed[39m[22m, 8 of 11 total
+[1mTests:       [22m[1m[32m52 passed[39m[22m, 52 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
 
-[1mTest Suites: [22m[1m[32m9 passed[39m[22m, 9 of 10 total
-[1mTests:       [22m[1m[32m42 passed[39m[22m, 42 total
+[1mTest Suites: [22m[1m[32m10 passed[39m[22m, 10 of 11 total
+[1mTests:       [22m[1m[32m55 passed[39m[22m, 55 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        6 s, estimated 7 s
-[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[32m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[37m█[39m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[999D[K
-[1mTest Suites: [22m[1m[32m10 passed[39m[22m, 10 total
-[1mTests:       [22m[1m[32m46 passed[39m[22m, 46 total
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[0m[7m[1m[32m PASS [39m[22m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+
+[0m[7m[33m[1m RUNS [22m[39m[27m[0m [2msrc/app/__tests__/[22m[1mpage.test.tsx[22m
+
+[1mTest Suites: [22m[1m[32m10 passed[39m[22m, 10 of 11 total
+[1mTests:       [22m[1m[32m55 passed[39m[22m, 55 total
 [1mSnapshots:   [22m0 total
-[1mTime:[22m        6.816 s, estimated 7 s
+[1mTime:[22m        [1m[33m4 s[39m[22m[K[1A[K[1A[K[1A[K[1A[K[1A[K[1A[999D[K
+[1mTest Suites: [22m[1m[32m11 passed[39m[22m, 11 total
+[1mTests:       [22m[1m[32m57 passed[39m[22m, 57 total
+[1mSnapshots:   [22m0 total
+[1mTime:[22m        [1m[33m4.528 s[39m[22m
 [2mRan all test suites[22m[2m.[22m
