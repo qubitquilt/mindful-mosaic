@@ -15,7 +15,8 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-          cache-dependency-glob: '**/pnpm-lock.yaml'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+      - run: corepack enable
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
@@ -28,7 +29,8 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-          cache-dependency-glob: '**/pnpm-lock.yaml'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+      - run: corepack enable
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Run lint
@@ -43,7 +45,8 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-          cache-dependency-glob: '**/pnpm-lock.yaml'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+      - run: corepack enable
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Run tests
@@ -58,7 +61,8 @@ jobs:
         with:
           node-version: '20'
           cache: 'pnpm'
-          cache-dependency-glob: '**/pnpm-lock.yaml'
+          cache-dependency-path: '**/pnpm-lock.yaml'
+      - run: corepack enable
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
       - name: Build
