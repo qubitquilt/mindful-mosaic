@@ -40,7 +40,7 @@ yarn-error.log*
 next-env.d.ts
 
 # turbo
-.turbo/
+.turbo
 
 # pnpm monorepo
 apps/*/node_modules/
