@@ -13,85 +13,43 @@ Maybe you can mention me or this repo in the acknowledgements too
 -->
 
 <div align="center">
-
   <img src="assets/logo.png" alt="logo" width="200" height="auto" />
-
   <h1>Mindful Mosaic</h1>
-
-  
-
   <p>
-
     A thoughtfully designed application that helps users build and manage daily routines with mindfulness at its core.
-
   </p>
 
-  
-
-  
-
 <!-- Badges -->
-
 <p>
-
-  <a href="https://github.com/Louis3797/mindful-mosaic/graphs/contributors">
-
-    <img src="https://img.shields.io/github/contributors/Louis3797/mindful-mosaic" alt="contributors" />
-
+  <a href="https://github.com/qubitquilt/mindful-mosaic/graphs/contributors">
+    <img src="https://img.shields.io/github/contributors/qubitquilt/mindful-mosaic" alt="contributors" />
   </a>
-
-  <a href="https://github.com/Louis3797/mindful-mosaic/commits/main">
-
-    <img src="https://img.shields.io/github/last-commit/Louis3797/mindful-mosaic" alt="last update" />
-
+  <a href="https://github.com/qubitquilt/mindful-mosaic/commits/main">
+    <img src="https://img.shields.io/github/last-commit/qubitquilt/mindful-mosaic" alt="last update" />
   </a>
-
-  <a href="https://github.com/Louis3797/mindful-mosaic/network/members">
-
-    <img src="https://img.shields.io/github/forks/Louis3797/mindful-mosaic" alt="forks" />
-
+  <a href="https://github.com/qubitquilt/mindful-mosaic/network/members">
+    <img src="https://img.shields.io/github/forks/qubitquilt/mindful-mosaic" alt="forks" />
   </a>
-
-  <a href="https://github.com/Louis3797/mindful-mosaic/stargazers">
-
-    <img src="https://img.shields.io/github/stars/Louis3797/mindful-mosaic" alt="stars" />
-
+  <a href="https://github.com/qubitquilt/mindful-mosaic/stargazers">
+    <img src="https://img.shields.io/github/stars/qubitquilt/mindful-mosaic" alt="stars" />
   </a>
-
-  <a href="https://github.com/Louis3797/mindful-mosaic/issues">
-
-    <img src="https://img.shields.io/github/issues/Louis3797/mindful-mosaic" alt="open issues" />
-
+  <a href="https://github.com/qubitquilt/mindful-mosaic/issues">
+    <img src="https://img.shields.io/github/issues/qubitquilt/mindful-mosaic" alt="open issues" />
   </a>
-
-  <a href="https://github.com/Louis3797/mindful-mosaic/blob/main/LICENSE">
-
-    <img src="https://img.shields.io/github/license/Louis3797/mindful-mosaic.svg" alt="license" />
-
+  <a href="https://github.com/qubitquilt/mindful-mosaic/blob/main/LICENSE">
+    <img src="https://img.shields.io/github/license/qubitquilt/mindful-mosaic.svg" alt="license" />
   </a>
-
 </p>
 
-   
-
 <h4>
-
-    <a href="https://github.com/Louis3797/mindful-mosaic">View Demo</a>
-
+  <a href="https://github.com/qubitquilt/mindful-mosaic">View Demo</a>
   <span> · </span>
-
-    <a href="https://github.com/Louis3797/mindful-mosaic/tree/main/docs">Documentation</a>
-
+    <a href="https://github.com/qubitquilt/mindful-mosaic/tree/main/docs">Documentation</a>
   <span> · </span>
-
-    <a href="https://github.com/Louis3797/mindful-mosaic/issues/">Report Bug</a>
-
+    <a href="https://github.com/qubitquilt/mindful-mosaic/issues/">Report Bug</a>
   <span> · </span>
-
-    <a href="https://github.com/Louis3797/mindful-mosaic/issues/">Request Feature</a>
-
+    <a href="https://github.com/qubitquilt/mindful-mosaic/issues/">Request Feature</a>
   </h4>
-
 </div>
 
 <br />
@@ -189,15 +147,10 @@ The core motivation is to promote mental health through structured yet flexible 
   <summary>Client</summary>
 
   <ul>
-
     <li><a href="https://www.typescriptlang.org/">Typescript</a></li>
-
     <li><a href="https://nextjs.org/">Next.js</a></li>
-
     <li><a href="https://reactjs.org/">React.js</a></li>
-
     <li><a href="https://tailwindcss.com/">TailwindCSS</a></li>
-
   </ul>
 
 </details>
@@ -358,7 +311,7 @@ This project uses pnpm as package manager
 
 ```bash
 
-  git clone https://github.com/Louis3797/mindful-mosaic.git
+  git clone https://github.com/qubitquilt/mindful-mosaic.git
 
   cd mindful-mosaic
 
@@ -636,9 +589,9 @@ See [prd/epic-list.md](docs/prd/epic-list.md) for detailed epics.
 
 
 
-<a href="https://github.com/Louis3797/mindful-mosaic/graphs/contributors">
+<a href="https://github.com/qubitquilt/mindful-mosaic/graphs/contributors">
 
-  <img src="https://contrib.rocks/image?repo=Louis3797/mindful-mosaic" />
+  <img src="https://contrib.rocks/image?repo=qubitquilt/mindful-mosaic" />
 
 </a>
 
@@ -722,17 +675,17 @@ Distributed under the MIT License. See [LICENSE](LICENSE) for more information.
 
 
 
-Louis3797 - [@Louis3797](https://github.com/Louis3797) - louis@example.com
+qubitquilt - [@qubitquilt](https://github.com/qubitquilt) - michaelruelas@gmail.com
 
 
 
-Project Link: [https://github.com/Louis3797/mindful-mosaic](https://github.com/Louis3797/mindful-mosaic)
+Project Link: [https://github.com/qubitquilt/mindful-mosaic](https://github.com/qubitquilt/mindful-mosaic)
 
 
 
-- **Repository**: [github.com/Louis3797/mindful-mosaic](https://github.com/Louis3797/mindful-mosaic)
+- **Repository**: [github.com/qubitquilt/mindful-mosaic](https://github.com/qubitquilt/mindful-mosaic)
 
-- **Issues**: Report bugs or request features [here](https://github.com/Louis3797/mindful-mosaic/issues).
+- **Issues**: Report bugs or request features [here](https://github.com/qubitquilt/mindful-mosaic/issues).
 
 - **Email**: contact@mindfulmosaic.app
 
