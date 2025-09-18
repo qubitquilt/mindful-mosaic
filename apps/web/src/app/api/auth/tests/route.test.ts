@@ -119,5 +119,4 @@ describe('Auth API Route', () => {
     expect(mockAdapter.createUser).toBeDefined();
     expect(typeof mockAdapter.createUser).toBe('function');
   });
-
 });

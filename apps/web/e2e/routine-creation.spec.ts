@@ -22,7 +22,7 @@ test.describe('Routine Creation Flow', () => {
       });
     });
 
-    // Mock POST /api/routines for save
+    // Mock /api/routines for both POST and GET
     let postCalled = false;
     await page.route('**/api/routines', async (route) => {
       if (route.request().method() === 'POST') {
@@ -40,14 +40,7 @@ test.describe('Routine Creation Flow', () => {
             ],
           }),
         });
-      } else {
-        await route.fulfill({ status: 200 });
-      }
-    });
-
-    // Mock GET /api/routines to return empty array
-    await page.route('**/api/routines', async (route) => {
-      if (route.request().method() === 'GET') {
+      } else if (route.request().method() === 'GET') {
         await route.fulfill({
           status: 200,
           contentType: 'application/json',
@@ -82,16 +75,17 @@ test.describe('Routine Creation Flow', () => {
 
     // Add one task
     await page.getByRole('button', { name: /add task/i }).click();
-    await page.waitForSelector('input[placeholder="Task name"]:nth(1)');
+    const secondTaskInput = page.locator('input[placeholder="Task name"]').nth(1);
+    await secondTaskInput.waitFor({ state: 'visible' });
     await expect(page.locator('input[placeholder="Task name"]')).toHaveCount(2);
-    await page.locator('input[placeholder="Task name"]').nth(1).fill('Exercise');
+    await secondTaskInput.fill('Exercise');
     await page.locator('input[placeholder="Duration (min)"]').nth(1).fill('30');
 
     // Submit
     await page.getByRole('button', { name: /save/i }).click();
 
     // Wait for POST to complete
-    await page.waitForResponse('**/api/routines', { timeout: 5000 });
+    await page.waitForResponse((response) => response.status() === 201, { timeout: 5000 });
 
     // Handle the success alert
     page.on('dialog', dialog => dialog.accept());
