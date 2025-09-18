@@ -1,7 +1,10 @@
-import { render, screen, fireEvent, waitFor } from '@testing-library/react';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 
 import Timeline from '../Timeline';
 import { useSession } from 'next-auth/react';
+
+
+const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0));
 
 jest.mock('next-auth/react', () => ({
   useSession: jest.fn(() => ({ data: null, status: 'unauthenticated' })),
@@ -106,9 +109,17 @@ describe('Timeline', () => {
     });
     global.fetch = jest.fn(() =>
       Promise.resolve({
-        json: () => Promise.resolve([]),
+        json: () => [],
       })
     ) as jest.MockedFunction<typeof fetch>;
+
+    const originalError = console.error;
+    jest.spyOn(console, 'error').mockImplementation((...args) => {
+      if (typeof args[0] === 'string' && args[0].includes('act')) {
+        return;
+      }
+      originalError.call(console, ...args);
+    });
   });
 
   describe('with routines', () => {
@@ -136,7 +147,12 @@ describe('Timeline', () => {
         json: () => Promise.resolve(mockRoutines),
       });
 
-      render(<Timeline />);
+      await act(async () => {
+        render(<Timeline />);
+      await act(async () => {
+        await flushPromises();
+      });
+      });
       await waitFor(() => {
         expect(global.fetch).toHaveBeenCalledWith(
           `/api/routines?date=${today}`
@@ -149,7 +165,12 @@ describe('Timeline', () => {
         json: () => Promise.resolve(mockRoutines),
       });
 
-      render(<Timeline />);
+      await act(async () => {
+        render(<Timeline />);
+      await act(async () => {
+        await flushPromises();
+      });
+      });
       await waitFor(() => {
         expect(
           screen.getByText('Morning Routine (35 min)')
@@ -165,7 +186,12 @@ describe('Timeline', () => {
         json: () => Promise.resolve(mockRoutines),
       });
 
-      render(<Timeline />);
+      await act(async () => {
+        render(<Timeline />);
+      await act(async () => {
+        await flushPromises();
+      });
+      });
       await waitFor(() => {
         expect(
           screen.getByText('Morning Routine (35 min)')
@@ -191,7 +217,12 @@ describe('Timeline', () => {
         json: () => Promise.resolve(mockRoutines),
       });
 
-      render(<Timeline />);
+      await act(async () => {
+        render(<Timeline />);
+      await act(async () => {
+        await flushPromises();
+      });
+      });
       await waitFor(() => {
         const morningSlot = screen.getByText('6:00 AM - 7:00 AM').parentElement;
         expect(morningSlot).toContainElement(
