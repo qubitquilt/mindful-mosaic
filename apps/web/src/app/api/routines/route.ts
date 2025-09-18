@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getServerSession } from 'next-auth/next';
-import { PrismaClient } from '@prisma/client';
-import { authOptions } from '../auth/[...nextauth]/route';
+import { PrismaClient } from '@mindful-mosaic/db';
+import { authOptions } from '../../../../lib/auth';
 
 const prisma = new PrismaClient();
 

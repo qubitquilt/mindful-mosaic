@@ -2,26 +2,16 @@ import '@testing-library/jest-dom';
 
 // Polyfill for fetch in jsdom to fix NextAuth compatibility in tests (pure JS, no deps)
 if (typeof fetch === 'undefined') {
-  class MockResponse {
-    constructor(
-      body: unknown,
-      init: { status: number; headers?: Record<string, string> } = {
-        status: 200,
-      }
-    ) {
-      this.body = body;
-      this.status = init.status;
-      this.headers = init.headers || {};
+  class MockResponse extends Response {
+    constructor(body: unknown, init: ResponseInit = { status: 200 }) {
+      super(JSON.stringify(body), init);
     }
-    body: unknown;
-    status: number;
-    headers: Record<string, string>;
     json() {
-      return Promise.resolve(this.body);
+      return super.json();
     }
   }
 
-  globalThis.fetch = (input: RequestInfo): Promise<MockResponse> => {
+  globalThis.fetch = (input: RequestInfo | URL): Promise<Response> => {
     const url = typeof input === 'string' ? input : input.toString();
     if (url.includes('/api/auth/session')) {
       return Promise.resolve(

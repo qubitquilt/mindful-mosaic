@@ -2,6 +2,10 @@
   "name": "@mindful-mosaic/db",
   "version": "1.0.0",
   "main": "index.js",
+  "scripts": {
+    "build": "prisma generate",
+    "generate": "prisma generate"
+  },
   "dependencies": {
     "@prisma/client": "~5.15.0"
   },

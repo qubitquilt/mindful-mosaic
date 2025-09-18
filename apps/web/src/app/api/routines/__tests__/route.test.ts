@@ -133,17 +133,19 @@ describe('Routines API Route', () => {
       const req = new MockRequest('http://localhost', { method: 'GET' });
       const res = await GET(req);
       expect(mockGetServerSession).toHaveBeenCalledWith(mockAuthOptions);
-      expect(mockPrisma.routine.findMany).toHaveBeenCalledWith(expect.objectContaining({ 
-        where: expect.objectContaining({ 
-          userId: "user1", 
-          scheduledDate: expect.objectContaining({ 
-            gte: expect.any(Date), 
-            lt: expect.any(Date), 
-          }), 
-        }), 
-        include: { tasks: true }, 
-        orderBy: { createdAt: "desc" }, 
-      }));
+      expect(mockPrisma.routine.findMany).toHaveBeenCalledWith(
+        expect.objectContaining({
+          where: expect.objectContaining({
+            userId: 'user1',
+            scheduledDate: expect.objectContaining({
+              gte: expect.any(Date),
+              lt: expect.any(Date),
+            }),
+          }),
+          include: { tasks: true },
+          orderBy: { createdAt: 'desc' },
+        })
+      );
       expect(res.status).toBe(200);
       expect(await res.json()).toEqual(routines);
     });
