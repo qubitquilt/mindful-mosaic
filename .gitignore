@@ -77,3 +77,12 @@ temp/
 /prisma/migrations
 
 .pnpm-store
+
+.bmad-core
+.claude
+.cursor
+.gemini
+playwright-report
+test-results
+*.db
+*.db-journal
