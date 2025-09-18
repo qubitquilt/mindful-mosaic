@@ -1,7 +1,24 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, waitFor } from '@testing-library/react'
 import Timeline from '../Timeline'
 
+jest.mock('next-auth/react', () => ({
+  useSession: jest.fn(() => ({ data: null, status: 'unauthenticated' })),
+}));
+
+const mockUseSession = jest.requireMock('next-auth/react').useSession;
+
 describe('Timeline', () => {
+  beforeEach(() => {
+    jest.spyOn(global, 'fetch').mockResolvedValue({
+      ok: true,
+      json: async () => [],
+    } as Response);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   it('renders the empty state message', () => {
     render(<Timeline />)
 
@@ -55,4 +72,19 @@ describe('Timeline', () => {
       expect(area).toHaveClass('h-16', 'bg-gray-50', 'rounded', 'mt-2', 'flex', 'items-center', 'justify-center')
     })
   })
+
+  it('renders routines when loaded', async () => {
+    (require('next-auth/react').useSession as jest.Mock).mockReturnValueOnce({ data: { user: { id: '1' } }, status: 'authenticated' });
+    global.fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => [{ id: '1', name: 'Test Routine', timeSlot: '7:00 AM - 8:00 AM', tasks: [] }],
+    } as Response);
+
+    render(<Timeline />);
+
+    await waitFor(() => {
+      expect(screen.queryByText('No routines scheduled for today.')).not.toBeInTheDocument();
+    });
+    expect(screen.getByText('Test Routine')).toBeInTheDocument();
+  });
 })
