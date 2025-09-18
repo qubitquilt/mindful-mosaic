@@ -1,10 +1,15 @@
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 
 import Timeline from '../Timeline';
 import { useSession } from 'next-auth/react';
 
-
-const flushPromises = () => new Promise(resolve => setTimeout(resolve, 0));
+const flushPromises = () => new Promise((resolve) => setTimeout(resolve, 0));
 
 jest.mock('next-auth/react', () => ({
   useSession: jest.fn(() => ({ data: null, status: 'unauthenticated' })),
@@ -149,9 +154,9 @@ describe('Timeline', () => {
 
       await act(async () => {
         render(<Timeline />);
-      await act(async () => {
-        await flushPromises();
-      });
+        await act(async () => {
+          await flushPromises();
+        });
       });
       await waitFor(() => {
         expect(global.fetch).toHaveBeenCalledWith(
@@ -167,9 +172,9 @@ describe('Timeline', () => {
 
       await act(async () => {
         render(<Timeline />);
-      await act(async () => {
-        await flushPromises();
-      });
+        await act(async () => {
+          await flushPromises();
+        });
       });
       await waitFor(() => {
         expect(
@@ -188,9 +193,9 @@ describe('Timeline', () => {
 
       await act(async () => {
         render(<Timeline />);
-      await act(async () => {
-        await flushPromises();
-      });
+        await act(async () => {
+          await flushPromises();
+        });
       });
       await waitFor(() => {
         expect(
@@ -219,9 +224,9 @@ describe('Timeline', () => {
 
       await act(async () => {
         render(<Timeline />);
-      await act(async () => {
-        await flushPromises();
-      });
+        await act(async () => {
+          await flushPromises();
+        });
       });
       await waitFor(() => {
         const morningSlot = screen.getByText('6:00 AM - 7:00 AM').parentElement;

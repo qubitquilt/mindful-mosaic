@@ -1,8 +1,125 @@
 import '@testing-library/jest-dom';
 
+class BasicHeaders {
+  _headers: Record<string, string>;
+
+  constructor(init: Record<string, string> = {}) {
+    this._headers = {};
+    if (init && typeof init === 'object') {
+      for (const [key, value] of Object.entries(init)) {
+        this._headers[key.toLowerCase()] = value;
+      }
+    }
+  }
+
+  get(name: string): string | null {
+    return this._headers[name.toLowerCase()] || null;
+  }
+
+  set(name: string, value: string): void {
+    this._headers[name.toLowerCase()] = value;
+  }
+
+  has(name: string): boolean {
+    return name.toLowerCase() in this._headers;
+  }
+
+  append(name: string, value: string): void {
+    const lower = name.toLowerCase();
+    const current = this._headers[lower];
+    if (current) {
+      this._headers[lower] = current + ', ' + value;
+    } else {
+      this._headers[lower] = value;
+    }
+  }
+
+  delete(name: string): void {
+    delete this._headers[name.toLowerCase()];
+  }
+
+  getAll(name: string): string[] {
+    const value = this.get(name);
+    if (value === null) {
+      return [];
+    }
+    return value
+      .split(', ')
+      .map((v) => v.trim())
+      .filter((v) => v.length > 0);
+  }
+
+  forEach(
+    callbackfn: (value: string, key: string, parent: BasicHeaders) => void,
+    thisArg?: unknown
+  ): void {
+    Object.entries(this._headers).forEach(([key, value]) => {
+      callbackfn.call(thisArg, value, key, this);
+    });
+  }
+
+  getSetCookie(): string[] {
+    return this.getAll('set-cookie');
+  }
+
+  [Symbol.iterator](): IterableIterator<[string, string]> {
+    return function* (
+      this: BasicHeaders
+    ): Generator<[string, string], void, unknown> {
+      for (const [key, value] of Object.entries(this._headers)) {
+        if (Array.isArray(value)) {
+          for (const v of value) {
+            yield [key, String(v)];
+          }
+        } else {
+          yield [key, String(value)];
+        }
+      }
+    }.call(this);
+  }
+
+  entries(): IterableIterator<[string, string]> {
+    return this[Symbol.iterator]();
+  }
+
+  keys(): IterableIterator<string> {
+    return function* (this: BasicHeaders): Generator<string, void, unknown> {
+      for (const key in this._headers) {
+        yield key;
+      }
+    }.call(this);
+  }
+
+  values(): IterableIterator<string> {
+    return function* (this: BasicHeaders): Generator<string, void, unknown> {
+      for (const value of Object.values(this._headers)) {
+        yield value;
+      }
+    }.call(this);
+  }
+}
+
 // Ensure Response and Headers are always defined for jsdom compatibility
+
+if (typeof Headers === 'undefined') {
+  // @ts-expect-error: Global Headers type mismatch in jsdom environment
+  global.Headers = BasicHeaders;
+}
+
 if (typeof Response === 'undefined') {
+  interface ResponseInit {
+    status?: number;
+    statusText?: string;
+    headers?: Record<string, string>;
+  }
   class BasicResponse {
+    body: unknown;
+    status: number;
+    statusText: string;
+    headers: BasicHeaders;
+    ok: boolean;
+    type: string;
+
     constructor(body: unknown, init: ResponseInit = {}) {
       this.body = body;
       this.status = init.status || 200;
@@ -25,39 +142,29 @@ if (typeof Response === 'undefined') {
     clone() {
       return new BasicResponse(this.body, {
         status: this.status,
-        headers: this.headers,
+        headers: Object.fromEntries(Array.from(this.headers.entries())),
+      });
+    }
+
+    static error(): BasicResponse {
+      return new BasicResponse(null, { status: 0, statusText: 'error' });
+    }
+
+    static json(data: unknown, init?: ResponseInit): BasicResponse {
+      return new BasicResponse(JSON.stringify(data), init);
+    }
+
+    static redirect(url: string | URL, status?: number): BasicResponse {
+      const redirectUrl = typeof url === 'string' ? url : url.toString();
+      return new BasicResponse(null, {
+        status: status || 302,
+        headers: { Location: redirectUrl },
       });
     }
   }
 
-  global.Response = BasicResponse;
-}
-
-if (typeof Headers === 'undefined') {
-  class BasicHeaders {
-    constructor(init: Record<string, string> = {}) {
-      this._headers = {};
-      if (init && typeof init === 'object') {
-        for (const [key, value] of Object.entries(init)) {
-          this._headers[key.toLowerCase()] = value;
-        }
-      }
-    }
-
-    get(name) {
-      return this._headers[name.toLowerCase()] || null;
-    }
-
-    set(name, value) {
-      this._headers[name.toLowerCase()] = value;
-    }
-
-    has(name) {
-      return name.toLowerCase() in this._headers;
-    }
-  }
-
-  global.Headers = BasicHeaders;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  global.Response = BasicResponse as any;
 }
 
 // Polyfill for fetch if not available
