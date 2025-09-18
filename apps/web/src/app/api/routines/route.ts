@@ -3,9 +3,8 @@ import { getServerSession } from 'next-auth/next';
 import { PrismaClient } from '@mindful-mosaic/db';
 import { authOptions } from '../../../../lib/auth';
 
-const prisma = new PrismaClient();
-
 export async function GET(request: NextRequest) {
+  const prisma = new PrismaClient();
   const { searchParams } = new URL(request.url);
   let dateStr = searchParams.get('date');
   if (!dateStr) {
@@ -43,6 +42,7 @@ export async function GET(request: NextRequest) {
 }
 
 export async function POST(request: NextRequest) {
+  const prisma = new PrismaClient();
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {

@@ -1,3 +1,7 @@
+import { jest } from '@jest/globals';
+
+jest.mock('@auth/prisma-adapter');
+
 const mockPrisma = {
   routine: {
     findMany: jest.fn(),
@@ -5,13 +9,13 @@ const mockPrisma = {
   },
 };
 
-jest.mock('@prisma/client', () => ({
+jest.mock('@mindful-mosaic/db', () => ({
   PrismaClient: jest.fn(() => mockPrisma),
 }));
 
 const mockAuthOptions = {};
 
-jest.mock('../../auth/[...nextauth]/route', () => ({
+jest.mock('../../../../../lib/auth', () => ({
   authOptions: mockAuthOptions,
 }));
 
