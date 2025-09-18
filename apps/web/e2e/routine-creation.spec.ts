@@ -85,7 +85,7 @@ test.describe('Routine Creation Flow', () => {
     await page.getByRole('button', { name: /save/i }).click();
 
     // Wait for POST to complete
-    await page.waitForResponse((response) => response.request().method() === 'POST' && response.url().includes('/api/routines'), { timeout: 5000 });
+    await page.waitForResponse((response) => response.status() === 201, { timeout: 5000 });
 
     // Handle the success alert
     page.on('dialog', dialog => dialog.accept());

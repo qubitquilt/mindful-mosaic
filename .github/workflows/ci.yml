@@ -36,6 +36,13 @@ jobs:
           cache: true
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
+      - name: Generate Prisma Client
+        run: pnpm run prisma:generate
+      - name: Setup test database
+        run: |
+          export DATABASE_URL="file:./packages/db/test.db"
+          cd packages/db
+          npx prisma db push
       - name: Run tests
         run: pnpm turbo run test
 
