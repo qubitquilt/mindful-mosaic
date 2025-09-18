@@ -5,7 +5,15 @@ import { authOptions } from '../auth/[...nextauth]/route'
 
 const prisma = new PrismaClient()
 
-export async function GET() {
+export async function GET(request: NextRequest) {
+  const { searchParams } = new URL(request.url)
+  let dateStr = searchParams.get('date')
+  if (!dateStr) {
+    const today = new Date()
+    dateStr = today.toISOString().split('T')[0]
+  }
+  const startDate = new Date(dateStr + 'T00:00:00.000Z')
+  const endDate = new Date(dateStr + 'T23:59:59.999Z')
   try {
     const session = await getServerSession(authOptions)
     if (!session?.user?.id) {
@@ -13,7 +21,13 @@ export async function GET() {
     }
 
     const routines = await prisma.routine.findMany({
-      where: { userId: session.user.id },
+      where: { 
+        userId: session.user.id,
+        scheduledDate: {
+          gte: startDate,
+          lt: endDate
+        }
+      },
       include: { tasks: true },
       orderBy: { createdAt: 'desc' }
     })

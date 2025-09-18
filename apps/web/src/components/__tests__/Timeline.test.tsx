@@ -1,5 +1,10 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent, waitFor } from '@testing-library/react'
 import Timeline from '../Timeline'
+import { useSession } from 'next-auth/react'
+
+jest.mock('next-auth/react', () => ({
+  useSession: jest.fn()
+}));
 
 describe('Timeline', () => {
   it('renders the empty state message', () => {
@@ -55,4 +60,98 @@ describe('Timeline', () => {
       expect(area).toHaveClass('h-16', 'bg-gray-50', 'rounded', 'mt-2', 'flex', 'items-center', 'justify-center')
     })
   })
+
+  beforeEach(() => {
+    (useSession as jest.Mock).mockReturnValue({ data: { user: { id: 'test-user' } }, status: 'authenticated' });
+    global.fetch = jest.fn(() =>
+      Promise.resolve({
+        json: () => Promise.resolve([])
+      })
+    ) as jest.MockedFunction<typeof fetch>;
+  });
+
+  describe('with routines', () => {
+    const mockRoutines = [
+      {
+        id: '1',
+        name: 'Morning Routine',
+        timeSlot: '6:00 AM - 7:00 AM',
+        tasks: [
+          { id: 't1', name: 'Task 1', duration: 15 },
+          { id: 't2', name: 'Task 2', duration: 20 }
+        ]
+      },
+      {
+        id: '2',
+        name: 'Evening Routine',
+        timeSlot: '9:00 PM - 10:00 PM',
+        tasks: [
+          { id: 't3', name: 'Task 3', duration: 30 }
+        ]
+      }
+    ];
+
+    it('fetches routines with date parameter when authenticated', async () => {
+      const today = new Date().toISOString().split('T')[0];
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        json: () => Promise.resolve(mockRoutines)
+      });
+
+      render(<Timeline />);
+      await waitFor(() => {
+        expect(global.fetch).toHaveBeenCalledWith(`/api/routines?date=${today}`);
+      });
+    });
+
+    it('renders routines with total duration in buttons', async () => {
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        json: () => Promise.resolve(mockRoutines)
+      });
+
+      render(<Timeline />);
+      await waitFor(() => {
+        expect(screen.getByText('Morning Routine (35 min)')).toBeInTheDocument();
+        expect(screen.getByText('Evening Routine (30 min)')).toBeInTheDocument();
+      });
+    });
+
+    it('expands and collapses routine tasks on button click', async () => {
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        json: () => Promise.resolve(mockRoutines)
+      });
+
+      render(<Timeline />);
+      await waitFor(() => {
+        expect(screen.getByText('Morning Routine (35 min)')).toBeInTheDocument();
+      });
+
+      const morningButton = screen.getByText('Morning Routine (35 min)');
+      fireEvent.click(morningButton);
+
+      await waitFor(() => {
+        expect(screen.getByText('- Task 1 (15 min)')).toBeInTheDocument();
+        expect(screen.getByText('- Task 2 (20 min)')).toBeInTheDocument();
+      });
+
+      fireEvent.click(morningButton);
+      await waitFor(() => {
+        expect(screen.queryByText('- Task 1 (15 min)')).not.toBeInTheDocument();
+      });
+    });
+
+    it('renders routines in correct time slots', async () => {
+      (global.fetch as jest.Mock).mockResolvedValueOnce({
+        json: () => Promise.resolve(mockRoutines)
+      });
+
+      render(<Timeline />);
+      await waitFor(() => {
+        const morningSlot = screen.getByText('6:00 AM - 7:00 AM').parentElement;
+        expect(morningSlot).toContainElement(screen.getByText('Morning Routine (35 min)'));
+
+        const eveningSlot = screen.getByText('9:00 PM - 10:00 PM').parentElement;
+        expect(eveningSlot).toContainElement(screen.getByText('Evening Routine (30 min)'));
+      });
+    });
+  });
 })
