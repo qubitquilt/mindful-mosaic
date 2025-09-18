@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useSession } from 'next-auth/react';
+import RoutineForm from './routine/RoutineForm';
 
 const times = [
   '6:00 AM - 7:00 AM',
@@ -38,7 +39,24 @@ interface Routine {
 export default function Timeline() {
   const [routines, setRoutines] = useState<Routine[]>([]);
   const [expandedRoutine, setExpandedRoutine] = useState<string | null>(null);
+  const [editRoutine, setEditRoutine] = useState<Routine | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(
+    null
+  );
   const { data: session } = useSession();
+
+  const fetchRoutines = async () => {
+    if (session) {
+      const today = new Date().toISOString().split('T')[0];
+      try {
+        const res = await fetch(`/api/routines?date=${today}`);
+        const data = await res.json();
+        setRoutines(data);
+      } catch (error) {
+        console.error('Error fetching routines:', error);
+      }
+    }
+  };
 
   useEffect(() => {
     if (session) {
@@ -52,6 +70,23 @@ export default function Timeline() {
 
   const toggleRoutine = (routineId: string) => {
     setExpandedRoutine(expandedRoutine === routineId ? null : routineId);
+
+    const handleDelete = async (id: string) => {
+      if (!session) return;
+      try {
+        const res = await fetch(`/api/routines/${id}`, { method: 'DELETE' });
+        if (res.ok) {
+          setShowDeleteConfirm(null);
+          fetchRoutines();
+        } else {
+          const errorData = await res.json();
+          alert(errorData.error || 'Failed to delete routine.');
+        }
+      } catch (error) {
+        console.error('Error deleting routine:', error);
+        alert('Network error. Please try again.');
+      }
+    };
   };
 
   if (routines.length === 0) {
