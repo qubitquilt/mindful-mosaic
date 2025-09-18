@@ -78,3 +78,4 @@ temp/
 # Prisma
 /prisma/migrations
 
+.pnpm-store
