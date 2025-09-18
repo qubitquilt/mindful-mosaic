@@ -3,7 +3,7 @@ import '@testing-library/jest-dom';
 // Ensure Response and Headers are always defined for jsdom compatibility
 if (typeof Response === 'undefined') {
   class BasicResponse {
-    constructor(body: any, init: ResponseInit = {}) {
+    constructor(body: unknown, init: ResponseInit = {}) {
       this.body = body;
       this.status = init.status || 200;
       this.statusText = init.statusText || 'OK';
@@ -17,20 +17,25 @@ if (typeof Response === 'undefined') {
     }
 
     async text() {
-      return typeof this.body === 'string' ? this.body : JSON.stringify(this.body);
+      return typeof this.body === 'string'
+        ? this.body
+        : JSON.stringify(this.body);
     }
 
     clone() {
-      return new BasicResponse(this.body, { status: this.status, headers: this.headers });
+      return new BasicResponse(this.body, {
+        status: this.status,
+        headers: this.headers,
+      });
     }
   }
 
-  (globalThis as any).Response = BasicResponse;
+  global.Response = BasicResponse;
 }
 
 if (typeof Headers === 'undefined') {
   class BasicHeaders {
-    constructor(init = {}) {
+    constructor(init: Record<string, string> = {}) {
       this._headers = {};
       if (init && typeof init === 'object') {
         for (const [key, value] of Object.entries(init)) {
@@ -52,7 +57,7 @@ if (typeof Headers === 'undefined') {
     }
   }
 
-  (globalThis as any).Headers = BasicHeaders;
+  global.Headers = BasicHeaders;
 }
 
 // Polyfill for fetch if not available
@@ -88,19 +93,31 @@ jest.mock('next-auth/react', () => ({
   signOut: jest.fn(),
 }));
 
-
 jest.mock('@auth/prisma-adapter', () => ({
   PrismaAdapter: jest.fn(() => ({
-    createUser: jest.fn().mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
-    getUser: jest.fn().mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
-    getUserByEmail: jest.fn().mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
-    getUserByAccount: jest.fn().mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
-    updateUser: jest.fn().mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
+    createUser: jest
+      .fn()
+      .mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
+    getUser: jest
+      .fn()
+      .mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
+    getUserByEmail: jest
+      .fn()
+      .mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
+    getUserByAccount: jest
+      .fn()
+      .mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
+    updateUser: jest
+      .fn()
+      .mockResolvedValue({ id: 'user1', email: 'test@example.com' }),
     deleteUser: jest.fn().mockResolvedValue(undefined),
     linkAccount: jest.fn().mockResolvedValue({ id: 'account1' }),
     unlinkAccount: jest.fn().mockResolvedValue(undefined),
     createSession: jest.fn().mockResolvedValue({ id: 'session1' }),
-    getSessionAndUser: jest.fn().mockResolvedValue({ session: { id: 'session1' }, user: { id: 'user1' } }),
+    getSessionAndUser: jest.fn().mockResolvedValue({
+      session: { id: 'session1' },
+      user: { id: 'user1' },
+    }),
     updateSession: jest.fn().mockResolvedValue({ id: 'session1' }),
     deleteSession: jest.fn().mockResolvedValue(undefined),
     createVerificationToken: jest.fn().mockResolvedValue({ id: 'token1' }),
@@ -108,5 +125,3 @@ jest.mock('@auth/prisma-adapter', () => ({
     deleteVerificationToken: jest.fn().mockResolvedValue(undefined),
   })),
 }));
-
-
