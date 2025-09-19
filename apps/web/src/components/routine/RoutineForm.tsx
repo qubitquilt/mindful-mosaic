@@ -9,17 +9,45 @@ interface Task {
 }
 
 interface RoutineFormProps {
-  isOpen: boolean;
+  isOpen?: boolean;
   onClose: () => void;
+  routine?: {
+    id: string;
+    name: string;
+    timeSlot: string;
+    tasks: { name: string; duration: number }[];
+  } | null;
+  onSuccess?: () => void;
 }
 
-export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
-  const [routineName, setRoutineName] = useState('');
-  const [startTime, setStartTime] = useState('06:00');
-  const [endTime, setEndTime] = useState('07:00');
-  const [tasks, setTasks] = useState<Task[]>([{ name: '', duration: 0 }]);
+export default function RoutineForm({
+  isOpen,
+  onClose,
+  routine,
+  onSuccess,
+}: RoutineFormProps) {
+  const [routineName, setRoutineName] = useState(routine?.name || '');
+  const [startTime, setStartTime] = useState(() => {
+    if (routine?.timeSlot) {
+      const [start] = routine.timeSlot.split(' - ').map((s) => s.trim());
+      return start || '06:00';
+    }
+    return '06:00';
+  });
+  const [endTime, setEndTime] = useState(() => {
+    if (routine?.timeSlot) {
+      const [, end] = routine.timeSlot.split(' - ').map((s) => s.trim());
+      return end || '07:00';
+    }
+    return '07:00';
+  });
+  const [tasks, setTasks] = useState<Task[]>(
+    routine?.tasks || [{ name: '', duration: 0 }]
+  );
   const [error, setError] = useState('');
   const { data: session, status } = useSession();
+
+  const isEditing = !!routine?.id;
 
   const addTask = () => {
     setTasks([...tasks, { name: '', duration: 0 }]);
@@ -65,8 +93,11 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
     }
 
     try {
-      const response = await fetch('/api/routines', {
-        method: 'POST',
+      const url = isEditing ? `/api/routines/${routine.id}` : '/api/routines';
+      const method = isEditing ? 'PUT' : 'POST';
+
+      const response = await fetch(url, {
+        method,
         headers: {
           'Content-Type': 'application/json',
         },
@@ -84,17 +115,26 @@ export default function RoutineForm({ isOpen, onClose }: RoutineFormProps) {
       }
 
       // Success
-      setRoutineName('');
-      setTasks([{ name: '', duration: 0 }]);
+      if (onSuccess) {
+        onSuccess();
+      }
+      if (!isEditing) {
+        setRoutineName('');
+        setTasks([{ name: '', duration: 0 }]);
+      }
       onClose();
-      alert('Routine saved successfully!');
-      // TODO: Refresh timeline (implement in parent component or use state management)
+      alert(
+        isEditing
+          ? 'Routine updated successfully!'
+          : 'Routine saved successfully!'
+      );
     } catch (err) {
       setError('Network error. Please try again.');
     }
   };
 
-  if (!isOpen) return null;
+  // If isOpen prop is provided, respect it. If undefined, assume caller is handling visibility (e.g., wrapped modal).
+  if (typeof isOpen !== 'undefined' && !isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">

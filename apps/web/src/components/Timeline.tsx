@@ -1,7 +1,8 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
+import RoutineForm from './routine/RoutineForm';
 
 const times = [
   '6:00 AM - 7:00 AM',
@@ -38,20 +39,60 @@ interface Routine {
 export default function Timeline() {
   const [routines, setRoutines] = useState<Routine[]>([]);
   const [expandedRoutine, setExpandedRoutine] = useState<string | null>(null);
+  const [editRoutine, setEditRoutine] = useState<Routine | null>(null);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(
+    null
+  );
   const { data: session } = useSession();
 
-  useEffect(() => {
+  const fetchRoutines = useCallback(async () => {
     if (session) {
       const today = new Date().toISOString().split('T')[0];
-      fetch(`/api/routines?date=${today}`)
-        .then((res) => res.json())
-        .then(setRoutines)
-        .catch(console.error);
+      try {
+        const res = await fetch(`/api/routines?date=${today}`);
+        const data = await res.json();
+        setRoutines(data);
+      } catch (error) {
+        console.error('Error fetching routines:', error);
+      }
     }
   }, [session]);
 
+  useEffect(() => {
+    fetchRoutines();
+  }, [session, fetchRoutines]);
+
   const toggleRoutine = (routineId: string) => {
     setExpandedRoutine(expandedRoutine === routineId ? null : routineId);
+  };
+
+  const handleEdit = (routine: Routine) => {
+    setEditRoutine(routine);
+  };
+
+  const handleDeleteClick = (id: string) => {
+    setShowDeleteConfirm(id);
+  };
+
+  const handleDeleteConfirm = async (id: string) => {
+    if (!session) return;
+    try {
+      const res = await fetch(`/api/routines/${id}`, { method: 'DELETE' });
+      if (res.ok) {
+        setShowDeleteConfirm(null);
+        fetchRoutines();
+      } else {
+        const errorData = await res.json();
+        alert(errorData.error || 'Failed to delete routine.');
+      }
+    } catch (error) {
+      console.error('Error deleting routine:', error);
+      alert('Network error. Please try again.');
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setShowDeleteConfirm(null);
   };
 
   if (routines.length === 0) {
@@ -103,6 +144,20 @@ export default function Timeline() {
                 </button>
                 {expandedRoutine === routine.id && (
                   <div className="mt-2 space-y-1">
+                    <div className="flex justify-end space-x-2 mb-2">
+                      <button
+                        onClick={() => handleEdit(routine)}
+                        className="text-blue-500 hover:text-blue-700 text-sm"
+                      >
+                        Edit
+                      </button>
+                      <button
+                        onClick={() => handleDeleteClick(routine.id)}
+                        className="text-red-500 hover:text-red-700 text-sm"
+                      >
+                        Delete
+                      </button>
+                    </div>
                     {routine.tasks.map((task) => (
                       <div key={task.id} className="text-sm pl-4">
                         - {task.name} ({task.duration} min)
@@ -120,6 +175,49 @@ export default function Timeline() {
           </div>
         </div>
       ))}
+
+      {/* Edit Modal */}
+      {editRoutine && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full mx-4">
+            <RoutineForm
+              routine={editRoutine}
+              onSuccess={() => {
+                setEditRoutine(null);
+                fetchRoutines();
+              }}
+              onClose={() => setEditRoutine(null)}
+            />
+          </div>
+        </div>
+      )}
+
+      {/* Delete Confirmation Modal */}
+      {showDeleteConfirm && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="bg-white p-6 rounded-lg shadow-lg">
+            <h3 className="text-lg font-semibold mb-4">Confirm Delete</h3>
+            <p className="mb-4">
+              Are you sure you want to delete this routine? This action cannot
+              be undone.
+            </p>
+            <div className="flex space-x-3 justify-end">
+              <button
+                onClick={handleDeleteCancel}
+                className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={() => handleDeleteConfirm(showDeleteConfirm)}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

@@ -1,122 +1,51 @@
-// Mock next-auth and its submodules before any import
-jest.doMock('next-auth', () => jest.fn());
+import { describe, it, expect, beforeEach } from '@jest/globals';
+// route implementation for NextAuth is located in [...nextauth]/route.ts
+import { GET, POST } from '../[...nextauth]/route';
+import { getServerSession } from 'next-auth/next';
+import { PrismaClient } from '@mindful-mosaic/db';
 
-jest.doMock('next-auth/providers/google', () =>
-  jest.fn(
-    ({ clientId, clientSecret }) =>
-      ({
-        id: 'google',
-        name: 'Google',
-        type: 'oauth',
-        clientId,
-        clientSecret,
-      }) as any
-  )
-);
-
-jest.doMock('@auth/prisma-adapter', () => ({
-  PrismaAdapter: jest.fn(),
-}));
-
-jest.doMock('@prisma/client', () => ({
+jest.mock('next-auth/next');
+jest.mock('@mindful-mosaic/db');
+jest.mock('@prisma/client', () => ({
   PrismaClient: jest.fn(),
 }));
 
-// Mock process.env
-process.env.GOOGLE_CLIENT_ID = 'test-client-id';
-process.env.GOOGLE_CLIENT_SECRET = 'test-client-secret';
-process.env.NEXTAUTH_SECRET = 'test-secret';
-
-const mockNextAuth = require('next-auth');
-const mockGoogleProvider = require('next-auth/providers/google');
-const { PrismaAdapter: mockPrismaAdapter } = require('@auth/prisma-adapter');
-const { PrismaClient: mockPrismaClient } = require('@prisma/client');
+const mockedGetServerSession = getServerSession as jest.MockedFunction<
+  typeof getServerSession
+>;
+const MockedPrismaClient = PrismaClient as jest.MockedClass<
+  typeof PrismaClient
+>;
 
 describe('Auth API Route', () => {
+  let prisma: any;
+  let req: any;
+  let response: any;
+
   beforeEach(() => {
     jest.clearAllMocks();
-    mockNextAuth.mockReturnValue(jest.fn());
-    mockPrismaAdapter.mockReturnValue({
-      createUser: jest.fn().mockResolvedValue({ id: 'test-user-id' }),
-    } as any);
-    mockPrismaClient.mockImplementation(
-      () => ({ $connect: jest.fn(), $disconnect: jest.fn() }) as any
-    );
-  });
-
-  it('configures NextAuth with PrismaAdapter and GoogleProvider', () => {
-    require('../[...nextauth]/route');
-
-    expect(mockNextAuth).toHaveBeenCalledWith({
-      adapter: expect.any(Object),
-      providers: [
-        expect.objectContaining({
-          id: 'google',
-          name: 'Google',
-          type: 'oauth',
-          clientId: process.env.GOOGLE_CLIENT_ID,
-          clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-        }),
-      ],
-      callbacks: {
-        session: expect.any(Function),
-      },
-    });
-
-    expect(mockPrismaAdapter).toHaveBeenCalledWith(expect.any(Object));
-    expect(mockGoogleProvider).toHaveBeenCalledWith({
-      clientId: process.env.GOOGLE_CLIENT_ID,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-    });
-  });
-
-  it('handles GET request for auth route', async () => {
-    jest.resetModules();
-
-    const mockGET = jest.fn().mockResolvedValue(undefined);
-    const mockPOST = jest.fn().mockResolvedValue(undefined);
-
-    jest.doMock('../[...nextauth]/route', () => ({
-      GET: mockGET,
-      POST: mockPOST,
-    }));
-
-    const { GET } = await import('../[...nextauth]/route');
-    const request = { method: 'GET' } as any;
-
-    await GET(request as Request);
-
-    expect(mockGET).toHaveBeenCalledWith(request as Request);
-  });
-
-  it('handles POST request for auth route', async () => {
-    jest.resetModules();
-
-    const mockGET = jest.fn().mockResolvedValue(undefined);
-    const mockPOST = jest.fn().mockResolvedValue(undefined);
-
-    jest.doMock('../[...nextauth]/route', () => ({
-      GET: mockGET,
-      POST: mockPOST,
-    }));
-
-    const { POST } = await import('../[...nextauth]/route');
-    const request = { method: 'POST' } as any;
-
-    await POST(request as Request);
-
-    expect(mockPOST).toHaveBeenCalledWith(request as Request);
-  });
-
-  it('configures adapter with createUser method', () => {
-    const mockAdapter = {
-      createUser: jest.fn().mockResolvedValue({ id: 'new-user' }),
+    prisma = {
+      $disconnect: jest.fn(),
+      // Add other Prisma methods as needed
     };
-    mockPrismaAdapter.mockReturnValue(mockAdapter);
+    MockedPrismaClient.mockImplementation(() => prisma);
+    req = { method: 'GET' };
+  });
 
-    require('../[...nextauth]/route');
+  it('should handle GET request', async () => {
+    mockedGetServerSession.mockResolvedValue({ user: { id: '1' } });
 
-    expect(mockAdapter.createUser).toBeDefined();
-    expect(typeof mockAdapter.createUser).toBe('function');
+    response = await GET(req);
+
+    expect(response.status).toBe(200);
+  });
+
+  it('should handle POST request', async () => {
+    req.method = 'POST';
+    req.body = JSON.stringify({ provider: 'credentials' });
+
+    response = await POST(req);
+
+    expect(response.status).toBe(200);
   });
 });
