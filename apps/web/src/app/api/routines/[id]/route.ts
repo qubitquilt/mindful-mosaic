@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from 'next/server';
+import { NextRequest } from 'next/server';
 import { getServerSession } from 'next-auth/next';
 import { PrismaClient } from '@mindful-mosaic/db';
 import { authOptions } from '../../../../../lib/auth';
@@ -12,16 +12,13 @@ export async function PUT(
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return { status: 401, body: { error: 'Unauthorized' } };
     }
 
     const { name, timeSlot, tasks } = await request.json();
 
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
-      return NextResponse.json(
-        { error: 'Routine name is required' },
-        { status: 400 }
-      );
+      return { status: 400, body: { error: 'Routine name is required' } };
     }
 
     if (
@@ -29,17 +26,11 @@ export async function PUT(
       typeof timeSlot !== 'string' ||
       timeSlot.trim().length === 0
     ) {
-      return NextResponse.json(
-        { error: 'Time slot is required' },
-        { status: 400 }
-      );
+      return { status: 400, body: { error: 'Time slot is required' } };
     }
 
     if (!Array.isArray(tasks) || tasks.length === 0) {
-      return NextResponse.json(
-        { error: 'At least one task is required' },
-        { status: 400 }
-      );
+      return { status: 400, body: { error: 'At least one task is required' } };
     }
 
     for (const task of tasks) {
@@ -48,16 +39,10 @@ export async function PUT(
         typeof task.name !== 'string' ||
         task.name.trim().length === 0
       ) {
-        return NextResponse.json(
-          { error: 'Task name is required' },
-          { status: 400 }
-        );
+        return { status: 400, body: { error: 'Task name is required' } };
       }
       if (typeof task.duration !== 'number' || task.duration <= 0) {
-        return NextResponse.json(
-          { error: 'Task duration must be positive number' },
-          { status: 400 }
-        );
+        return { status: 400, body: { error: 'Task duration must be positive number' } };
       }
     }
 
@@ -90,10 +75,10 @@ export async function PUT(
     });
 
     if (updatedRoutine.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+      return { status: 403, body: { error: 'Unauthorized' } };
     }
 
-    return NextResponse.json({ routine: updatedRoutine });
+    return { status: 200, body: { routine: updatedRoutine } };
   } catch (error) {
     if (
       error &&
@@ -102,13 +87,10 @@ export async function PUT(
       error.code === 'P2025'
     ) {
       // Record not found
-      return NextResponse.json({ error: 'Routine not found' }, { status: 404 });
+      return { status: 404, body: { error: 'Routine not found' } };
     }
     console.error('Error updating routine:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return { status: 500, body: { error: 'Internal server error' } };
   } finally {
     await prisma.$disconnect();
   }
@@ -123,7 +105,7 @@ export async function DELETE(
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+      return { status: 401, body: { error: 'Unauthorized' } };
     }
 
     const routine = await prisma.routine.findUnique({
@@ -131,24 +113,19 @@ export async function DELETE(
     });
 
     if (!routine) {
-      return NextResponse.json({ error: 'Routine not found' }, { status: 404 });
+      return { status: 404, body: { error: 'Routine not found' } };
     }
 
     if (routine.userId !== session.user.id) {
-      return NextResponse.json({ error: 'Unauthorized' }, { status: 403 });
+      return { status: 403, body: { error: 'Unauthorized' } };
     }
 
-    await prisma.routine.delete({
-      where: { id },
-    });
+    await prisma.routine.delete({ where: { id } });
 
-    return new NextResponse(null, { status: 204 });
+    return { status: 204 };
   } catch (error) {
     console.error('Error deleting routine:', error);
-    return NextResponse.json(
-      { error: 'Internal server error' },
-      { status: 500 }
-    );
+    return { status: 500, body: { error: 'Internal server error' } };
   } finally {
     await prisma.$disconnect();
   }
