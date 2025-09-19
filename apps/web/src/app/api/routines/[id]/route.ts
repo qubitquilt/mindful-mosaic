@@ -95,7 +95,12 @@ export async function PUT(
 
     return NextResponse.json({ routine: updatedRoutine });
   } catch (error) {
-    if (error.code === 'P2025') {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'code' in error &&
+      error.code === 'P2025'
+    ) {
       // Record not found
       return NextResponse.json({ error: 'Routine not found' }, { status: 404 });
     }

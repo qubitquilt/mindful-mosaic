@@ -9,7 +9,7 @@ interface Task {
 }
 
 interface RoutineFormProps {
-  isOpen: boolean;
+  isOpen?: boolean;
   onClose: () => void;
   routine?: {
     id: string;
@@ -133,7 +133,8 @@ export default function RoutineForm({
     }
   };
 
-  if (!isOpen) return null;
+  // If isOpen prop is provided, respect it. If undefined, assume caller is handling visibility (e.g., wrapped modal).
+  if (typeof isOpen !== 'undefined' && !isOpen) return null;
 
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
