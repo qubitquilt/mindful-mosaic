@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import RoutineForm from './routine/RoutineForm';
 
@@ -45,7 +45,7 @@ export default function Timeline() {
   );
   const { data: session } = useSession();
 
-  const fetchRoutines = async () => {
+  const fetchRoutines = useCallback(async () => {
     if (session) {
       const today = new Date().toISOString().split('T')[0];
       try {
@@ -56,11 +56,11 @@ export default function Timeline() {
         console.error('Error fetching routines:', error);
       }
     }
-  };
+  }, [session]);
 
   useEffect(() => {
     fetchRoutines();
-  }, [session]);
+  }, [session, fetchRoutines]);
 
   const toggleRoutine = (routineId: string) => {
     setExpandedRoutine(expandedRoutine === routineId ? null : routineId);

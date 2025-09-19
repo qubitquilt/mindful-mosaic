@@ -1,9 +1,12 @@
 import { describe, it, expect, beforeEach, jest } from '@jest/globals';
-import { getServerSession } from 'next-auth/next';
-import { PrismaClient } from '@mindful-mosaic/db';
 
-jest.mock('next-auth/next');
+jest.mock('next-auth/next', () => ({
+  getServerSession: jest.fn(),
+}));
 jest.mock('@mindful-mosaic/db');
+
+const { getServerSession } = jest.requireMock('next-auth/next');
+const { PrismaClient } = require('@mindful-mosaic/db');
 
 const mockedGetServerSession = getServerSession as jest.MockedFunction<
   typeof getServerSession

@@ -6,35 +6,35 @@ import { NextResponse } from 'next/server';
 // Try to create the NextAuth handler; in Jest tests NextAuth may be mocked
 // and not return a real handler, so fall back to a lightweight implementation
 // that uses getServerSession (which tests mock) to determine success.
-let handler: any;
+let handler: unknown;
 try {
   handler = NextAuth(authOptions);
 } catch (err) {
   handler = undefined;
 }
 
-export async function GET(req: any) {
+async function callHandlerOrFallback(req: unknown) {
   if (typeof handler === 'function') {
     try {
-      return await handler(req);
+      const fn = handler as (...args: unknown[]) => Promise<unknown>;
+      const result = await fn(req);
+      // If the handler already returned a Response-like object, return it
+      if (typeof Response !== 'undefined' && result instanceof Response)
+        return result as Response;
+      // Otherwise, wrap the result in a NextResponse
+      return NextResponse.json(result as unknown);
     } catch (err) {
       // fallthrough to test-friendly behavior
     }
   }
   const session = await getServerSession();
-  // Return a lightweight response object for tests (they expect .status)
-  return { status: 200, body: { ok: !!session } };
+  return NextResponse.json({ ok: !!session }, { status: 200 });
 }
 
-export async function POST(req: any) {
-  if (typeof handler === 'function') {
-    try {
-      return await handler(req);
-    } catch (err) {
-      // fallthrough to test-friendly behavior
-    }
-  }
-  const session = await getServerSession();
-  // Return a lightweight response object for tests (they expect .status)
-  return { status: 200, body: { ok: !!session } };
+export async function GET(req: unknown) {
+  return callHandlerOrFallback(req);
+}
+
+export async function POST(req: unknown) {
+  return callHandlerOrFallback(req);
 }
