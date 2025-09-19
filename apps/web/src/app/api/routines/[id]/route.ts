@@ -1,5 +1,4 @@
 import { NextRequest } from 'next/server';
-import { getServerSession } from 'next-auth/next';
 import { PrismaClient } from '@mindful-mosaic/db';
 import { authOptions } from '../../../../../lib/auth';
 
@@ -10,6 +9,7 @@ export async function PUT(
   const prisma = new PrismaClient();
   const id = params.id;
   try {
+    const { getServerSession } = await import('next-auth/next');
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return { status: 401, body: { error: 'Unauthorized' } };
@@ -42,7 +42,10 @@ export async function PUT(
         return { status: 400, body: { error: 'Task name is required' } };
       }
       if (typeof task.duration !== 'number' || task.duration <= 0) {
-        return { status: 400, body: { error: 'Task duration must be positive number' } };
+        return {
+          status: 400,
+          body: { error: 'Task duration must be positive number' },
+        };
       }
     }
 
@@ -103,6 +106,7 @@ export async function DELETE(
   const prisma = new PrismaClient();
   const id = params.id;
   try {
+    const { getServerSession } = await import('next-auth/next');
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
       return { status: 401, body: { error: 'Unauthorized' } };
