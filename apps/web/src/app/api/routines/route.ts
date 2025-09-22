@@ -12,8 +12,11 @@ export async function GET(request: NextRequest) {
     const today = new Date();
     dateStr = today.toISOString().split('T')[0];
   }
-  const startDate = new Date(dateStr + 'T00:00:00.000Z');
-  const endDate = new Date(dateStr + 'T23:59:59.999Z');
+  const date = new Date(dateStr);
+  const dayOfWeek = date
+    .toLocaleDateString('en-US', { weekday: 'long' })
+    .toUpperCase();
+
   try {
     const session = await getServerSession(authOptions);
     if (!session?.user?.id) {
@@ -23,13 +26,12 @@ export async function GET(request: NextRequest) {
     const routines = await prisma.routine.findMany({
       where: {
         userId: session.user.id,
-        scheduledDate: {
-          gte: startDate,
-          lt: endDate,
+        repeatDays: {
+          contains: dayOfWeek,
         },
       },
       include: { tasks: true },
-      orderBy: { createdAt: 'desc' },
+      orderBy: { scheduledTime: 'asc' },
     });
 
     return NextResponse.json(routines);
@@ -50,7 +52,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json([]);
     }
 
-    const { name, timeSlot, tasks } = await request.json();
+    const { name, scheduledTime, repeatDays, tasks } = await request.json();
 
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
       return NextResponse.json(
@@ -60,12 +62,12 @@ export async function POST(request: NextRequest) {
     }
 
     if (
-      !timeSlot ||
-      typeof timeSlot !== 'string' ||
-      timeSlot.trim().length === 0
+      !scheduledTime ||
+      typeof scheduledTime !== 'string' ||
+      scheduledTime.trim().length === 0
     ) {
       return NextResponse.json(
-        { error: 'Time slot is required' },
+        { error: 'Scheduled time is required' },
         { status: 400 }
       );
     }
@@ -105,7 +107,8 @@ export async function POST(request: NextRequest) {
     const routine = await prisma.routine.create({
       data: {
         name: name.trim(),
-        timeSlot: timeSlot.trim(),
+        scheduledTime: scheduledTime.trim(),
+        repeatDays: repeatDays || null,
         userId: session.user.id,
         tasks: {
           create: createdTasks,

@@ -14,7 +14,8 @@ interface RoutineFormProps {
   routine?: {
     id: string;
     name: string;
-    timeSlot: string;
+    scheduledTime: string;
+    repeatDays?: string;
     tasks: { name: string; duration: number }[];
   } | null;
   onSuccess?: () => void;
@@ -27,19 +28,14 @@ export default function RoutineForm({
   onSuccess,
 }: RoutineFormProps) {
   const [routineName, setRoutineName] = useState(routine?.name || '');
-  const [startTime, setStartTime] = useState(() => {
-    if (routine?.timeSlot) {
-      const [start] = routine.timeSlot.split(' - ').map((s) => s.trim());
-      return start || '06:00';
+  const [scheduledTime, setScheduledTime] = useState(
+    routine?.scheduledTime || '06:00'
+  );
+  const [selectedDays, setSelectedDays] = useState<string[]>(() => {
+    if (routine?.repeatDays) {
+      return routine.repeatDays.split(',').map((d) => d.trim());
     }
-    return '06:00';
-  });
-  const [endTime, setEndTime] = useState(() => {
-    if (routine?.timeSlot) {
-      const [, end] = routine.timeSlot.split(' - ').map((s) => s.trim());
-      return end || '07:00';
-    }
-    return '07:00';
+    return [];
   });
   const [tasks, setTasks] = useState<Task[]>(
     routine?.tasks || [{ name: '', duration: 0 }]
@@ -48,6 +44,22 @@ export default function RoutineForm({
   const { data: session, status } = useSession();
 
   const isEditing = !!routine?.id;
+
+  const daysOfWeek = [
+    'MONDAY',
+    'TUESDAY',
+    'WEDNESDAY',
+    'THURSDAY',
+    'FRIDAY',
+    'SATURDAY',
+    'SUNDAY',
+  ];
+
+  const toggleDay = (day: string) => {
+    setSelectedDays((prev) =>
+      prev.includes(day) ? prev.filter((d) => d !== day) : [...prev, day]
+    );
+  };
 
   const addTask = () => {
     setTasks([...tasks, { name: '', duration: 0 }]);
@@ -91,6 +103,10 @@ export default function RoutineForm({
       setError('All tasks must have a name and duration > 0.');
       return;
     }
+    if (!scheduledTime) {
+      setError('Scheduled time is required.');
+      return;
+    }
 
     try {
       const url = isEditing ? `/api/routines/${routine.id}` : '/api/routines';
@@ -103,7 +119,8 @@ export default function RoutineForm({
         },
         body: JSON.stringify({
           name: routineName.trim(),
-          timeSlot: `${startTime} - ${endTime}`,
+          scheduledTime,
+          repeatDays: selectedDays.length > 0 ? selectedDays.join(',') : null,
           tasks,
         }),
       });
@@ -120,6 +137,8 @@ export default function RoutineForm({
       }
       if (!isEditing) {
         setRoutineName('');
+        setScheduledTime('06:00');
+        setSelectedDays([]);
         setTasks([{ name: '', duration: 0 }]);
       }
       onClose();
@@ -143,7 +162,9 @@ export default function RoutineForm({
         aria-modal="true"
         className="bg-white p-6 rounded-lg max-w-md w-full mx-4"
       >
-        <h2 className="text-xl font-bold mb-4">Create Routine</h2>
+        <h2 className="text-xl font-bold mb-4">
+          {isEditing ? 'Edit Routine' : 'Create Routine'}
+        </h2>
         {error && (
           <div className="mb-4 p-2 bg-red-100 text-red-700 rounded">
             {error}
@@ -167,35 +188,37 @@ export default function RoutineForm({
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">Time Slot</label>
-            <div className="flex space-x-2">
-              <div className="flex-1">
-                <label htmlFor="start-time" className="sr-only">
-                  Start time
+            <label
+              htmlFor="scheduled-time"
+              className="block text-sm font-medium mb-2"
+            >
+              Scheduled Time
+            </label>
+            <input
+              id="scheduled-time"
+              type="time"
+              value={scheduledTime}
+              onChange={(e) => setScheduledTime(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded"
+              required
+            />
+          </div>
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">
+              Repeat Days
+            </label>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-2">
+              {daysOfWeek.map((day) => (
+                <label key={day} className="flex items-center space-x-2">
+                  <input
+                    type="checkbox"
+                    checked={selectedDays.includes(day)}
+                    onChange={() => toggleDay(day)}
+                    className="rounded"
+                  />
+                  <span className="text-sm">{day}</span>
                 </label>
-                <input
-                  id="start-time"
-                  type="time"
-                  value={startTime}
-                  onChange={(e) => setStartTime(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  required
-                />
-              </div>
-              <span>-</span>
-              <div className="flex-1">
-                <label htmlFor="end-time" className="sr-only">
-                  End time
-                </label>
-                <input
-                  id="end-time"
-                  type="time"
-                  value={endTime}
-                  onChange={(e) => setEndTime(e.target.value)}
-                  className="w-full p-2 border border-gray-300 rounded"
-                  required
-                />
-              </div>
+              ))}
             </div>
           </div>
           <div className="mb-4">

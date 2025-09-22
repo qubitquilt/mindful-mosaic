@@ -32,7 +32,8 @@ interface Task {
 interface Routine {
   id: string;
   name: string;
-  timeSlot: string;
+  scheduledTime: string;
+  repeatDays?: string;
   tasks: Task[];
 }
 
@@ -95,6 +96,16 @@ export default function Timeline() {
     setShowDeleteConfirm(null);
   };
 
+  // Function to get slot index from scheduledTime (e.g., '06:00' -> 0 for 6-7 AM)
+  const getSlotIndex = (scheduledTime: string) => {
+    const [hours, minutes] = scheduledTime.split(':').map(Number);
+    const hour24 = hours + (minutes > 0 ? 1 : 0); // Assume exact hour
+    if (hour24 >= 6 && hour24 < 22) {
+      return hour24 - 6;
+    }
+    return -1; // Out of range
+  };
+
   if (routines.length === 0) {
     return (
       <div className="flex flex-col space-y-2 p-4 max-w-4xl mx-auto">
@@ -118,9 +129,9 @@ export default function Timeline() {
     );
   }
 
-  const routinesByTime = times.map((time) => ({
+  const routinesByTime = times.map((time, index) => ({
     time,
-    routines: routines.filter((r) => r.timeSlot === time),
+    routines: routines.filter((r) => getSlotIndex(r.scheduledTime) === index),
   }));
 
   return (
@@ -138,7 +149,7 @@ export default function Timeline() {
                   onClick={() => toggleRoutine(routine.id)}
                   className="w-full text-left"
                 >
-                  {routine.name} (
+                  {routine.name} at {routine.scheduledTime} (
                   {routine.tasks.reduce((sum, task) => sum + task.duration, 0)}{' '}
                   min)
                 </button>

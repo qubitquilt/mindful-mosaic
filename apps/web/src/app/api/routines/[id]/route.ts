@@ -15,7 +15,7 @@ export async function PUT(
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { name, timeSlot, tasks } = await request.json();
+    const { name, scheduledTime, repeatDays, tasks } = await request.json();
 
     if (!name || typeof name !== 'string' || name.trim().length === 0) {
       return NextResponse.json(
@@ -25,12 +25,12 @@ export async function PUT(
     }
 
     if (
-      !timeSlot ||
-      typeof timeSlot !== 'string' ||
-      timeSlot.trim().length === 0
+      !scheduledTime ||
+      typeof scheduledTime !== 'string' ||
+      scheduledTime.trim().length === 0
     ) {
       return NextResponse.json(
-        { error: 'Time slot is required' },
+        { error: 'Scheduled time is required' },
         { status: 400 }
       );
     }
@@ -83,7 +83,8 @@ export async function PUT(
       where: { id },
       data: {
         name: name.trim(),
-        timeSlot: timeSlot.trim(),
+        scheduledTime: scheduledTime.trim(),
+        repeatDays: repeatDays || null,
       },
       include: { tasks: true },
     });

@@ -60,7 +60,8 @@ model VerificationToken {
 model Routine {
   id            String   @id @default(cuid())
   name          String
-  timeSlot      String?
+  scheduledTime String?
+  repeatDays    String?
   scheduledDate DateTime @default(now())
   userId        String
   createdAt     DateTime @default(now())
