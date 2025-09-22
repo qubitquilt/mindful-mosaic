@@ -22,7 +22,6 @@ const mockLoadingSession = {
   status: 'loading',
 };
 
-
 const mockRoutine = {
   id: 'test-routine-id',
   name: 'Test Routine',
