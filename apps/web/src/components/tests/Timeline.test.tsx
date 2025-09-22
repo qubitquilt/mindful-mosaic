@@ -118,13 +118,7 @@ describe('Timeline', () => {
       })
     ) as jest.MockedFunction<typeof fetch>;
 
-    const originalError = console.error;
-    jest.spyOn(console, 'error').mockImplementation((...args) => {
-      if (typeof args[0] === 'string' && args[0].includes('act')) {
-        return;
-      }
-      originalError.call(console, ...args);
-    });
+    console.error = jest.fn();
   });
 
   describe('with routines', () => {
@@ -132,7 +126,8 @@ describe('Timeline', () => {
       {
         id: '1',
         name: 'Morning Routine',
-        timeSlot: '6:00 AM - 7:00 AM',
+        scheduledTime: '06:00',
+        repeatDays: 'MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY',
         tasks: [
           { id: 't1', name: 'Task 1', duration: 15 },
           { id: 't2', name: 'Task 2', duration: 20 },
@@ -141,7 +136,10 @@ describe('Timeline', () => {
       {
         id: '2',
         name: 'Evening Routine',
-        timeSlot: '9:00 PM - 10:00 PM',
+
+        scheduledTime: '21:00',
+        repeatDays: 'MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY',
+
         tasks: [{ id: 't3', name: 'Task 3', duration: 30 }],
       },
     ];
@@ -178,10 +176,10 @@ describe('Timeline', () => {
       });
       await waitFor(() => {
         expect(
-          screen.getByText('Morning Routine (35 min)')
+          screen.getByText('Morning Routine at 06:00 (35 min)')
         ).toBeInTheDocument();
         expect(
-          screen.getByText('Evening Routine (30 min)')
+          screen.getByText('Evening Routine at 21:00 (30 min)')
         ).toBeInTheDocument();
       });
     });
@@ -199,11 +197,13 @@ describe('Timeline', () => {
       });
       await waitFor(() => {
         expect(
-          screen.getByText('Morning Routine (35 min)')
+          screen.getByText('Morning Routine at 06:00 (35 min)')
         ).toBeInTheDocument();
       });
 
-      const morningButton = screen.getByText('Morning Routine (35 min)');
+      const morningButton = screen.getByText(
+        'Morning Routine at 06:00 (35 min)'
+      );
       fireEvent.click(morningButton);
 
       await waitFor(() => {
@@ -231,13 +231,13 @@ describe('Timeline', () => {
       await waitFor(() => {
         const morningSlot = screen.getByText('6:00 AM - 7:00 AM').parentElement;
         expect(morningSlot).toContainElement(
-          screen.getByText('Morning Routine (35 min)')
+          screen.getByText('Morning Routine at 06:00 (35 min)')
         );
 
         const eveningSlot =
           screen.getByText('9:00 PM - 10:00 PM').parentElement;
         expect(eveningSlot).toContainElement(
-          screen.getByText('Evening Routine (30 min)')
+          screen.getByText('Evening Routine at 21:00 (30 min)')
         );
       });
     });

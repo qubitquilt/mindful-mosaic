@@ -40,7 +40,8 @@ describe('PUT /api/routines/[id]', () => {
       method: 'PUT',
       json: jest.fn().mockResolvedValue({
         name: 'Updated Routine',
-        timeSlot: '08:00 AM - 09:00 AM',
+        scheduledTime: '08:00',
+        repeatDays: 'MONDAY,TUESDAY',
         tasks: [
           { name: 'Task 1', duration: 30 },
           { name: 'Task 2', duration: 20 },
@@ -56,7 +57,8 @@ describe('PUT /api/routines/[id]', () => {
     prisma.routine.update.mockResolvedValue({
       id: 'routine1',
       name: 'Updated Routine',
-      timeSlot: '08:00 AM - 09:00 AM',
+      scheduledTime: '08:00',
+      repeatDays: 'MONDAY,TUESDAY',
       userId: 'user1',
       tasks: [
         { id: 'task1', name: 'Task 1', duration: 30, order: 0 },
@@ -79,7 +81,8 @@ describe('PUT /api/routines/[id]', () => {
       where: { id: 'routine1' },
       data: {
         name: 'Updated Routine',
-        timeSlot: '08:00 AM - 09:00 AM',
+        scheduledTime: '08:00',
+        repeatDays: 'MONDAY,TUESDAY',
       },
       include: { tasks: true },
     });

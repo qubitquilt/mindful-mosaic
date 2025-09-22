@@ -108,7 +108,8 @@ describe('Routines API Route', () => {
     mockPrisma.routine.create.mockResolvedValue({
       id: '1',
       name: 'Test',
-      timeSlot: 'Test',
+      scheduledTime: '06:00',
+      repeatDays: null,
       userId: 'user1',
       tasks: [],
     });
@@ -130,7 +131,15 @@ describe('Routines API Route', () => {
 
     it('returns user routines for authenticated user', async () => {
       const routines = [
-        { id: '1', userId: 'user1', name: 'test', timeSlot: 'test', tasks: [] },
+        {
+          id: '1',
+          userId: 'user1',
+          name: 'test',
+          scheduledTime: '06:00',
+          repeatDays:
+            'MONDAY,TUESDAY,WEDNESDAY,THURSDAY,FRIDAY,SATURDAY,SUNDAY',
+          tasks: [],
+        },
       ];
       mockPrisma.routine.findMany.mockResolvedValue(routines);
       mockGetServerSession.mockResolvedValue({ user: { id: 'user1' } });
@@ -139,15 +148,12 @@ describe('Routines API Route', () => {
       expect(mockGetServerSession).toHaveBeenCalledWith(mockAuthOptions);
       expect(mockPrisma.routine.findMany).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({
+          where: {
             userId: 'user1',
-            scheduledDate: expect.objectContaining({
-              gte: expect.any(Date),
-              lt: expect.any(Date),
-            }),
-          }),
+            repeatDays: { contains: expect.stringContaining('MONDAY') },
+          },
           include: { tasks: true },
-          orderBy: { createdAt: 'desc' },
+          orderBy: { scheduledTime: 'asc' },
         })
       );
       expect(res.status).toBe(200);
@@ -172,7 +178,7 @@ describe('Routines API Route', () => {
         method: 'POST',
         body: JSON.stringify({
           name: 'test',
-          timeSlot: 'test',
+          scheduledTime: '06:00',
           tasks: [{ name: 't', duration: 1 }],
         }),
       });
@@ -185,13 +191,15 @@ describe('Routines API Route', () => {
     it('creates routine with valid data for authenticated user', async () => {
       const data = {
         name: 'Morning',
-        timeSlot: '6am',
+        scheduledTime: '06:00',
+        repeatDays: null,
         tasks: [{ name: 'wake', duration: 30 }],
       };
       const expectedRoutine = {
         id: '1',
         name: 'Morning',
-        timeSlot: '6am',
+        scheduledTime: '06:00',
+        repeatDays: null,
         userId: 'user1',
         tasks: [{ name: 'wake', duration: 30, order: 0 }],
       };
@@ -206,7 +214,8 @@ describe('Routines API Route', () => {
       expect(mockPrisma.routine.create).toHaveBeenCalledWith({
         data: expect.objectContaining({
           name: 'Morning',
-          timeSlot: '6am',
+          scheduledTime: '06:00',
+          repeatDays: null,
           userId: 'user1',
           tasks: { create: [{ name: 'wake', duration: 30, order: 0 }] },
         }),
@@ -221,7 +230,7 @@ describe('Routines API Route', () => {
       const req = new MockRequest('http://localhost', {
         method: 'POST',
         body: JSON.stringify({
-          timeSlot: 'test',
+          scheduledTime: '06:00',
           tasks: [{ name: 't', duration: 1 }],
         }),
       });
@@ -230,7 +239,7 @@ describe('Routines API Route', () => {
       expect(await res.json()).toEqual({ error: 'Routine name is required' });
     });
 
-    it('returns 400 for missing time slot', async () => {
+    it('returns 400 for missing scheduled time', async () => {
       mockGetServerSession.mockResolvedValue({ user: { id: 'user1' } });
       const req = new MockRequest('http://localhost', {
         method: 'POST',
@@ -241,14 +250,18 @@ describe('Routines API Route', () => {
       });
       const res = await POST(req);
       expect(res.status).toBe(400);
-      expect(await res.json()).toEqual({ error: 'Time slot is required' });
+      expect(await res.json()).toEqual({ error: 'Scheduled time is required' });
     });
 
     it('returns 400 for no tasks', async () => {
       mockGetServerSession.mockResolvedValue({ user: { id: 'user1' } });
       const req = new MockRequest('http://localhost', {
         method: 'POST',
-        body: JSON.stringify({ name: 'test', timeSlot: 'test', tasks: [] }),
+        body: JSON.stringify({
+          name: 'test',
+          scheduledTime: '06:00',
+          tasks: [],
+        }),
       });
       const res = await POST(req);
       expect(res.status).toBe(400);
@@ -263,7 +276,7 @@ describe('Routines API Route', () => {
         method: 'POST',
         body: JSON.stringify({
           name: 'test',
-          timeSlot: 'test',
+          scheduledTime: '06:00',
           tasks: [{ name: '', duration: 1 }],
         }),
       });
@@ -278,7 +291,7 @@ describe('Routines API Route', () => {
         method: 'POST',
         body: JSON.stringify({
           name: 'test',
-          timeSlot: 'test',
+          scheduledTime: '06:00',
           tasks: [{ name: 't', duration: 0 }],
         }),
       });
@@ -297,7 +310,7 @@ describe('Routines API Route', () => {
         method: 'POST',
         body: JSON.stringify({
           name: 'test',
-          timeSlot: 'test',
+          scheduledTime: '06:00',
           tasks: [{ name: 't', duration: 1 }],
         }),
       });

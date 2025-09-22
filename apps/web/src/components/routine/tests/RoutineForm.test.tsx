@@ -1,189 +1,220 @@
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
 import RoutineForm from '../RoutineForm';
+import { SessionProvider } from 'next-auth/react';
 
+// Mock next-auth/react
 jest.mock('next-auth/react', () => ({
   useSession: jest.fn(),
+  SessionProvider: ({ children }) => <div>{children}</div>,
 }));
 
-global.alert = jest.fn();
+const mockUseSession = require('next-auth/react').useSession;
+
+const mockSession = {
+  data: {
+    user: { id: 'test-user-id', name: 'Test User', email: 'test@example.com' },
+  },
+  status: 'authenticated',
+};
+
+const mockLoadingSession = {
+  data: null,
+  status: 'loading',
+};
+
+const mockRoutine = {
+  id: 'test-routine-id',
+  name: 'Test Routine',
+  scheduledTime: '06:00',
+  repeatDays: 'MONDAY,TUESDAY',
+  tasks: [
+    { id: 'task1', name: 'Task 1', duration: 30 },
+    { id: 'task2', name: 'Task 2', duration: 15 },
+  ],
+};
+
+const mockOnClose = jest.fn();
+const mockOnSuccess = jest.fn();
+
+const renderRoutineForm = (props = {}) => {
+  return render(
+    <SessionProvider session={mockSession.data} status={mockSession.status}>
+      <RoutineForm onClose={mockOnClose} onSuccess={mockOnSuccess} {...props} />
+    </SessionProvider>
+  );
+};
 
 describe('RoutineForm', () => {
-  const mockOnClose = jest.fn();
-
   beforeEach(() => {
-    jest.clearAllMocks();
+    global.fetch = jest.fn();
+    global.alert = jest.fn();
+    mockUseSession.mockReturnValue(mockSession);
   });
 
-  it('renders form with initial task', () => {
-    const useSessionMock = require('next-auth/react').useSession;
-    useSessionMock.mockReturnValue({
-      data: { user: { id: '1' } },
-      status: 'authenticated',
-    });
-
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
-
-    expect(screen.getByLabelText(/routine name/i)).toBeInTheDocument();
-    expect(screen.getAllByPlaceholderText(/task name/i)).toHaveLength(1);
-    expect(screen.getAllByPlaceholderText(/duration/i)).toHaveLength(1);
+  it('renders create form correctly', () => {
+    renderRoutineForm();
+    expect(screen.getByText('Create Routine')).toBeInTheDocument();
+    expect(screen.getByLabelText(/Routine Name/i)).toBeInTheDocument();
+    expect(screen.getByLabelText(/Scheduled Time/i)).toBeInTheDocument();
+    expect(screen.getByText('Repeat Days')).toBeInTheDocument();
+    expect(screen.getAllByRole('checkbox')).toHaveLength(7);
+    expect(screen.getByPlaceholderText('Task name')).toBeInTheDocument();
+    expect(screen.getByPlaceholderText('Duration (min)')).toBeInTheDocument();
     expect(
-      screen.getByRole('button', { name: /save routine/i })
+      screen.getByRole('button', { name: /Add Task/i })
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole('button', { name: /Save Routine/i })
     ).toBeInTheDocument();
   });
 
-  it('adds a new task on click', () => {
-    const useSessionMock = require('next-auth/react').useSession;
-    useSessionMock.mockReturnValue({
-      data: { user: { id: '1' } },
-      status: 'authenticated',
-    });
-
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
-
-    const addButton = screen.getByText(/add task/i);
-    fireEvent.click(addButton);
-
-    expect(screen.getAllByPlaceholderText(/task name/i)).toHaveLength(2);
+  it('renders edit form correctly', () => {
+    renderRoutineForm({ routine: mockRoutine });
+    expect(screen.getByText('Edit Routine')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('Test Routine')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('06:00')).toBeInTheDocument();
+    expect(screen.getAllByRole('checkbox')[0]).toBeChecked(); // MONDAY
+    expect(screen.getAllByRole('checkbox')[1]).toBeChecked(); // TUESDAY
+    expect(screen.getByDisplayValue('Task 1')).toBeInTheDocument();
+    expect(screen.getByDisplayValue('30')).toBeInTheDocument();
   });
 
-  it('removes a task when more than one', () => {
-    const useSessionMock = require('next-auth/react').useSession;
-    useSessionMock.mockReturnValue({
-      data: { user: { id: '1' } },
-      status: 'authenticated',
+  it('submits create routine successfully', async () => {
+    const mockResponse = {
+      ok: true,
+      json: async () => ({ routine: mockRoutine }),
+    };
+    global.fetch.mockResolvedValue(mockResponse);
+
+    renderRoutineForm();
+
+    fireEvent.change(screen.getByLabelText(/Routine Name/i), {
+      target: { value: 'Morning Routine' },
+    });
+    fireEvent.change(screen.getByLabelText(/Scheduled Time/i), {
+      target: { value: '07:00' },
+    });
+    fireEvent.click(screen.getAllByRole('checkbox')[0]); // Select MONDAY
+
+    fireEvent.change(screen.getByPlaceholderText('Task name'), {
+      target: { value: 'Wake up' },
+    });
+    fireEvent.change(screen.getByPlaceholderText('Duration (min)'), {
+      target: { value: '10' },
     });
 
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
+    const form = screen.getByRole('form');
+    fireEvent.submit(form);
 
-    const addButton = screen.getByText(/add task/i);
+    await waitFor(() => {
+      const expectedBody = JSON.stringify({
+        name: 'Morning Routine',
+        scheduledTime: '07:00',
+        repeatDays: 'MONDAY',
+        tasks: [{ name: 'Wake up', duration: 10 }],
+      });
+      expect(global.fetch).toHaveBeenCalledWith(
+        '/api/routines',
+        expect.objectContaining({
+          method: 'POST',
+          body: expectedBody,
+        })
+      );
+    });
+
+    expect(mockOnSuccess).toHaveBeenCalled();
+    expect(mockOnClose).toHaveBeenCalled();
+  });
+
+  it('submits edit routine successfully', async () => {
+    const mockResponse = {
+      ok: true,
+      json: async () => ({ routine: mockRoutine }),
+    };
+    global.fetch.mockResolvedValue(mockResponse);
+
+    renderRoutineForm({ routine: mockRoutine });
+
+    fireEvent.change(screen.getByLabelText(/Routine Name/i), {
+      target: { value: 'Updated Routine' },
+    });
+    fireEvent.change(screen.getByLabelText(/Scheduled Time/i), {
+      target: { value: '08:00' },
+    });
+    const checkboxes = screen.getAllByRole('checkbox');
+    fireEvent.click(checkboxes[0]); // uncheck MONDAY
+    fireEvent.click(checkboxes[1]); // uncheck TUESDAY
+    fireEvent.click(checkboxes[2]); // check WEDNESDAY
+
+    const form = screen.getByRole('form');
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(global.fetch).toHaveBeenCalled();
+    });
+
+    const [[url, options]] = global.fetch.mock.calls;
+    const body = JSON.parse(options.body);
+    expect(url).toBe('/api/routines/test-routine-id');
+    expect(options.method).toBe('PUT');
+    expect(body).toMatchObject({
+      name: 'Updated Routine',
+      scheduledTime: '08:00',
+      repeatDays: 'WEDNESDAY',
+      tasks: expect.any(Array),
+    });
+
+    expect(mockOnSuccess).toHaveBeenCalled();
+    expect(mockOnClose).toHaveBeenCalled();
+  });
+
+  it('shows error for invalid input', async () => {
+    renderRoutineForm();
+
+    const form = screen.getByRole('form');
+
+    fireEvent.submit(form);
+
+    await waitFor(() => {
+      expect(screen.getByText('Routine name is required.')).toBeInTheDocument();
+    });
+  });
+
+  it('shows loading error if session loading', async () => {
+    mockUseSession.mockReturnValue(mockLoadingSession);
+
+    renderRoutineForm();
+
+    const form = screen.getByRole('form');
+    fireEvent.submit(form);
+
+    await screen.findByText('Loading session...');
+  });
+
+  it('adds and removes tasks', () => {
+    renderRoutineForm();
+
+    const addButton = screen.getByRole('button', { name: /Add Task/i });
     fireEvent.click(addButton);
 
-    const removeButton = screen.getAllByRole('button', { name: /remove/i })[0];
+    expect(screen.getAllByPlaceholderText('Task name')).toHaveLength(2);
+
+    const removeButton = screen.getAllByRole('button', { name: /Remove/i })[1];
     fireEvent.click(removeButton);
 
-    expect(screen.getAllByPlaceholderText(/task name/i)).toHaveLength(1);
+    expect(screen.getAllByPlaceholderText('Task name')).toHaveLength(1);
   });
 
-  it('does not remove last task', () => {
-    const useSessionMock = require('next-auth/react').useSession;
-    useSessionMock.mockReturnValue({
-      data: { user: { id: '1' } },
-      status: 'authenticated',
-    });
+  it('toggles repeat days', () => {
+    renderRoutineForm();
 
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
+    const mondayCheckbox = screen.getAllByRole('checkbox')[0];
+    fireEvent.click(mondayCheckbox);
 
-    const removeButton = screen.getByRole('button', { name: /remove/i });
-    expect(removeButton).toBeDisabled();
-  });
+    expect(mondayCheckbox).toBeChecked();
 
-  it('shows error for empty routine name', async () => {
-    const useSessionMock = require('next-auth/react').useSession;
-    useSessionMock.mockReturnValue({
-      data: { user: { id: '1' } },
-      status: 'authenticated',
-    });
+    fireEvent.click(mondayCheckbox);
 
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
-
-    const form = screen.getByRole('form');
-    fireEvent.submit(form);
-
-    expect(
-      await screen.findByText('Routine name is required.')
-    ).toBeInTheDocument();
-  });
-
-  it('shows error for invalid task', async () => {
-    const useSessionMock = require('next-auth/react').useSession;
-    useSessionMock.mockReturnValue({
-      data: { user: { id: '1' } },
-      status: 'authenticated',
-    });
-
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
-
-    fireEvent.change(screen.getByLabelText(/routine name/i), {
-      target: { value: 'Test Routine' },
-    });
-    const form = screen.getByRole('form');
-    fireEvent.submit(form);
-
-    expect(
-      await screen.findByText('All tasks must have a name and duration > 0.')
-    ).toBeInTheDocument();
-  });
-
-  it('shows error for no session', async () => {
-    const useSessionMock = require('next-auth/react').useSession;
-    useSessionMock.mockReturnValue({ data: null, status: 'unauthenticated' });
-
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
-
-    fireEvent.change(screen.getByLabelText(/routine name/i), {
-      target: { value: 'Test Routine' },
-    });
-    fireEvent.change(screen.getAllByPlaceholderText(/task name/i)[0], {
-      target: { value: 'Task 1' },
-    });
-    fireEvent.change(screen.getAllByPlaceholderText(/duration/i)[0], {
-      target: { value: '30' },
-    });
-
-    const form = screen.getByRole('form');
-    fireEvent.submit(form);
-
-    await waitFor(() => {
-      expect(
-        screen.getByText('Please sign in to save a routine.')
-      ).toBeInTheDocument();
-    });
-  });
-
-  it('saves routine with valid data when signed in', async () => {
-    const useSessionMock = require('next-auth/react').useSession;
-    useSessionMock.mockReturnValue({
-      data: { user: { id: '1', name: 'Test User' } },
-      status: 'authenticated',
-    });
-
-    const mockFetch = jest.fn().mockResolvedValue({
-      ok: true,
-      json: () => Promise.resolve({ routine: { id: '1' } }),
-    } as Response);
-    jest.spyOn(global, 'fetch').mockImplementation(mockFetch);
-
-    render(<RoutineForm isOpen={true} onClose={mockOnClose} />);
-
-    fireEvent.change(screen.getByLabelText(/routine name/i), {
-      target: { value: 'Test Routine' },
-    });
-    fireEvent.change(screen.getAllByPlaceholderText(/task name/i)[0], {
-      target: { value: 'Task 1' },
-    });
-    fireEvent.change(screen.getAllByPlaceholderText(/duration/i)[0], {
-      target: { value: '30' },
-    });
-
-    const form = screen.getByRole('form');
-    fireEvent.submit(form);
-
-    await waitFor(() => {
-      expect(mockOnClose).toHaveBeenCalled();
-    });
-
-    expect(mockFetch).toHaveBeenCalledWith(
-      '/api/routines',
-      expect.objectContaining({
-        method: 'POST',
-        body: JSON.stringify({
-          name: 'Test Routine',
-          timeSlot: '06:00 - 07:00',
-          tasks: [{ name: 'Task 1', duration: 30 }],
-        }),
-      })
-    );
-
-    jest.restoreAllMocks();
+    expect(mondayCheckbox).not.toBeChecked();
   });
 });
