@@ -3,6 +3,7 @@
 import { useEffect, useState, useCallback } from 'react';
 import { useSession } from 'next-auth/react';
 import RoutineForm from './routine/RoutineForm';
+import ExecutionMode from './ExecutionMode';
 
 const times = [
   '6:00 AM - 7:00 AM',
@@ -23,13 +24,13 @@ const times = [
   '9:00 PM - 10:00 PM',
 ];
 
-interface Task {
+export interface Task {
   id: string;
   name: string;
   duration: number;
 }
 
-interface Routine {
+export interface Routine {
   id: string;
   name: string;
   scheduledTime: string;
@@ -41,6 +42,7 @@ export default function Timeline() {
   const [routines, setRoutines] = useState<Routine[]>([]);
   const [expandedRoutine, setExpandedRoutine] = useState<string | null>(null);
   const [editRoutine, setEditRoutine] = useState<Routine | null>(null);
+  const [activeRoutine, setActiveRoutine] = useState<Routine | null>(null);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState<string | null>(
     null
   );
@@ -163,6 +165,12 @@ export default function Timeline() {
                         Edit
                       </button>
                       <button
+                        onClick={() => setActiveRoutine(routine)}
+                        className="text-green-500 hover:text-green-700 text-sm"
+                      >
+                        Start
+                      </button>
+                      <button
                         onClick={() => handleDeleteClick(routine.id)}
                         className="text-red-500 hover:text-red-700 text-sm"
                       >
@@ -228,6 +236,18 @@ export default function Timeline() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Execution Mode Modal */}
+      {activeRoutine && (
+        <ExecutionMode
+          routine={activeRoutine}
+          onFinish={() => {
+            setActiveRoutine(null);
+            fetchRoutines(); // Refresh timeline if needed (e.g., mark completed)
+          }}
+          onClose={() => setActiveRoutine(null)}
+        />
       )}
     </div>
   );
