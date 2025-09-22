@@ -1,4 +1,10 @@
-import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
+import {
+  render,
+  screen,
+  fireEvent,
+  waitFor,
+  act,
+} from '@testing-library/react';
 import { useRouter } from 'next/navigation';
 import ExecutionMode from './ExecutionMode';
 import { Routine } from './Timeline';

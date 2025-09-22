@@ -44,8 +44,14 @@ export default function ExecutionMode({
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isPaused, remainingTime, currentIndex, routine.tasks, onFinish, routine.tasks.length]);
-
+  }, [
+    isPaused,
+    remainingTime,
+    currentIndex,
+    routine.tasks,
+    onFinish,
+    routine.tasks.length,
+  ]);
 
   useEffect(() => {
     if (currentIndex < routine.tasks.length) {
@@ -54,8 +60,6 @@ export default function ExecutionMode({
       onFinish();
     }
   }, [currentIndex, routine.tasks, onFinish]);
-
-
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -81,10 +85,16 @@ export default function ExecutionMode({
   }
 
   const currentDuration = currentTask ? currentTask.duration * 60 : 0;
-  const progress = currentDuration > 0 ? ((currentDuration - remainingTime) / currentDuration) * 100 : 0;
+  const progress =
+    currentDuration > 0
+      ? ((currentDuration - remainingTime) / currentDuration) * 100
+      : 0;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50" data-testid="execution-mode">
+    <div
+      className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+      data-testid="execution-mode"
+    >
       <div className="bg-white p-6 rounded-lg shadow-lg max-w-md w-full mx-4 max-h-[90vh] overflow-y-auto">
         <h2 className="text-xl font-bold mb-4">{routine.name}</h2>
         {currentTask && (

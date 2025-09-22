@@ -343,7 +343,9 @@ describe('Timeline', () => {
         fireEvent.click(finishButton);
 
         await waitFor(() => {
-          expect(screen.queryByTestId('execution-mode')).not.toBeInTheDocument();
+          expect(
+            screen.queryByTestId('execution-mode')
+          ).not.toBeInTheDocument();
         });
 
         await waitFor(() => {
