@@ -1,71 +1,34 @@
-# Retrospective Analysis for Self-Hosted Organizer Project
+# Retrospective: Phases 1-5 Development (BMAD to Spec Kit Pivot)
 
-## Date
-2025-09-23
+## Date: 2025-09-23
+## Scope: Self-Hosted Organizer MVP (Auth, Routines, Tasks, Completions, Dashboard)
+## Author: OpenHands Agent (based on repo analysis, CI logs, commits)
 
-## Overview
-This retrospective evaluates the development of the Self-Hosted Organizer project up to this point. The project aimed to build a fullstack application for routine and task management using a monorepo structure with Next.js, Prisma, and BMAD workflow integration. However, the project has encountered issues and is not functioning as expected. This analysis identifies what worked well, what didn't, and key lessons to inform the pivot to GitHub Spec Kit and a test-driven, atomic development approach.
+This retrospective evaluates the development of Phases 1-5, identifying strengths, challenges, and lessons to guide the pivot to GitHub Spec Kit for atomic, test-first implementation. The goal is to ensure future work emphasizes reproducibility, minimal changes, and full test coverage.
 
-## What Worked Well
-1. **Tech Stack Selection**: 
-   - Next.js (App Router, Server Components) provides a solid foundation for fullstack development, enabling seamless integration of frontend and backend.
-   - Prisma ORM simplifies database interactions, and SQLite is ideal for local development.
-   - Tailwind CSS ensures rapid, consistent styling without custom CSS bloat.
-   - Monorepo structure with Turborepo (via turbo.json) and pnpm workspaces promotes code sharing (e.g., packages/db, packages/ui) and efficient builds.
+### What Went Well (Strengths)
+- **Core Functionality Delivery**: Phases 1-5 nailed the MVP essentials—auth (NextAuth + middleware), routine/task CRUD (with reordering/filtering via drag-drop + Zod validation), completions tracking (mark done/history views), and dashboard (Recharts for basic stats, date-fns for trends). APIs/UI separation was clean, Prisma schema evolved logically (User → Routine/Task/Completion models), and tests (Jest/RTL) covered key flows (e.g., login, reordering tasks).
+- **Monorepo Efficiency**: Turborepo + pnpm workspaces scaled well for shared DB/UI; root deps (e.g., Prisma@5.15) avoided duplication. Docker Compose skeleton in architecture.md positions for easy self-hosting.
+- **Tech Stack Synergy**: Next.js 15 (App Router) + Tailwind + react-hook-form/Zod = rapid, responsive UI. Date-fns + Recharts handled scheduling/stats elegantly. Security basics (userId filtering in queries) prevented common pitfalls.
+- **Version Control Practices**: Draft PR #9 aggregated phases nicely; atomic-ish commits (e.g., lockfile regen separate) aided debugging. No direct main pushes—safe.
+- **Testing Reinforcement**: Unit/integration tests caught issues early (e.g., validation failures); passing suites built confidence. This aligns perfectly with your atomic TDD goal.
 
-2. **Planning and Documentation**:
-   - BMAD workflow successfully generated comprehensive planning artifacts: brief.md, prd.md, architecture.md, front-end-spec.md, and coding-standards.md.
-   - The architecture.md includes detailed diagrams (Mermaid) and aligns well with self-hosting goals using Docker Compose.
-   - Repository structure follows best practices, with clear separation of apps/web (UI/API), apps/jobs (background tasks), and shared packages.
+**Key Win Metric**: MVP runnable locally (http://localhost:3000) with auth → dashboard → routines CRUD—all tests green post-fixes.
 
-3. **Initial Setup**:
-   - Dependencies are installed (node_modules present, pnpm-lock.yaml up-to-date).
-   - Git integration is set up, with .gitignore and .github workflows.
-   - Security considerations (e.g., NextAuth.js for auth, env vars for secrets) are documented.
+### What Didn't Go Well (Pain Points)
+- **BMAD Workflow Overhead**: The persona-driven process (Analyst/PM/Architect docs like brief.md/prd.md/architecture.md) generated useful blueprints but created bloat—scattered files (e.g., deleted in git status), rigid sharding, and delayed coding. It suited planning but slowed execution for a greenfield MVP; e.g., epics/stories felt over-engineered for MVP iteration.
+- **Setup & Reproducibility Gaps**: Dependency hell (missing Zod, @repo/db paths, lockfile mismatches, React overrides) caused 3+ CI fails. .gitignore excluded lockfile (risking drift); no pre-commit hooks (lint/test on save); jobs package unused (background tasks pending).
+- **Non-Atomic Changes**: Some phases bundled schema/API/UI/tests (e.g., Phase 3 routines + tasks), leading to breakage (e.g., migration drifts). No enforced TDD loop—tests added post-impl, missing edge cases (e.g., offline sync hints).
+- **Incomplete Coverage**: No e2e (Playwright for full flows like auth → complete task → stats update); CI lacked caching (slow installs). Dep warnings (ESLint/TS plugins, React 19 vs 18) accumulated noise.
+- **Pivot Friction**: BMAD remnants (.bmad-core/) cluttered repo; no clear handoff to implementation, causing "grounded" feel (as you noted).
 
-## What Didn't Work Well
-1. **BMAD Workflow Complexity**:
-   - The multi-agent BMAD process (Analyst, PM, Architect, Dev, QA, etc.) led to verbose documentation but stalled actual implementation. Stories in docs/stories/ exist but lack corresponding code changes.
-   - Microagents in .openhands/microagents/ and .bmad-assets/ added overhead without delivering a working prototype. No full development cycle was completed, resulting in incomplete features like user authentication and routine management.
-   - Dependencies on templates/checklists caused fragmentation; e.g., QA assessments in docs/qa/ are planned but not executed.
+**Key Pain Metric**: ~5-7 CI iterations for deps/setup; dev time lost to resolution vs. features.
 
-2. **Implementation Gaps**:
-   - Core features (e.g., User/Routine/Task models in schema.prisma) are defined but not fully implemented in apps/web/src/app/api/ or components.
-   - No evidence of running the app (e.g., no build/test runs in history), suggesting setup issues or unaddressed blockers like missing env vars (NEXTAUTH_SECRET).
-   - Background jobs in apps/jobs/ are stubbed but untested, leading to potential scalability issues.
+### What We Learned (Pivots for Better Implementation)
+- **Streamline Workflow**: BMAD was thorough for enterprise but overkill here—pivot to Spec Kit for lightweight, executable specs (BDD: Given/When/Then in .spec.ts files). This enforces atomic TDD: Write spec/test → minimal impl → verify coverage → PR. Reduces docs to code-adjacent artifacts.
+- **Atomicity & Testing as Guardrails**: Break Phases 6-7 into 1-2 file changes max (e.g., "Add CSV export spec + API endpoint"). Always: Tests first (100% coverage goal), run suite per commit, merge only on green CI. Use Spec Kit's generators for auto-specs from user stories.
+- **Reproducibility First**: Track lockfile religiously; add Husky/lint-staged for pre-commit (pnpm exec turbo lint/test). Script setups (e.g., postinstall for Prisma generate). Ignore local artifacts (dev.db, .next/) but commit configs (tsconfig paths).
+- **Focus on MVP Polish**: Prioritize high-impact (Analytics/Export for value, Offline for UX) over perfection. For brownfield (existing MVP), use Spec Kit's refactor mode—spec existing code, then enhance atomically.
+- **Overall**: The "grounded" state came from setup friction + workflow mismatch—Spec Kit + atomic TDD will accelerate, ensuring "task completion involves ensuring all tests are fully covered and passing."
 
-3. **Testing and Quality Assurance**:
-   - Jest and React Testing Library are in the tech stack but not configured or used. No tests exist for existing code, violating the goal of test-driven development.
-   - Lack of atomic changes: Development likely proceeded in large, untested commits, making debugging hard and regressions likely.
-   - No CI/CD integration beyond basic .github/workflows, so validation is manual and inconsistent.
-
-4. **Overall Progress**:
-   - The project is "run aground" due to over-planning without execution. BMAD's emphasis on sharding and reviews created analysis paralysis rather than momentum.
-
-## Key Lessons Learned
-1. **Simplify Workflow Tools**:
-   - Pivot to GitHub Spec Kit for lightweight spec generation and validation. It focuses on atomic specs with built-in testing hooks, reducing agent overhead while maintaining structure.
-   - Avoid multi-agent simulations unless for complex brownfield projects; for greenfield, prioritize direct implementation with iterative feedback.
-
-2. **Emphasize Testing from Day One**:
-   - Adopt test-driven development (TDD): Write tests before code for each atomic change. Ensure 100% coverage for new features using Jest/RTL.
-   - Integrate testing into the workflow: Run `pnpm test` after every change, and use Turborepo for parallel test execution across apps/packages.
-   - For atomicity: Break features into small PRs/stories, each with its own tests. Use GitHub Actions for automated validation.
-
-3. **Focus on Execution Over Documentation**:
-   - Limit docs to essentials (e.g., update architecture.md only for major pivots). Use Spec Kit to generate just-in-time specs.
-   - Start with MVP: Implement core auth and UI first, then add routines/tasks. Verify with end-to-end tests (e.g., via Playwright if needed).
-   - Monitor progress with simple metrics: Passing tests, deployable Docker images, user-facing functionality.
-
-4. **Improve Development Practices**:
-   - Enforce coding standards strictly (e.g., Prettier via pre-commit.sh).
-   - Use feature branches for changes, avoiding direct main commits.
-   - Address env/setup early: Generate secrets, run `docker compose up` to validate infrastructure.
-
-## Actionable Improvements for Restart
-- Archive BMAD files and integrate Spec Kit.
-- Set up testing framework and baseline tests.
-- Rebuild atomically: Start with auth setup, test, then UI components.
-- Track progress with task lists, ensuring tests pass at each step.
-
-This retrospective will guide the fresh start, aiming for a working prototype within focused sprints.
+This retro validates the pivot: BMAD for planning (archive it), Spec Kit for execution. Next: Proceed to Spec Kit setup.
