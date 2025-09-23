@@ -1,0 +1,6 @@
+{
+  "apps/web/**/*.{js,ts,jsx,tsx}": [
+    "eslint --fix",
+    "jest --bail --findRelatedTests --passWithNoTests"
+  ]
+}
