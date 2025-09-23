@@ -241,5 +241,117 @@ describe('Timeline', () => {
         );
       });
     });
+
+    describe('Execution Mode Integration', () => {
+      const MockExecutionMode = jest.fn(() => (
+        <div data-testid="execution-mode">Execution Mode Active</div>
+      ));
+
+      beforeEach(() => {
+        jest.doMock('../ExecutionMode', () => MockExecutionMode);
+      });
+
+      it('shows Start button when routine is expanded', async () => {
+        (global.fetch as jest.Mock).mockResolvedValueOnce({
+          json: () => Promise.resolve(mockRoutines),
+        });
+
+        await act(async () => {
+          render(<Timeline />);
+          await act(async () => {
+            await flushPromises();
+          });
+        });
+        await waitFor(() => {
+          expect(
+            screen.getByText('Morning Routine at 06:00 (35 min)')
+          ).toBeInTheDocument();
+        });
+
+        const morningButton = screen.getByText(
+          'Morning Routine at 06:00 (35 min)'
+        );
+        fireEvent.click(morningButton);
+
+        await waitFor(() => {
+          expect(screen.getByText('Start')).toBeInTheDocument();
+        });
+      });
+
+      it('opens ExecutionMode when Start button is clicked', async () => {
+        (global.fetch as jest.Mock).mockResolvedValueOnce({
+          json: () => Promise.resolve(mockRoutines),
+        });
+
+        await act(async () => {
+          render(<Timeline />);
+          await act(async () => {
+            await flushPromises();
+          });
+        });
+        await waitFor(() => {
+          expect(
+            screen.getByText('Morning Routine at 06:00 (35 min)')
+          ).toBeInTheDocument();
+        });
+
+        const morningButton = screen.getByText(
+          'Morning Routine at 06:00 (35 min)'
+        );
+        fireEvent.click(morningButton); // Expand
+
+        await waitFor(() => {
+          expect(screen.getByText('Start')).toBeInTheDocument();
+        });
+
+        const startButton = screen.getByText('Start');
+        fireEvent.click(startButton);
+
+        await waitFor(() => {
+          expect(screen.getByTestId('execution-mode')).toBeInTheDocument();
+        });
+      });
+
+      it('closes ExecutionMode on finish and refreshes routines', async () => {
+        const mockFetch = jest.fn().mockResolvedValueOnce({
+          json: () => Promise.resolve(mockRoutines),
+        });
+
+        global.fetch = mockFetch;
+
+        await act(async () => {
+          render(<Timeline />);
+          await act(async () => {
+            await flushPromises();
+          });
+        });
+        await waitFor(() => {
+          expect(
+            screen.getByText('Morning Routine at 06:00 (35 min)')
+          ).toBeInTheDocument();
+        });
+
+        const morningButton = screen.getByText(
+          'Morning Routine at 06:00 (35 min)'
+        );
+        fireEvent.click(morningButton); // Expand
+
+        const startButton = screen.getByText('Start');
+        fireEvent.click(startButton);
+
+        const finishButton = screen.getByTestId('finish-routine-button');
+        fireEvent.click(finishButton);
+
+        await waitFor(() => {
+          expect(
+            screen.queryByTestId('execution-mode')
+          ).not.toBeInTheDocument();
+        });
+
+        await waitFor(() => {
+          expect(mockFetch).toHaveBeenCalledTimes(2); // Initial + refresh after finish
+        });
+      });
+    });
   });
 });
