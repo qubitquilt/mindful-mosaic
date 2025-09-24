@@ -4,7 +4,7 @@ import { useSession } from "next-auth/react"
 
 jest.mock("next-auth/react")
 jest.mock("date-fns", () => ({
-  format: jest.fn((date: Date, fmt: string) => date.toISOString().split('T')[0]),
+  format: jest.fn((date: Date) => date.toISOString().split('T')[0]),
 }))
 
 const mockSession = { data: { user: { id: "user1" } }, status: "authenticated" }
@@ -52,7 +52,7 @@ describe("Completions Page", () => {
   it("deletes completion", async () => {
     ;(fetch as jest.Mock)
       .mockResolvedValueOnce({ ok: true, json: async () => mockCompletions })
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ message: "Completion deleted" }}))
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ message: "Completion deleted" }) })
 
     render(<CompletionsPage />)
 

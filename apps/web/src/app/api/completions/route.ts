@@ -21,17 +21,15 @@ export async function GET(request: NextRequest) {
     const { searchParams } = new URL(request.url)
     const routineId = searchParams.get("routineId")
     const dateStr = searchParams.get("date")
-    let where: any = { userId: session.user.id }
-
-    if (routineId) {
-      where.routineId = routineId
-    }
-
-    if (dateStr) {
-      where.completedAt = {
-        gte: new Date(dateStr),
-        lt: new Date(new Date(dateStr).getTime() + 24 * 60 * 60 * 1000),
-      }
+    const where: Prisma.CompletionWhereInput = {
+      userId: session.user.id,
+      ...(routineId && { routineId }),
+      ...(dateStr && { 
+        completedAt: {
+          gte: new Date(dateStr),
+          lt: new Date(new Date(dateStr).getTime() + 24 * 60 * 60 * 1000),
+        }
+      })
     }
 
     const completions = await prisma.completion.findMany({

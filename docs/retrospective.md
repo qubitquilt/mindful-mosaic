@@ -31,4 +31,30 @@ This retrospective evaluates the development of Phases 1-5, identifying strength
 - **Focus on MVP Polish**: Prioritize high-impact (Analytics/Export for value, Offline for UX) over perfection. For brownfield (existing MVP), use Spec Kit's refactor mode—spec existing code, then enhance atomically.
 - **Overall**: The "grounded" state came from setup friction + workflow mismatch—Spec Kit + atomic TDD will accelerate, ensuring "task completion involves ensuring all tests are fully covered and passing."
 
-This retro validates the pivot: BMAD for planning (archive it), Spec Kit for execution. Next: Proceed to Spec Kit setup.
+This retro validates the pivot: BMAD for planning (archive it), Spec Kit for execution.
+
+### Updated Retrospective: Decision to Start from Scratch with Spec Kit
+
+Given the accumulated technical debt, workflow mismatches, and the project's "grounded" state, the decision has been made to start from scratch using GitHub Spec Kit as the primary methodology. This involves:
+
+- **Archiving Current State**: Preserve Phases 1-5 code/docs in a branch or archive for reference, but rebuild the project ground-up with atomic, spec-driven TDD.
+- **Spec Kit Pivot Full Implementation**: Reinstall/configure Spec Kit cleanly, generate fresh constitution/spec/plan/tasks for the entire MVP (Phases 1-7), enforcing 100% test coverage per atomic task.
+- **Learnings Reinforced**:
+  - BMAD provided structure but led to bloat and non-atomic progress; Spec Kit's lightweight, executable specs will enable true TDD loops.
+  - Starting fresh avoids refactoring debt (e.g., lint warnings, incomplete tests); focus on minimal viable implementation with verification gates.
+  - Atomic Changes: Limit to 1-2 files per task, always test-first (write Jest/RTL tests → implement → verify coverage/lint/CI).
+  - Testing Reinforcement: Integrate Spec Kit tasks with turbo test/lint; no progression without green CI.
+
+## Action Items (Updated)
+1. **Immediate Reset**: Create new branch (e.g., spec-kit-scratch), archive BMAD/current code to docs/archive-full, reset main to initial commit or clone fresh.
+2. **Spec Kit Setup**: Run `specify init` to generate core files (constitution.md with TDD principles, spec.md for Self-Hosted Organizer MVP, plan.md outlining monorepo/Next.js/Prisma/Tailwind stack, tasks.md with 20+ atomic items covering Phases 1-7).
+3. **Phase 0: Clean Foundation**: Implement initial setup (deps, schema, auth) atomically via first tasks, ensuring tests pass.
+4. **Phased Rebuild**: Follow tasks.md sequentially: Phase 1 (Auth), 2 (Routines CRUD), etc., up to 7 (Polish/Offline), with retrospectives at milestones.
+5. **Enforcement**: Use pre-commit hooks for lint/test; task_tracker for progress; commit only atomic changes, PR per phase.
+6. **Validation**: After each phase, run full turbo build/test, confirm 100% coverage, update retrospective.
+
+This approach learns from BMAD's planning strengths while applying Spec Kit's execution focus for a robust, testable MVP.
+
+## Next Steps
+- Reset repo and generate Spec Kit files.
+- Begin atomic task 1: Spec and implement basic project setup with tests.

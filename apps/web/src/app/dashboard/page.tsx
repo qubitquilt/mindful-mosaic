@@ -1,15 +1,25 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
+import Link from "next/link"
 import { useSession } from "next-auth/react"
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from "recharts"
+import { format } from "date-fns"
+
+interface Completion {
+  id: string
+  completedAt: string
+  routine: { name: string }
+  task?: { name: string }
+  notes?: string
+}
 
 interface Stats {
   totalRoutines: number
   totalTasks: number
   weeklyCompletions: number
   monthlyAdherence: number
-  recentCompletions: any[]
+  recentCompletions: Completion[]
   trend: { date: string; completions: number }[]
 }
 
@@ -19,18 +29,12 @@ export default function DashboardPage() {
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      fetchStats()
-    }
-  }, [status])
-
-  const fetchStats = async () => {
+  const fetchStats = useCallback(async (): Promise<void> => {
     try {
       setIsLoading(true)
       const response = await fetch("/api/stats")
       if (!response.ok) throw new Error("Failed to fetch stats")
-      const data = await response.json()
+      const data: Stats = await response.json()
       setStats(data)
       setError(null)
     } catch (err) {
@@ -39,7 +43,13 @@ export default function DashboardPage() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [])
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchStats()
+    }
+  }, [status, fetchStats])
 
   if (status === "loading") return <div>Loading...</div>
   if (!session) return <div>Please log in to view dashboard.</div>
@@ -110,12 +120,12 @@ export default function DashboardPage() {
       </div>
 
       <div className="mt-8">
-        <a href="/routines" className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600">
+        <Link href="/routines" className="px-6 py-3 bg-blue-500 text-white rounded hover:bg-blue-600">
           Manage Routines
-        </a>
-        <a href="/dashboard/completions" className="px-6 py-3 bg-green-500 text-white rounded hover:bg-green-600 ml-4">
+        </Link>
+        <Link href="/dashboard/completions" className="px-6 py-3 bg-green-500 text-white rounded hover:bg-green-600 ml-4">
           View History
-        </a>
+        </Link>
       </div>
     </main>
   )

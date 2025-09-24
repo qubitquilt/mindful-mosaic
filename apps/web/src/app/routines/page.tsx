@@ -29,13 +29,7 @@ export default function RoutinesPage() {
   const [formData, setFormData] = useState({ name: "", scheduledTime: "", repeatDays: "" })
   const [filterDate, setFilterDate] = useState("")
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      fetchRoutines()
-    }
-  }, [status, filterDate])
-
-  const fetchRoutines = async () => {
+  const fetchRoutines = useCallback(async () => {
     try {
       setIsLoading(true)
       const url = filterDate 
@@ -54,7 +48,13 @@ export default function RoutinesPage() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [filterDate])
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchRoutines()
+    }
+  }, [status, fetchRoutines])
 
   const handleCreate = async (e: React.FormEvent) => {
     e.preventDefault()

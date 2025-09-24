@@ -1,9 +1,8 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useSession } from "next-auth/react"
 import { useParams, useRouter } from "next/navigation"
-import { format } from "date-fns"
 
 interface Task {
   id: string
@@ -38,9 +37,9 @@ export default function RoutineTasksPage() {
       fetchRoutine()
       fetchTasks()
     }
-  }, [status, routineId])
+  }, [status, routineId, fetchRoutine, fetchTasks])
 
-  const fetchRoutine = async () => {
+  const fetchRoutine = useCallback(async (): Promise<void> => {
     try {
       const response = await fetch(`/api/routines/${routineId}`)
       if (!response.ok) throw new Error("Failed to fetch routine")
@@ -50,9 +49,9 @@ export default function RoutineTasksPage() {
       setError("Failed to load routine")
       console.error(err)
     }
-  }
+  }, [routineId])
 
-  const fetchTasks = async () => {
+  const fetchTasks = useCallback(async () => {
     try {
       setIsLoading(true)
       const response = await fetch(`/api/routines/${routineId}/tasks`)
@@ -66,7 +65,7 @@ export default function RoutineTasksPage() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [routineId])
 
   const handleCreateOrUpdate = async (e: React.FormEvent) => {
     e.preventDefault()

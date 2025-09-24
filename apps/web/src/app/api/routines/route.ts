@@ -3,6 +3,7 @@ import { getServerSession } from "next-auth"
 import { z } from "zod"
 import { authConfig } from "@/lib/auth"
 import { prisma } from "@repo/db"
+import { Prisma } from "@prisma/client"
 import { format, parseISO } from "date-fns"
 
 const createRoutineSchema = z.object({
@@ -20,15 +21,16 @@ export async function GET(request: NextRequest) {
 
     const { searchParams } = new URL(request.url)
     const dateStr = searchParams.get("date")
-    let where: any = { userId: session.user.id }
-
-    if (dateStr) {
-      const date = parseISO(dateStr)
-      where.scheduledTime = {
-        gte: format(date, "yyyy-MM-ddT00:00:00"),
-        lte: format(date, "yyyy-MM-ddT23:59:59"),
-      }
-    }
+    const baseWhere: Prisma.RoutineWhereInput = { userId: session.user.id }
+    const where: Prisma.RoutineWhereInput = dateStr 
+      ? { 
+          ...baseWhere, 
+          scheduledTime: {
+            gte: format(parseISO(dateStr), "yyyy-MM-ddT00:00:00"),
+            lte: format(parseISO(dateStr), "yyyy-MM-ddT23:59:59"),
+          }
+        }
+      : baseWhere
 
     const routines = await prisma.routine.findMany({
       where,

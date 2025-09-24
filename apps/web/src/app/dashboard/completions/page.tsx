@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useSession } from "next-auth/react"
 import { format } from "date-fns"
 
@@ -19,19 +19,13 @@ export default function CompletionsPage() {
   const [filterDate, setFilterDate] = useState("")
   const [error, setError] = useState<string | null>(null)
 
-  useEffect(() => {
-    if (status === "authenticated") {
-      fetchCompletions()
-    }
-  }, [status, filterDate])
-
-  const fetchCompletions = async () => {
+  const fetchCompletions = useCallback(async () => {
     try {
       setIsLoading(true)
       const url = filterDate ? `/api/completions?date=${filterDate}` : "/api/completions"
       const response = await fetch(url)
       if (!response.ok) throw new Error("Failed to fetch completions")
-      const data = await response.json()
+      const data: Completion[] = await response.json()
       setCompletions(data)
       setError(null)
     } catch (err) {
@@ -40,7 +34,13 @@ export default function CompletionsPage() {
     } finally {
       setIsLoading(false)
     }
-  }
+  }, [filterDate])
+
+  useEffect(() => {
+    if (status === "authenticated") {
+      fetchCompletions()
+    }
+  }, [status, filterDate, fetchCompletions])
 
   if (status === "loading") return <div>Loading...</div>
   if (!session) return <div>Please log in to view completions.</div>

@@ -107,7 +107,7 @@ describe("Routine Tasks Page", () => {
     ;(fetch as jest.Mock)
       .mockResolvedValueOnce({ ok: true, json: async () => mockRoutine })
       .mockResolvedValueOnce({ ok: true, json: async () => mockTasks })
-      .mockResolvedValueOnce({ ok: true, json: async () => ({ message: "Task deleted" })) // delete
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ message: "Task deleted" }) }) // delete
       .mockResolvedValueOnce({ ok: true, json: async () => [mockTasks[1]] }) // refetch
 
     render(<RoutineTasksPage />)

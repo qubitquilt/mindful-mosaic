@@ -1,5 +1,4 @@
 import { GET as getTasks, POST as createTask, PUT as updateTask, DELETE as deleteTask } from "@/app/api/routines/[id]/tasks/route"
-import { NextRequest } from "next/server"
 import { getServerSession } from "next-auth"
 import { prisma } from "@repo/db"
 
@@ -7,10 +6,14 @@ jest.mock("next-auth")
 jest.mock("@repo/db")
 
 const mockSession = { user: { id: "user1" } }
-const mockRequest = (url: string, method = "GET") => {
+interface MockNextRequest extends Request {
+  nextUrl: URL
+}
+
+const mockRequest = (url: string, method = "GET"): MockNextRequest => {
   const req = new Request(url, { method })
-  ;(req as any).nextUrl = new URL(url)
-  return req
+  ;(req as MockNextRequest).nextUrl = new URL(url)
+  return req as MockNextRequest
 }
 
 describe("Tasks API", () => {
@@ -25,13 +28,13 @@ describe("Tasks API", () => {
       ;(prisma.routine.findUnique as jest.Mock).mockResolvedValue({ tasks: mockTasks })
 
       const response = await getTasks(mockRequest("http://localhost/api/routines/1/tasks"), { params: { id: "1" } })
-      const data = await response.json()
+      const jsonData = await response.json()
 
       expect(prisma.routine.findUnique).toHaveBeenCalledWith({
         where: { id: "1", userId: "user1" },
         include: { tasks: { orderBy: { order: "asc" } } },
       })
-      expect(data).toEqual(mockTasks)
+      expect(jsonData).toEqual(mockTasks)
     })
 
     it("returns 404 if routine not found", async () => {
@@ -55,7 +58,6 @@ describe("Tasks API", () => {
       })
 
       const response = await createTask(request, { params: { id: "1" } })
-      const data = await response.json()
 
       expect(prisma.task.aggregate).toHaveBeenCalledWith({
         where: { routineId: "1" },
@@ -85,13 +87,13 @@ describe("Tasks API", () => {
       })
 
       const response = await updateTask(request, { params: { id: "1" } })
-      const data = await response.json()
+      const jsonData = await response.json()
 
       expect(prisma.task.update).toHaveBeenCalledWith({
         where: { id: "1", routineId: "1" },
         data: { name: "Updated" },
       })
-      expect(data).toEqual({ id: "1", name: "Updated" })
+      expect(jsonData).toEqual({ id: "1", name: "Updated" })
     })
 
     it("reorders tasks when order changed", async () => {
@@ -122,10 +124,10 @@ describe("Tasks API", () => {
       const request = new Request("http://localhost/api/routines/1/tasks?taskId=t1", { method: "DELETE" })
 
       const response = await deleteTask(request, { params: { id: "1" } })
-      const data = await response.json()
+      const jsonData = await response.json()
 
       expect(prisma.$transaction).toHaveBeenCalled()
-      expect(data.message).toBe("Task deleted")
+      expect(jsonData.message).toBe("Task deleted")
     })
   })
 })
