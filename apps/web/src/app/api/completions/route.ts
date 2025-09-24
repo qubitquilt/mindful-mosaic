@@ -3,13 +3,12 @@ import { getServerSession } from "next-auth"
 import { z } from "zod"
 import { authConfig } from "@/lib/auth"
 import { prisma } from "@repo/db"
-import { Prisma } from "@prisma/client"
-import { format, parseISO } from "date-fns"
 
-const createRoutineSchema = z.object({
-  name: z.string().min(1, "Name is required"),
-  scheduledTime: z.string().refine((val) => !isNaN(Date.parse(val)), "Invalid date"),
-  repeatDays: z.string().optional(),
+const createCompletionSchema = z.object({
+  routineId: z.string(),
+  taskId: z.string().optional(),
+  completedAt: z.string().optional(),
+  notes: z.string().optional(),
 })
 
 export async function GET(request: NextRequest) {
@@ -20,27 +19,31 @@ export async function GET(request: NextRequest) {
     }
 
     const { searchParams } = new URL(request.url)
+    const routineId = searchParams.get("routineId")
     const dateStr = searchParams.get("date")
-    const baseWhere: Prisma.RoutineWhereInput = { userId: session.user.id }
-    const where: Prisma.RoutineWhereInput = dateStr 
-      ? { 
-          ...baseWhere, 
-          scheduledTime: {
-            gte: format(parseISO(dateStr), "yyyy-MM-ddT00:00:00"),
-            lte: format(parseISO(dateStr), "yyyy-MM-ddT23:59:59"),
-          }
+    const where: Prisma.CompletionWhereInput = {
+      userId: session.user.id,
+      ...(routineId && { routineId }),
+      ...(dateStr && { 
+        completedAt: {
+          gte: new Date(dateStr),
+          lt: new Date(new Date(dateStr).getTime() + 24 * 60 * 60 * 1000),
         }
-      : baseWhere
+      })
+    }
 
-    const routines = await prisma.routine.findMany({
+    const completions = await prisma.completion.findMany({
       where,
-      include: { tasks: true },
-      orderBy: { createdAt: "desc" },
+      include: {
+        routine: true,
+        task: true,
+      },
+      orderBy: { completedAt: "desc" },
     })
 
-    return NextResponse.json(routines)
+    return NextResponse.json(completions)
   } catch (error) {
-    console.error("Error fetching routines:", error)
+    console.error("Error fetching completions:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }
@@ -53,22 +56,26 @@ export async function POST(request: NextRequest) {
     }
 
     const body = await request.json()
-    const validated = createRoutineSchema.parse(body)
+    const validated = createCompletionSchema.parse(body)
 
-    const routine = await prisma.routine.create({
+    const completion = await prisma.completion.create({
       data: {
         ...validated,
         userId: session.user.id,
+        completedAt: validated.completedAt ? new Date(validated.completedAt) : new Date(),
       },
-      include: { tasks: true },
+      include: {
+        routine: true,
+        task: true,
+      },
     })
 
-    return NextResponse.json(routine, { status: 201 })
+    return NextResponse.json(completion, { status: 201 })
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json({ error: error.errors }, { status: 400 })
     }
-    console.error("Error creating routine:", error)
+    console.error("Error creating completion:", error)
     return NextResponse.json({ error: "Internal server error" }, { status: 500 })
   }
 }

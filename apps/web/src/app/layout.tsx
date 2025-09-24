@@ -1,29 +1,32 @@
-import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
-import './globals.css';
-import Header from '@/components/layout/Header';
-import { Providers } from '@/components/providers';
+import type { Metadata } from "next"
+import { Inter } from "next/font/google"
+import "./globals.css"
+import { Suspense } from "react"
+import Header from "@/components/Header"
+import { SessionProvider } from "next-auth/react"
 
-const inter = Inter({ subsets: ['latin'] });
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: 'Mindful Mosaic',
-  description: 'A privacy-first, open-source organizational platform.',
-};
+  title: "Self-Hosted Organizer",
+  description: "Task and routine management app",
+}
 
 export default function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
-      <body className={`${inter.className} bg-gray-100`}>
-        <Providers>
+      <body className={inter.className}>
+        <SessionProvider>
           <Header />
-          <main className="container mx-auto p-4">{children}</main>
-        </Providers>
+          <Suspense fallback={<div>Loading...</div>}>
+            {children}
+          </Suspense>
+        </SessionProvider>
       </body>
     </html>
-  );
+  )
 }

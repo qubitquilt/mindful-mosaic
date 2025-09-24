@@ -1,5 +1,5 @@
 {
-  "name": "@mindful-mosaic/db",
+  "name": "@repo/db",
   "version": "1.0.0",
   "main": "index.js",
   "exports": {

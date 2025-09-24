@@ -1,0 +1,60 @@
+# Retrospective: Phases 1-5 Development (BMAD to Spec Kit Pivot)
+
+## Date: 2025-09-23
+## Scope: Self-Hosted Organizer MVP (Auth, Routines, Tasks, Completions, Dashboard)
+## Author: OpenHands Agent (based on repo analysis, CI logs, commits)
+
+This retrospective evaluates the development of Phases 1-5, identifying strengths, challenges, and lessons to guide the pivot to GitHub Spec Kit for atomic, test-first implementation. The goal is to ensure future work emphasizes reproducibility, minimal changes, and full test coverage.
+
+### What Went Well (Strengths)
+- **Core Functionality Delivery**: Phases 1-5 nailed the MVP essentials—auth (NextAuth + middleware), routine/task CRUD (with reordering/filtering via drag-drop + Zod validation), completions tracking (mark done/history views), and dashboard (Recharts for basic stats, date-fns for trends). APIs/UI separation was clean, Prisma schema evolved logically (User → Routine/Task/Completion models), and tests (Jest/RTL) covered key flows (e.g., login, reordering tasks).
+- **Monorepo Efficiency**: Turborepo + pnpm workspaces scaled well for shared DB/UI; root deps (e.g., Prisma@5.15) avoided duplication. Docker Compose skeleton in architecture.md positions for easy self-hosting.
+- **Tech Stack Synergy**: Next.js 15 (App Router) + Tailwind + react-hook-form/Zod = rapid, responsive UI. Date-fns + Recharts handled scheduling/stats elegantly. Security basics (userId filtering in queries) prevented common pitfalls.
+- **Version Control Practices**: Draft PR #9 aggregated phases nicely; atomic-ish commits (e.g., lockfile regen separate) aided debugging. No direct main pushes—safe.
+- **Testing Reinforcement**: Unit/integration tests caught issues early (e.g., validation failures); passing suites built confidence. This aligns perfectly with your atomic TDD goal.
+
+**Key Win Metric**: MVP runnable locally (http://localhost:3000) with auth → dashboard → routines CRUD—all tests green post-fixes.
+
+### What Didn't Go Well (Pain Points)
+- **BMAD Workflow Overhead**: The persona-driven process (Analyst/PM/Architect docs like brief.md/prd.md/architecture.md) generated useful blueprints but created bloat—scattered files (e.g., deleted in git status), rigid sharding, and delayed coding. It suited planning but slowed execution for a greenfield MVP; e.g., epics/stories felt over-engineered for MVP iteration.
+- **Setup & Reproducibility Gaps**: Dependency hell (missing Zod, @repo/db paths, lockfile mismatches, React overrides) caused 3+ CI fails. .gitignore excluded lockfile (risking drift); no pre-commit hooks (lint/test on save); jobs package unused (background tasks pending).
+- **Non-Atomic Changes**: Some phases bundled schema/API/UI/tests (e.g., Phase 3 routines + tasks), leading to breakage (e.g., migration drifts). No enforced TDD loop—tests added post-impl, missing edge cases (e.g., offline sync hints).
+- **Incomplete Coverage**: No e2e (Playwright for full flows like auth → complete task → stats update); CI lacked caching (slow installs). Dep warnings (ESLint/TS plugins, React 19 vs 18) accumulated noise.
+- **Pivot Friction**: BMAD remnants (.bmad-core/) cluttered repo; no clear handoff to implementation, causing "grounded" feel (as you noted).
+
+**Key Pain Metric**: ~5-7 CI iterations for deps/setup; dev time lost to resolution vs. features.
+
+### What We Learned (Pivots for Better Implementation)
+- **Streamline Workflow**: BMAD was thorough for enterprise but overkill here—pivot to Spec Kit for lightweight, executable specs (BDD: Given/When/Then in .spec.ts files). This enforces atomic TDD: Write spec/test → minimal impl → verify coverage → PR. Reduces docs to code-adjacent artifacts.
+- **Atomicity & Testing as Guardrails**: Break Phases 6-7 into 1-2 file changes max (e.g., "Add CSV export spec + API endpoint"). Always: Tests first (100% coverage goal), run suite per commit, merge only on green CI. Use Spec Kit's generators for auto-specs from user stories.
+- **Reproducibility First**: Track lockfile religiously; add Husky/lint-staged for pre-commit (pnpm exec turbo lint/test). Script setups (e.g., postinstall for Prisma generate). Ignore local artifacts (dev.db, .next/) but commit configs (tsconfig paths).
+- **Focus on MVP Polish**: Prioritize high-impact (Analytics/Export for value, Offline for UX) over perfection. For brownfield (existing MVP), use Spec Kit's refactor mode—spec existing code, then enhance atomically.
+- **Overall**: The "grounded" state came from setup friction + workflow mismatch—Spec Kit + atomic TDD will accelerate, ensuring "task completion involves ensuring all tests are fully covered and passing."
+
+This retro validates the pivot: BMAD for planning (archive it), Spec Kit for execution.
+
+### Updated Retrospective: Decision to Start from Scratch with Spec Kit
+
+Given the accumulated technical debt, workflow mismatches, and the project's "grounded" state, the decision has been made to start from scratch using GitHub Spec Kit as the primary methodology. This involves:
+
+- **Archiving Current State**: Preserve Phases 1-5 code/docs in a branch or archive for reference, but rebuild the project ground-up with atomic, spec-driven TDD.
+- **Spec Kit Pivot Full Implementation**: Reinstall/configure Spec Kit cleanly, generate fresh constitution/spec/plan/tasks for the entire MVP (Phases 1-7), enforcing 100% test coverage per atomic task.
+- **Learnings Reinforced**:
+  - BMAD provided structure but led to bloat and non-atomic progress; Spec Kit's lightweight, executable specs will enable true TDD loops.
+  - Starting fresh avoids refactoring debt (e.g., lint warnings, incomplete tests); focus on minimal viable implementation with verification gates.
+  - Atomic Changes: Limit to 1-2 files per task, always test-first (write Jest/RTL tests → implement → verify coverage/lint/CI).
+  - Testing Reinforcement: Integrate Spec Kit tasks with turbo test/lint; no progression without green CI.
+
+## Action Items (Updated)
+1. **Immediate Reset**: Create new branch (e.g., spec-kit-scratch), archive BMAD/current code to docs/archive-full, reset main to initial commit or clone fresh.
+2. **Spec Kit Setup**: Run `specify init` to generate core files (constitution.md with TDD principles, spec.md for Self-Hosted Organizer MVP, plan.md outlining monorepo/Next.js/Prisma/Tailwind stack, tasks.md with 20+ atomic items covering Phases 1-7).
+3. **Phase 0: Clean Foundation**: Implement initial setup (deps, schema, auth) atomically via first tasks, ensuring tests pass.
+4. **Phased Rebuild**: Follow tasks.md sequentially: Phase 1 (Auth), 2 (Routines CRUD), etc., up to 7 (Polish/Offline), with retrospectives at milestones.
+5. **Enforcement**: Use pre-commit hooks for lint/test; task_tracker for progress; commit only atomic changes, PR per phase.
+6. **Validation**: After each phase, run full turbo build/test, confirm 100% coverage, update retrospective.
+
+This approach learns from BMAD's planning strengths while applying Spec Kit's execution focus for a robust, testable MVP.
+
+## Next Steps
+- Reset repo and generate Spec Kit files.
+- Begin atomic task 1: Spec and implement basic project setup with tests.

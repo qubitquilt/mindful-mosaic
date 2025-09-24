@@ -16,7 +16,8 @@
     "build": "turbo run build --filter=web",
     "start": "turbo run start --filter=web",
     "prisma:generate": "dotenv -f ./packages/db/.env -- npx prisma generate --schema=./packages/db/prisma/schema.prisma",
-    "prisma:migrate": "dotenv -f ./packages/db/.env -- npx prisma migrate dev --schema=./packages/db/prisma/schema.prisma"
+    "prisma:migrate": "dotenv -f ./packages/db/.env -- npx prisma migrate dev --schema=./packages/db/prisma/schema.prisma",
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -42,8 +43,10 @@
     "dotenv-cli": "^10.0.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.4",
+    "husky": "^9.1.7",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
+    "lint-staged": "^16.2.0",
     "prettier": "^3.6.2",
     "prisma": "~5.15.0",
     "ts-jest": "^29.4.1",
